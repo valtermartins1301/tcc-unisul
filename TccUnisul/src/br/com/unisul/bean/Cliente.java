@@ -18,6 +18,8 @@ public class Cliente {
 	@Column
 	private Endereco endereco;
 	
+	private String email;
+	
 	public Cliente() {
 		
 	}
@@ -39,6 +41,22 @@ public class Cliente {
 	}
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

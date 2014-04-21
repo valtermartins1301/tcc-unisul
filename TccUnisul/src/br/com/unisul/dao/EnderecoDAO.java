@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import br.com.unisul.bean.Endereco;
 
@@ -20,7 +21,7 @@ public class EnderecoDAO {
 	public List<Endereco> listAll(){
 		EntityManager em = emf.createEntityManager();
 		try{
-			return em.createQuery("from Pedido", Endereco.class).getResultList();
+			return em.createQuery("from Endereco", Endereco.class).getResultList();
 		}finally{
 			em.close();
 		}
@@ -72,6 +73,9 @@ public class EnderecoDAO {
 				
 				if(enderecoEncontrado != null){
 					et.begin();
+					enderecoEncontrado.setId(endereco.getId());
+					enderecoEncontrado.setRua(endereco.getRua());
+					enderecoEncontrado.setComplemento(endereco.getComplemento());
 					enderecoEncontrado.setNumero(endereco.getNumero());
 					et.commit();
 				}
@@ -82,5 +86,19 @@ public class EnderecoDAO {
 		}finally{
 			em.close();
 		}
+	}
+	
+	public Endereco buscarEnderecoPeloId(Long id) {
+		EntityManager entityManager = emf.createEntityManager();
+		Endereco endereco = null;
+			try {				
+				Query query = entityManager.createQuery("select e from Endereco e where e.id = :id");
+				query.setParameter("id", id);
+				
+				endereco = (Endereco) query.getSingleResult();
+			} finally {
+				entityManager.close();
+			}
+		return endereco;
 	}
 }

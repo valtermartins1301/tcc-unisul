@@ -7,32 +7,31 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import br.com.unisul.bean.Pedido;
+import br.com.unisul.bean.Produto;
 
-
-public class PedidoDAO {
+public class ProdutoDAO {
 	EntityManagerFactory emf;
 
-	public PedidoDAO() {
+	public ProdutoDAO() {
 		emf = PersistenceManager.getInstance().getEntityManagerFactory();
 	}
 	
-	public List<Pedido> listAll(){
+	public List<Produto> listAll(){
 		EntityManager em = emf.createEntityManager();
 		try{
-			return em.createQuery("from Pedido", Pedido.class).getResultList();
+			return em.createQuery("from Produto", Produto.class).getResultList();
 		}finally{
 			em.close();
 		}
 	}
 	
-	public void salvar(Pedido pedido){
+	public void salvar(Produto produto){
 		EntityManager em = emf.createEntityManager();
 		try{
 			EntityTransaction et = em.getTransaction();
 			try{
 				et.begin();
-				em.persist(pedido);
+				em.persist(produto);
 				et.commit();
 			}finally{
 				if(et.isActive())
@@ -48,10 +47,10 @@ public class PedidoDAO {
 		try{
 			EntityTransaction et = em.getTransaction();
 			try{
-				Pedido pedido = em.find(Pedido.class, id);
-				if(pedido != null){
+				Produto produto = em.find(Produto.class, id);
+				if(produto != null){
 					et.begin();
-					em.remove(pedido);
+					em.remove(produto);
 					et.commit();
 				}
 			}finally{
@@ -63,21 +62,18 @@ public class PedidoDAO {
 		}
 	}
 	
-	public void editar(Pedido pedido){
+	public void editar(Produto produto){
 		EntityManager em = emf.createEntityManager();
 		try{
 			EntityTransaction et = em.getTransaction();
 			try{				
-				Pedido pedidoEncontrado = em.find(Pedido.class, pedido.getId());
+				Produto produtoEncontrado = em.find(Produto.class, produto.getId());
 				
-				if(pedidoEncontrado != null){
-					et.begin();
-					pedidoEncontrado.setId(pedido.getId());
-					pedidoEncontrado.setCliente(pedido.getCliente());
-					pedidoEncontrado.setData(pedido.getData());
-					pedidoEncontrado.setProduto(pedido.getProduto());
-					pedidoEncontrado.setValorTotalPedido(pedido.getValorTotalPedido());
-					pedidoEncontrado.setEnderecoPedido(pedido.getEnderecoPedido());
+				if(produtoEncontrado != null){
+					et.begin();					
+					produtoEncontrado.setId(produto.getId());
+					produtoEncontrado.setDescricao(produto.getDescricao());
+					produtoEncontrado.setPreco(produto.getPreco());
 					et.commit();
 				}
 			}finally{
@@ -89,17 +85,17 @@ public class PedidoDAO {
 		}
 	}
 	
-	public Pedido buscarPedidoPeloId(Long id) {
+	public Produto buscarProdutoPeloId(Long id) {
 		EntityManager entityManager = emf.createEntityManager();
-		Pedido pedido = null;
+		Produto produto = null;
 			try {				
-				Query query = entityManager.createQuery("select p from Pedido p where p.id = :id");
+				Query query = entityManager.createQuery("select p from Produto p where p.id = :id");
 				query.setParameter("id", id);
 				
-				pedido = (Pedido) query.getSingleResult();
+				produto = (Produto) query.getSingleResult();
 			} finally {
 				entityManager.close();
 			}
-		return pedido;
+		return produto;
 	}
 }
