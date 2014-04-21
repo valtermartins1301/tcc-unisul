@@ -23,14 +23,22 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	
-	<!-- <servlet-mapping>
+	<servlet-mapping>
 	    <servlet-name>default</servlet-name>
 	    <url-pattern>*.png</url-pattern>
 	    <url-pattern>*.js</url-pattern>
 	    <url-pattern>*.css</url-pattern>
-	</servlet-mapping> -->
+	    <url-pattern>*.otf</url-pattern>
+	    <url-pattern>*.eot</url-pattern>
+	    <url-pattern>*.svg</url-pattern>
+	    <url-pattern>*.ttf</url-pattern>
+	    <url-pattern>*.woff</url-pattern>
+	    <url-pattern>*.less</url-pattern>
+	    <url-pattern>*.scss</url-pattern>	    	    
+	</servlet-mapping>
 	
-	<!-- <jsp-config> <jsp-property-group> <url-pattern>*.jsp</url-pattern> 
+	<jsp-config> <jsp-property-group> <url-pattern>*.jsp</url-pattern> 
 		<include-prelude>/header.jsp</include-prelude> <include-coda>/footer.jsp</include-coda> 
-		</jsp-property-group> </jsp-config> -->
+	</jsp-property-group>
+	</jsp-config>
 </web-app>
