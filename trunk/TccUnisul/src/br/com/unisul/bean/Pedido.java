@@ -15,9 +15,10 @@ public class Pedido {
 	@Column
 	private Cliente cliente;
 	private List<Produto> produto;
-	private double valorTotalPediso;
+	private double valorTotalPedido;
 	private Date data;
 	private Endereco enderecoPedido;
+	private StatusPedido statusPedido;
 	
 	public Pedido(){
 		
@@ -41,11 +42,11 @@ public class Pedido {
 	public void setProduto(List<Produto> produto) {
 		this.produto = produto;
 	}
-	public double getValorTotalPediso() {
-		return valorTotalPediso;
+	public double getValorTotalPedido() {
+		return valorTotalPedido;
 	}
-	public void setValorTotalPediso(double valorTotalPediso) {
-		this.valorTotalPediso = valorTotalPediso;
+	public void setValorTotalPedido(double valorTotalPedido) {
+		this.valorTotalPedido = valorTotalPedido;
 	}
 	public Date getData() {
 		return data;
@@ -59,9 +60,14 @@ public class Pedido {
 	public void setEnderecoPedido(Endereco enderecoPedido) {
 		this.enderecoPedido = enderecoPedido;
 	}
-	
-	
-	
+
+	public StatusPedido getStatusPedido() {
+		return statusPedido;
+	}
+
+	public void setStatusPedido(StatusPedido statusPedido) {
+		this.statusPedido = statusPedido;
+	}
 	
 
 }
