@@ -80,20 +80,21 @@
 			</form>
  		</td>
  		<td width="25"></td>
- 		<td width="900px" height="100px" style="width: 68.3%">
-      		<div id="map_canvas" style='width:100%;height:100%'></div>
+ 		<td width="900px" height="700px">
+ 			<div class="well well-small" style='width:100%;height:100%' >
+      			<div id="map_canvas" style='width:100%;height:100%'></div>
+      		</div>
     	</td>
  		<td width="25"></td>
  	</tr>
 </table>
-<br/><br/>
 <div>
      <div style="width: 100%">
          <div class="panel panel-default">
              <!-- /.panel-heading -->
              <div class="panel-body">
                  <div class="table-responsive">
-                     <table class="table table-striped table-bordered table-hover" id="lista_pedidos">
+                     <table class="table table-striped table-bordered table-hover" id="datatables_lista">
                          <thead>
                              <tr>
                                  <th>Nº</th>
@@ -110,8 +111,8 @@
                          <tbody>
                          	<tr class="odd gradeX">
                                  <td>1</td>
-                                 <td>Cliente 1</td>
-                                 <td>Produto 1; Produto 2</td>
+                                 <td>Cliente1</td>
+                                 <td>Produto1; Produto2</td>
                                  <td>Observação</td>
                                  <td>32584215</td>
                                  <td>Lote 1</td>
@@ -121,33 +122,33 @@
                              </tr>
                              <tr class="even gradeC">
                                  <td>1</td>
-                                 <td>Cliente 2</td>
-                                 <td>Produto 1; Produto 2</td>
+                                 <td>Cliente2</td>
+                                 <td>Produto1; Produto2</td>
                                  <td>Observação</td>
                                  <td>32584215</td>
-                                 <td>Lote 1</td>
+                                 <td>Lote1</td>
                                  <td>13/04/2014 23:25</td>
                                  <td>Finalizado</td>
                                  <td>Editar/Excluir</td>   
                              </tr>
                              <tr class="odd gradeA">
                                  <td>1</td>
-                                 <td>Cliente 3</td>
-                                 <td>Produto 1; Produto 2</td>
+                                 <td>Cliente3</td>
+                                 <td>Produto1; Produto 2</td>
                                  <td>Observação</td>
                                  <td>32584215</td>
-                                 <td>Lote 1</td>
+                                 <td>Lote3</td>
                                  <td>13/04/2014 23:25</td>
                                  <td>Pendente</td>
                                  <td>Editar/Excluir</td>  
                              </tr>
                              <tr class="even gradeA">
                                  <td>1</td>
-                                 <td>Cliente 4</td>
-                                 <td>Produto 1; Produto 2</td>
+                                 <td>Cliente4</td>
+                                 <td>Produto1; Produto2</td>
                                  <td>Observação</td>
                                  <td>32584215</td>
-                                 <td>Lote 1</td>
+                                 <td>Lote1</td>
                                  <td>13/04/2014 23:25</td>
                                  <td>Pendente</td>
                                  <td>Editar/Excluir</td>  
