@@ -45,7 +45,7 @@ function insertOnTable()
 //  Data Tables - inicialização e internacionalização das strings
 //*************************************************************************************
 $(document).ready(function() {
-	$('#lista_pedidos').dataTable( {
+	$('#datatables_lista').dataTable( {
 			"oLanguage": {
 				"sProcessing":   "Processando...",
 			    "sLengthMenu":   "Mostrar _MENU_ registros",
