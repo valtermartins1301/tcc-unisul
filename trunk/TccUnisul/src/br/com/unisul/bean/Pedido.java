@@ -34,7 +34,7 @@ public class Pedido {
 	private String observacao;
 	private boolean retiradoLocal;
 	
-	@OneToMany(mappedBy = "idProdutoPedido.produto")
+	@OneToMany(mappedBy = "idProdutoPedido.pedido")
 	private Collection<ProdutoPedido> produtoPedidoList;
 	
 	public Pedido(){
