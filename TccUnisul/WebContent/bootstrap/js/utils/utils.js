@@ -2,12 +2,13 @@
 //****************************************************
 // Novo Pedido - Insere produto selecionado na tabela
 //****************************************************
-function insertOnTable()
+function insertOnTable(produto)
 {
 	var Produto = document.getElementById("novo_pedido_poduto_nome").value;
+	var ProdutoId = document.getElementById("novo_pedido_poduto_nome").id;
 	var Qtd		= document.getElementById("novo_pedido_poduto_quantidade").value;
 	
-	if(!Produto || !Qtd)
+	if(!Produto || !Qtd || !ProdutoId)
 		return;
 	
 	var ListaProdutos = document.getElementById("novo_pedido_lista_produtos");
@@ -15,10 +16,11 @@ function insertOnTable()
 	var tr = document.createElement("TR");
 	var td = document.createElement("TD");
 	td.innerText = Produto;
+	td.id  = ProdutoId;
 	tr.appendChild(td);
 	
 	var td = document.createElement("TD");
-	td.innerText = "R$ 00,00";
+	td.innerText = "0.0";
 	tr.appendChild(td);
 	
 	var td = document.createElement("TD");
