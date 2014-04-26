@@ -69,11 +69,11 @@ public class ClienteDAO {
 		try{
 			EntityTransaction et = em.getTransaction();
 			try{				
-				Cliente clienteEncontrado = em.find(Cliente.class, cliente.getId());
+				Cliente clienteEncontrado = em.find(Cliente.class, cliente.getIdCliente());
 				
 				if(clienteEncontrado != null){
 					et.begin();
-					clienteEncontrado.setId(cliente.getId());
+					clienteEncontrado.setIdCliente(cliente.getIdCliente());
 					clienteEncontrado.setNome(cliente.getNome());
 					clienteEncontrado.setEndereco(cliente.getEndereco());
 					et.commit();

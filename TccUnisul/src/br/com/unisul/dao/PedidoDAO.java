@@ -68,16 +68,18 @@ public class PedidoDAO {
 		try{
 			EntityTransaction et = em.getTransaction();
 			try{				
-				Pedido pedidoEncontrado = em.find(Pedido.class, pedido.getId());
+				Pedido pedidoEncontrado = em.find(Pedido.class, pedido.getIdPedido());
 				
 				if(pedidoEncontrado != null){
 					et.begin();
-					pedidoEncontrado.setId(pedido.getId());
+					pedidoEncontrado.setIdPedido(pedido.getIdPedido());
 					pedidoEncontrado.setCliente(pedido.getCliente());
 					pedidoEncontrado.setData(pedido.getData());
-					pedidoEncontrado.setProduto(pedido.getProduto());
 					pedidoEncontrado.setValorTotalPedido(pedido.getValorTotalPedido());
-					pedidoEncontrado.setEnderecoPedido(pedido.getEnderecoPedido());
+					pedidoEncontrado.setObservacao(pedido.getObservacao());
+					pedidoEncontrado.setStatusPedido(pedido.getStatusPedido());
+					pedidoEncontrado.setRetiradoLocal(pedido.getRetiradoLocal());
+					pedidoEncontrado.setProdutoPedidoList(pedido.getProdutoPedidoList());
 					et.commit();
 				}
 			}finally{

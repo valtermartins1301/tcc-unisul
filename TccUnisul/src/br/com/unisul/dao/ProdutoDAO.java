@@ -67,11 +67,11 @@ public class ProdutoDAO {
 		try{
 			EntityTransaction et = em.getTransaction();
 			try{				
-				Produto produtoEncontrado = em.find(Produto.class, produto.getId());
+				Produto produtoEncontrado = em.find(Produto.class, produto.getIdProduto());
 				
 				if(produtoEncontrado != null){
 					et.begin();					
-					produtoEncontrado.setId(produto.getId());
+					produtoEncontrado.setIdProduto(produto.getIdProduto());
 					produtoEncontrado.setDescricao(produto.getDescricao());
 					produtoEncontrado.setPreco(produto.getPreco());
 					et.commit();

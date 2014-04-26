@@ -69,14 +69,18 @@ public class EnderecoDAO {
 		try{
 			EntityTransaction et = em.getTransaction();
 			try{				
-				Endereco enderecoEncontrado = em.find(Endereco.class, endereco.getId());
+				Endereco enderecoEncontrado = em.find(Endereco.class, endereco.getIdEndereco());
 				
 				if(enderecoEncontrado != null){
 					et.begin();
-					enderecoEncontrado.setId(endereco.getId());
+					enderecoEncontrado.setIdEndereco(endereco.getIdEndereco());
 					enderecoEncontrado.setRua(endereco.getRua());
 					enderecoEncontrado.setComplemento(endereco.getComplemento());
 					enderecoEncontrado.setNumero(endereco.getNumero());
+					enderecoEncontrado.setCidade(endereco.getCidade());
+					enderecoEncontrado.setCep(endereco.getCep());
+					enderecoEncontrado.setLatitude(endereco.getLatitude());
+					enderecoEncontrado.setLongitude(endereco.getLongitude());
 					et.commit();
 				}
 			}finally{

@@ -20,7 +20,7 @@ public class PersistenceManager {
 	
 	public EntityManagerFactory getEntityManagerFactory() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("org.postgresql.Driver");
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
