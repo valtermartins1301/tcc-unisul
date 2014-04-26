@@ -19,6 +19,7 @@ public class Endereco {
 	private String rua;
 	private String numero;
 	private String complemento;
+	private String bairro;
 	private String cidade;
 	private String cep;
 	private String latitude;
@@ -27,7 +28,7 @@ public class Endereco {
 	public Endereco(){
 		
 	}
-
+	
 	public Long getIdEndereco() {
 		return idEndereco;
 	}
@@ -90,6 +91,14 @@ public class Endereco {
 
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
 	}
 	
 	
