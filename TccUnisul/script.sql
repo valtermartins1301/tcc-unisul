@@ -1,6 +1,6 @@
 database name = dinnerChief
 
-create table enderecos (id serial primary key, rua varchar(250), numero varchar(15), complemento varchar(70), cidade varchar(50), cep varchar(15), latitude varchar(50), longitude varchar(50));
+create table enderecos (id serial primary key, rua varchar(250), numero varchar(15), complemento varchar(25), bairro varchar(70), cidade varchar(50), cep varchar(15), latitude varchar(50), longitude varchar(50));
 
 create table clientes (id serial primary key, nome varchar(50) not null, telefone varchar(25), email varchar(50), id_endereco int references enderecos(id));
 
