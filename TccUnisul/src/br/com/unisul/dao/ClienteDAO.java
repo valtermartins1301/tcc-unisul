@@ -87,13 +87,13 @@ public class ClienteDAO {
 		}
 	}
 	
-	public Cliente buscarClientePeloCPF(String cpf){
+	public List<Cliente> buscarClientePeloTelefone(String telefone){
 		EntityManager em = emf.createEntityManager();
-		Cliente cliente = null;
+		List<Cliente> cliente = null;
 		try{
-			Query query = em.createQuery("select c from Cliente c where c.cpf = :cpf");
-			query.setParameter("cpf", cpf);
-			cliente = (Cliente) query.getSingleResult();
+			Query query = em.createQuery("select c from Cliente c where c.telefone = :telefone");
+			query.setParameter("telefone", telefone);
+			cliente = query.getResultList();
 		}catch(Exception e){
 			return cliente;
 		}finally{
@@ -102,4 +102,6 @@ public class ClienteDAO {
 		
 		return cliente;
 	}
+	
+	
 }
