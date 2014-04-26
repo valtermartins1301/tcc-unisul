@@ -1,29 +1,16 @@
-database = TccUnisul
+database name = dinnerChief
 
+create table enderecos (id serial primary key, rua varchar(250), numero varchar(15), complemento varchar(70), cidade varchar(50), cep varchar(15), latitude varchar(50), longitude varchar(50));
 
-create table bancos(id serial primary key, nome varchar(50) not null);
-insert into bancos(nome) values ('Santander');
-insert into bancos(nome) values ('Bradesco');
-insert into bancos(nome) values ('Banco do Brasil');
-insert into bancos(nome) values ('Itaú');
-insert into bancos(nome) values ('Caixa Econômica');
-insert into bancos(nome) values ('HSBC');
+create table clientes (id serial primary key, nome varchar(50) not null, telefone varchar(25), email varchar(50), id_endereco int references enderecos(id));
 
-create table tipos_lancamentos (id serial primary key, tipo_lancamento varchar(50) not null);
-insert into tipos_lancamentos (tipo_lancamento) values ('Entrada');
-insert into tipos_lancamentos (tipo_lancamento) values ('Saída');
+create table produtos (id serial primary key, nome varchar(100) not null, descricao varchar(250), preco float not null);
+insert into produtos (nome, preco) values ('X-Salada', 8.50);
+insert into produtos (nome, preco) values ('X-Bacon', 9.50);
 
-create table pessoas(id serial primary key, nome_pessoa varchar(50) not null, cpf int not null, senha varchar(30) not null);
-insert into pessoas(nome_pessoa, cpf, senha) values ('Usuario 1', 123456789, '123456');
+create table statusPedido (id serial primary key, descricao varchar(50));
 
-create table contas (id serial primary key, id_banco int references bancos(id), 
-numero_conta int not null, numero_agencia int not null, id_pessoa int references pessoas(id));
+create table pedidos (id serial primary key, id_cliente int references clientes(id), valorTotalPedido float not null, data date not null, 
+id_statusPedido int references statusPedido(id), observacao varchar(250), retiradoLocal boolean);
 
-create table contas_correntes (id int references contas(id) primary key);
-
-create table lancamentos (id serial primary key, id_conta_corrente int references contas_correntes(id), data date not null, 
-id_tipo_lancamento int references tipos_lancamentos(id), motivo varchar(100) not null, valor float not null);
-
-create table transferencias (id_conta_destino int references contas_correntes(id), id int references lancamentos(id) primary key);
-
-create table contas_lancamentos (id_conta_corrente int references contas_correntes(id), id_lancamento int references lancamentos(id));
+create table produto_pedido (produto_id int references produtos(id), pedido_id int references pedidos(id), quantidade int, PRIMARY KEY (produto_id, pedido_id));
