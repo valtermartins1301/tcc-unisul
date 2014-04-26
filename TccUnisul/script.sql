@@ -9,6 +9,12 @@ insert into produtos (nome, preco) values ('X-Salada', 8.50);
 insert into produtos (nome, preco) values ('X-Bacon', 9.50);
 
 create table statusPedido (id serial primary key, descricao varchar(50));
+insert into statusPedido (descricao) values ('Em aberto');
+insert into statusPedido (descricao) values ('Em andamento');
+insert into statusPedido (descricao) values ('Pronto para entrega');
+insert into statusPedido (descricao) values ('Finalizado');
+insert into statusPedido (descricao) values ('Cancelado');
+
 
 create table pedidos (id serial primary key, id_cliente int references clientes(id), valorTotalPedido float not null, data date not null, 
 id_statusPedido int references statusPedido(id), observacao varchar(250), retiradoLocal boolean);
