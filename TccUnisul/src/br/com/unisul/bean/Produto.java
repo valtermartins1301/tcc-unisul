@@ -24,7 +24,7 @@ public class Produto {
 	private String descricao;
 	private double preco;
 	
-	@OneToMany(mappedBy = "idProdutoPedido.pedido")
+	@OneToMany(mappedBy = "idProdutoPedido.produto")
 	private Collection<ProdutoPedido> produtoPedidoList;
 	
 	public Produto(){
