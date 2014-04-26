@@ -4,18 +4,27 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Table(name = "clientes")
 public class Cliente {
-	@Id @GeneratedValue
-	private Long id;
+	@Id
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
+	@Column(name = "id")
+	private Long idCliente;
 	@Column
 	private String nome;
 	@Column
 	private String telefone;
-	@Column
+	
+	@ManyToOne
+	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 	
 	private String email;
@@ -23,24 +32,21 @@ public class Cliente {
 	public Cliente() {
 		
 	}
-	
-	public Long getId() {
-		return id;
+
+	public Long getIdCliente() {
+		return idCliente;
 	}
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public Endereco getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
 	}
 
 	public String getTelefone() {
@@ -51,6 +57,14 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -58,6 +72,8 @@ public class Cliente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
 	
 	
 	

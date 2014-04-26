@@ -1,27 +1,41 @@
 package br.com.unisul.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name = "statusPedido")
 public class StatusPedido {
-	private Long id;
+	@Id
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
+	@Column(name = "id")
+	private Long idStatusPedido;
 	private String descricao;
 	
 	public StatusPedido(){
 		
 	}
-	
-	public Long getId() {
-		return id;
+
+	public Long getIdStatusPedido() {
+		return idStatusPedido;
 	}
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setIdStatusPedido(Long idStatusPedido) {
+		this.idStatusPedido = idStatusPedido;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 	
-	
-	
-
 }
