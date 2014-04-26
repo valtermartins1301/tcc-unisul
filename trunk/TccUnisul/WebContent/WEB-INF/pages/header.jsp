@@ -20,7 +20,7 @@
     <div id="wrapper">
         <nav class="navbar navbar-custom navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.jsp">Inicio</a>
+                <a class="navbar-brand" href="index">Inicio</a>
             </div>
             
             <ul class="nav navbar-top-links navbar-header">
