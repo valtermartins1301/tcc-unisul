@@ -1,8 +1,13 @@
 package br.com.unisul.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.unisul.bean.Cliente;
 import br.com.unisul.dao.ClienteDAO;
@@ -29,11 +34,19 @@ public class ClienteController {
 	}
 
 	@RequestMapping("listaClientes")
-	public String lista(Model model) {
+	public String lista() {
 		//ClienteDAO dao = new ClienteDAO();
 		//model.addAttribute("tarefas", dao.listAll());
 		return "cadastro/clienteListar";
 	}
+	
+	@RequestMapping(value = "carregarCliente/{telefone}", method= RequestMethod.GET)
+	public @ResponseBody List<Cliente> getCliente(@PathVariable String telefone, Model model) {
+		List<Cliente> cliente = new ClienteDAO().buscarClientePeloTelefone(telefone);
+		return cliente;
+	}
+	
+	
 
 	/*@RequestMapping("removeTarefa")
 	public String remove(Tarefa tarefa) {
