@@ -287,6 +287,7 @@ textarea {
   font-size: inherit;
   line-height: inherit;
 }
+
 a {
   color: #fff;
   text-decoration: none;
@@ -3556,6 +3557,22 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs.nav-justified > .active > a:focus {
   border: 1px solid #ddd;
 }
+
+.edit_and_exclude {
+  color: #2a6496;
+  text-decoration: none;
+}
+.edit_and_exclude:hover,
+.edit_and_exclude:focus {
+  color: #2a6496;
+  text-decoration: underline;
+}
+.edit_and_exclude:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
 @media (min-width: 768px) {
   .nav-tabs.nav-justified > li > a {
     border-bottom: 1px solid #ddd;

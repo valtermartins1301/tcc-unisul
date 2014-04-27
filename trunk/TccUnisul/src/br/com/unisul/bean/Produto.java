@@ -23,6 +23,8 @@ public class Produto {
 	private String nomeProduto;
 	private String descricao;
 	private double preco;
+	@Column(name = "flag_excluido")
+	private boolean flagExcluido; 
 	
 	@OneToMany(mappedBy = "idProdutoPedido.produto")
 	private Collection<ProdutoPedido> produtoPedidoList;
@@ -69,6 +71,14 @@ public class Produto {
 
 	public void setProdutoPedidoList(Collection<ProdutoPedido> produtoPedidoList) {
 		this.produtoPedidoList = produtoPedidoList;
+	}
+
+	public boolean isFlagExcluido() {
+		return flagExcluido;
+	}
+
+	public void setFlagExcluido(boolean flagExcluido) {
+		this.flagExcluido = flagExcluido;
 	}
 
 	@Override
