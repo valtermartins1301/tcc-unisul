@@ -19,7 +19,7 @@ public class ProdutoDAO {
 	public List<Produto> listAll(){
 		EntityManager em = emf.createEntityManager();
 		try{
-			return em.createQuery("from Produto", Produto.class).getResultList();
+			return em.createQuery("from Produto where flag_excluido != true", Produto.class).getResultList();
 		}finally{
 			em.close();
 		}
@@ -50,7 +50,7 @@ public class ProdutoDAO {
 				Produto produto = em.find(Produto.class, id);
 				if(produto != null){
 					et.begin();
-					em.remove(produto);
+					produto.setFlagExcluido(true);
 					et.commit();
 				}
 			}finally{
@@ -89,7 +89,7 @@ public class ProdutoDAO {
 		EntityManager entityManager = emf.createEntityManager();
 		Produto produto = null;
 			try {				
-				Query query = entityManager.createQuery("select p from Produto p where p.id = :id");
+				Query query = entityManager.createQuery("select p from Produto p where p.id = :id and flag_excluido != true");
 				query.setParameter("id", id);
 				
 				produto = (Produto) query.getSingleResult();

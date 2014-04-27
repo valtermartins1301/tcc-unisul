@@ -17,6 +17,7 @@
     <link href="bootstrap/css/sb-admin.css" rel="stylesheet">
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 </head>
 <body>
     <div id="wrapper">

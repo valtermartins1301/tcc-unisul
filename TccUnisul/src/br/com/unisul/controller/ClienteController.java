@@ -15,12 +15,14 @@ import br.com.unisul.dao.ClienteDAO;
 @Controller
 public class ClienteController {
 	
-	@RequestMapping("/olaMundoSpring")
-	public String execute() {
-		System.out.println("Executando a lógica com Spring MVC");
-		return "ok";
+	@RequestMapping("/clienteListar")
+	public String execute(Model model) {
+		ClienteDAO dao = new ClienteDAO();
+		List<Cliente> clientes = dao.listAll();
+		model.addAttribute("clientes", clientes);
+		return "cadastro/clienteListar";
 	}
-
+	
 	@RequestMapping("adicionaCliente")
 	public String adiciona(Cliente cliente) {
 		ClienteDAO dao = new ClienteDAO();
@@ -34,9 +36,10 @@ public class ClienteController {
 	}
 
 	@RequestMapping("listaClientes")
-	public String lista() {
-		//ClienteDAO dao = new ClienteDAO();
-		//model.addAttribute("tarefas", dao.listAll());
+	public String lista(Model model) {
+		ClienteDAO dao = new ClienteDAO();
+		List<Cliente> clientes = dao.listAll();
+		model.addAttribute("clientes", clientes);
 		return "cadastro/clienteListar";
 	}
 	
@@ -46,23 +49,20 @@ public class ClienteController {
 		return cliente;
 	}
 	
-	
+	@RequestMapping(value = "carregarCliente/{id}", method= RequestMethod.GET)
+	public @ResponseBody List<Cliente> getCliente(@PathVariable Long id, Model model) {
+		List<Cliente> cliente = new ClienteDAO().buscarClientePeloId(id);
+		return cliente;
+	}
 
-	/*@RequestMapping("removeTarefa")
-	public String remove(Tarefa tarefa) {
-		TarefaDAO dao = new TarefaDAO();
-		dao.remove(tarefa);
-		return "redirect:listaTarefas";
+	@RequestMapping("removeCliente")
+	public String remove(Long id) 
+	{
+		ClienteDAO dao = new ClienteDAO();
+		dao.excluir(id);
+		return "redirect:clienteListar";
 	}
-    */
-	
-	/*@RequestMapping("mostraTarefa")
-	public String mostra(Long id, Model model) {
-		TarefaDAO dao = new TarefaDAO();
-		model.addAttribute("tarefas", dao.buscarTarefaPeloId(id));
-		return "tarefa/mostra";
-	}
-    */
+    
 	
  	/*@RequestMapping("alteraTarefa")
 	public String altera(Tarefa tarefa) {

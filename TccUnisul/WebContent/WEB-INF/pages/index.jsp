@@ -1,113 +1,3 @@
-<script type="text/javascript">
-function adicionar() {
-	  
-  	  var nome = $('#novo_pedido_nome').val();
-	  var telefone = $('#novo_pedido_telefone').val();
-	  var rua = $('#novo_pedido_rua').val();
-	  var bairro = $('#novo_pedido_bairro').val();
-	  var numero = $('#novo_pedido_numero').val();
-	  var cidade = $('#novo_pedido_cidade').val();
-	  var cep = $('#novo_pedido_cep').val();
-	  var complemento = $('#novo_pedido_complemento').val();
-	  var observacoes = $('#novo_pedido_observacoes').val();
-	  var nomeProduto;
-	  var preco;
-	  var quantidade;
-	  
-	 
-	  var teste = $("form").serialize();
-		 
-	  $.ajax({  
-		    type: "POST",  
-		    url: "adicionaPedido",  
-		    data: teste,  
-		    success: function(response){
-		      if (response == "sucesso") {
-			      alert("Registro salvo com sucesso!");
-		      }
-		    }  
-	  });
-};	
-
-function adicionarPedido(){			
-		var endereco = new Object();		
-		endereco.rua = $('#novo_pedido_rua').val();
-		endereco.bairro = $('#novo_pedido_bairro').val();
-		endereco.numero = $('#novo_pedido_numero').val();
-		endereco.cidade = $('#novo_pedido_cidade').val();
-		endereco.cep = $('#novo_pedido_cep').val();
-		endereco.complemento = $('#novo_pedido_complemento').val();
-		
-		var cliente = new Object();		
-		cliente.nome = $('#novo_pedido_nome').val();
-		cliente.telefone = $('#novo_pedido_telefone').val();
-		cliente.endereco = endereco;
-		
-		listaProduto = new Array();
-		 var trs = document.getElementById('novo_pedido_lista_produtos').rows;
-		  	var tds = null;
-		  	for (var i = 0; i < trs.length; i++){
-		 		tds = trs[i].cells;		
-		 		var produto = new Object();
-		 		produto.idProduto = (i+1).toString();
-		 		produto.nomeProduto = tds[0].innerHTML;
-		 		produto.preco = tds[1].innerHTML;
-		 		quantidade = tds[2].innerHTML;
-		 		
-		 		var produtoPedidoId = new Object();
-		 		produtoPedidoId.produto = produto;
-		 		var produtoPedido = new Object();
-		 		produtoPedido.idProdutoPedido = produtoPedidoId;
-		 		produtoPedido.quantidade = tds[2].innerHTML;
-		 		
-		 		listaProduto.push(produtoPedido);		 		
-		  	}	
-		
-		var statusPedido = Object();
-		statusPedido.idStatusPedido = 1;
-		
-		var pedido = new Object();
-		pedido.observacao = "Teste";
-		pedido.valorTotalPedido = "";
-		pedido.retiradoLocal = $(novo_pedido_retiradoLocal).checked;
-		pedido.statusPedido = statusPedido;
-		pedido.cliente = cliente;
-		pedido.produtoPedidoList = listaProduto;
-		
-		var dataJson = JSON.stringify(pedido);
-		var dataJsonTrue = JSON.parse(dataJson);
-		
-	    $.ajax({ 
-               url:"adicionarPedido",    
-               type:"POST", 
-               contentType: "application/json; charset=utf-8",
-               data: dataJson, //Stringified Json Object
-               async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
-               cache: false,    //This will force requested pages not to be cached by the browser          
-               processData:false, //To avoid making query String instead of JSON
-               success: function(resposeJsonObject){                           
-    		   }
-               
-	    });     	    
-	 }; 
-	 
-	 function carregarCliente(){
-		 var telefone = $('#novo_pedido_telefone').val();
-		 
-		 $.get("carregarCliente/" + telefone, function(data){
-			 $('#myModal').modal('show');
-				alert(data);
-		 });
-	 }
-	 
-	
-
-	
-</script>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <br/>
 <table>
  	<tr>
@@ -139,12 +29,11 @@ function adicionarPedido(){
 				  <div class="form-group control-group form-inline">
 				    <select class="form-control" name="produto" id="novo_pedido_poduto_nome">
 					   <c:forEach var="produto" items="${produtos}">
-					   			
-					 	 <option>${produto.nomeProduto}</option>
+   					 	 <option value="${produto.preco}">${produto.nomeProduto}</option>
 					   </c:forEach>
 					</select>
 				    <input type="number" class="form-control" name="quantidade" id="novo_pedido_poduto_quantidade" placeholder="Qtd" size="4">	
-				    <a onclick="insertOnTable()"><i class="glyphicon glyphicon-plus-sign"></i></a>		  
+				    <i onclick="insertOnTable()" class="edit_and_exclude glyphicon glyphicon-plus-sign"></i>		  
 				  </div>
 				  <div style="height:100px; overflow:auto;">
 					  <table class="table table-bordered">
@@ -162,14 +51,19 @@ function adicionarPedido(){
 							</th>					
 						</thead>
 						<tbody id="novo_pedido_lista_produtos">
-						
 						</tbody>
 					  </table>
+				  </div>
+				  <div>
+				  
+				  <!-- Valor Total -->
+				  <div class="control-group form-inline text-center">
+  				    <br/>
+				    <span style="color:rgb(208,0,0)">R$: <i id="novo_pedido_valor_total"> 0.0</i></span>
 				  </div>
 				  
 				  <!-- Observações -->
 				  <div class="form-group">
-				    <br/>
 				    <textarea type="text" class="form-control" name="observacoes" id="novo_pedido_observacoes" placeholder="Observações"></textarea>
 				  </div>
 				  

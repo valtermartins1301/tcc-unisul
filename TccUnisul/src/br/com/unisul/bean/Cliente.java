@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -22,6 +23,9 @@ public class Cliente {
 	private String nome;
 	@Column
 	private String telefone;
+	@Column(name = "flag_excluido")
+	private boolean flagExcluido; 
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "id_endereco")
@@ -63,6 +67,14 @@ public class Cliente {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public boolean isFlagExcluido() {
+		return flagExcluido;
+	}
+
+	public void setFlagExcluido(boolean flagExcluido) {
+		this.flagExcluido = flagExcluido;
 	}
 
 	public String getEmail() {
