@@ -1,12 +1,16 @@
-
 //****************************************************
 // Novo Pedido - Atualiza valor do pedido
 //****************************************************
 function somaValorTotalPedido(Valor,Quantidade)
 {
-	
 	var valorTotal = document.getElementById("novo_pedido_valor_total");
-	valorTotal.innerText = parseFloat(valorTotal.innerText) + (parseFloat(Valor)*parseFloat(Quantidade));
+	
+	var Total = new Number(valorTotal.innerText);
+	Valor = new Number(Valor);
+	Quantidade = new Number(Quantidade);
+	
+	var resultado = new Number(Total + (Valor*Quantidade));
+	valorTotal.innerText = resultado.toPrecision(4);
 }
 
 //****************************************************
@@ -15,7 +19,13 @@ function somaValorTotalPedido(Valor,Quantidade)
 function diminuiValorTotalPedido(Valor,Quantidade)
 {
 	var valorTotal = document.getElementById("novo_pedido_valor_total");
-	valorTotal.innerText = parseFloat(valorTotal.innerText) - (parseFloat(Valor)*parseFloat(Quantidade));
+	
+	var Total = new Number(valorTotal.innerText);
+	Valor = new Number(Valor);
+	Quantidade = new Number(Quantidade);
+
+	var resultado = new Number(Total - (Valor*Quantidade));
+	valorTotal.innerText = resultado.toPrecision(4);
 }
 
 //****************************************************

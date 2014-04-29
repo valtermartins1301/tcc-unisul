@@ -88,9 +88,18 @@
  		</td>
  		<td width="25"></td>
  		<td width="900px" height="700px">
+ 			<div class="input-group control-group form-inline">
+	            <span class="input-group-addon" for="txtEndereco">Endereço:</span>
+	            <input class="form-control" type="text" id="txtEndereco" name="txtEndereco"/>
+	            <span class="input-group-btn">
+       				<input type="button" class="btn btn-success" id="btnEndereco" name="btnEndereco" value="Mostrar" />
+      			</span>
+		    </div>
  			<div class="well well-small" style='width:100%;height:100%' >
       			<div id="map_canvas" style='width:100%;height:100%'></div>
       		</div>
+      		<input type="hidden" id="txtLatitude" name="txtLatitude" />
+            <input type="hidden" id="txtLongitude" name="txtLongitude" />
     	</td>
  		<td width="25"></td>
  	</tr>
