@@ -182,7 +182,8 @@ function adicionarPedido(){
            async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
            cache: false,    //This will force requested pages not to be cached by the browser          
            processData:false, //To avoid making query String instead of JSON
-           success: function(resposeJsonObject){                           
+           success: function(resposeJsonObject){
+        	   limparCampos();
 		   }
            
     });     	    
@@ -191,11 +192,184 @@ function adicionarPedido(){
  function carregarCliente(){
 	 var telefone = $('#novo_pedido_telefone').val();
 	 
-	 $.get("carregarCliente/" + telefone, function(data){
+	 $.get("carregarClienteTelefone/" + telefone, function(data){
+					 
+		 for(var j=0; j<data.length; j++){
+			
+			 var listaClientes = document.getElementById("modal_lista_clientes");
+				var nome = data[j].nome;
+				var telefone = data[j].telefone;
+				var email = data[j].email;
+			 
+				var tr = document.createElement("TR");
+				tr.id = data[j].idCliente;
+				var td = document.createElement("TD");
+				td.innerText = nome;
+				tr.appendChild(td);
+				
+				var td = document.createElement("TD");
+				td.innerText = telefone;
+				tr.appendChild(td);
+				
+				var td = document.createElement("TD");
+				td.innerText = email;
+				tr.appendChild(td);
+									
+				var td = document.createElement("TD");				
+				var i = document.createElement("i");
+				i.className = "edit_and_exclude glyphicon glyphicon-remove";
+				i.style     = "align=center;";
+				i.id = data[j].idCliente;
+				i.onclick = function () {
+					var i = tr.id - 1;
+					var nome = data[i].nome;
+					var rua = data[i].endereco.rua;
+					var bairro = data[i].endereco.bairro;
+					var numero = data[i].endereco.numero;
+					var cidade = data[i].endereco.cidade;
+					var cep = data[i].endereco.cep;
+					var complemento = data[i].endereco.complemento;
+					$('#novo_pedido_nome').val(nome);
+					$('#novo_pedido_rua').val(rua);
+					$('#novo_pedido_bairro').val(bairro);
+					$('#novo_pedido_numero').val(numero);
+					$('#novo_pedido_cidade').val(cidade);
+					$('#novo_pedido_cep').val(cep);
+					$('#novo_pedido_complemento').val(complemento);
+					$('#myModal').modal('hide');
+					document.getElementById("modal_lista_clientes").innerHTML = "";
+				};
+				td.appendChild(i);
+				tr.appendChild(td);
+				
+				listaClientes.appendChild(tr);
+				
+		 }			 
 		 $('#myModal').modal('show');
-			alert(data);
 	 });
  }
+ 
+//**************************************************************************************
+//-------------------------------Tela Listar Cliente------------------------------------
+//**************************************************************************************
+ function exibirCadastrarCliente(){
+	 $('#editar_cliente').modal('show');
+ }
+ 
+ function cadastrarEditarCliente(){
+	 var cliente = $("form").serialize();
+	 
+	 $.ajax({ 
+		 url: "adicionaEditaCliente",    
+		 type:"POST", 
+		 data: cliente,
+		 success: function(response){
+			 if(response == "sucesso"){
+				 alert("Cliente salvo com sucesso");
+				 $('#editar_cliente').modal('hide');
+				 window.location = "clienteListar";    		 
+			 }        	 
+		 }         
+	 });
+	 
+	 
+ }
+ 
+ function editarCliente(id){
+	 $.get("carregarClienteId/" + id, function(data){
+		 	$('#editar_cliente_nome').val(data.nome);
+			$('#editar_cliente_telefone').val(data.telefone);
+			$('#editar_cliente_cep').val(data.endereco.cep);
+			$('#editar_cliente_rua').val(data.endereco.rua);
+			$('#editar_cliente_numero').val(data.endereco.numero);
+			$('#editar_cliente_bairro').val(data.endereco.bairro);
+			$('#editar_cliente_cidade').val(data.endereco.cidade);
+			$('#editar_cliente_complemento').val(data.endereco.complemento);
+			$('#editar_cliente_idCliente').val(data.idCliente);
+			$('#editar_cliente_idEndereco').val(data.endereco.idEndereco);
+			$('#editar_cliente').modal('show');
+	 });
+ }
+ 
+ function limparCamposCliente(){
+	 $('#editar_cliente_nome').val("");
+	 $('#editar_cliente_telefone').val("");
+	 $('#editar_cliente_cep').val("");
+	 $('#editar_cliente_rua').val("");
+	 $('#editar_cliente_numero').val("");
+	 $('#editar_cliente_bairro').val("");
+	 $('#editar_cliente_cidade').val("");
+	 $('#editar_cliente_complemento').val("");
+	 $('#editar_cliente_idCliente').val("");
+	 $('#editar_cliente_idEndereco').val("");
+	 
+ }
+ 
+//**************************************************************************************
+//-------------------------------Tela Listar Produto------------------------------------
+//**************************************************************************************
+ 
+ function exibirCadastrarProduto(){
+	 $('#editar_produto').modal('show');
+ }
+ 
+ function cadastrarEditarProduto(){
+	 var produto = $("form").serialize();
+	
+	 $.ajax({ 
+		 url: "adicionaEditaProduto",    
+		 type:"POST", 
+		 data: produto,
+		 success: function(response){
+			 if(response == "sucesso"){
+				 alert("Produto salvo com sucesso");
+				 $('#editar_produto').modal('hide');
+				 window.location = "produtoListar";    		 
+			 }        	 
+		 }         
+	 }); 
+ }
+ 
+ function editarProduto(id){
+	 $.get("carregarProdutoId/" + id, function(data){
+		 	$('#editar_produto_nomeProduto').val(data.nomeProduto);
+			$('#editar_produto_preco').val(data.preco);
+			$('#editar_produto_descricao').val(data.descricao);
+			$('#editar_produto_idProduto').val(data.idProduto);
+			$('#editar_produto').modal('show');
+	 });
+ }
+ 
+ function limparCamposProduto(){
+	 $('#editar_produto_nomeProduto').val("");
+	 $('#editar_produto_preco').val("");
+	 $('#editar_produto_descricao').val("");
+	 $('#editar_produto_idProduto').val("");	 
+ }
+ 
+
+//**************************************************************************************
+//-------------------------------Limpar Campos Tela Pedido------------------------------
+//**************************************************************************************
+ 
+ function limparCampos(){
+	 $('#novo_pedido_nome').val("");
+		$('#novo_pedido_rua').val("");
+		$('#novo_pedido_telefone').val("");
+		$('#novo_pedido_bairro').val("");
+		$('#novo_pedido_numero').val("");
+		$('#novo_pedido_cidade').val("");
+		$('#novo_pedido_cep').val("");
+		$('#novo_pedido_complemento').val("");
+		document.getElementById("modal_lista_clientes").innerHTML = "";
+		$('#novo_pedido_retiradoLocal').val("");
+		$('#novo_pedido_poduto_quantidade').val("");
+		$('#novo_pedido_valor_total').val("0.0");
+		$('#myModal').modal('hide');
+ }
+ 
+
+ 
  
 
 
