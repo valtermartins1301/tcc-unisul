@@ -21,7 +21,7 @@ public class ClienteDAO {
 	public List<Cliente> listAll(){
 		EntityManager em = emf.createEntityManager();
 		try{
-			return em.createQuery("from Cliente where flag_excluido != true", Cliente.class).getResultList();
+			return em.createQuery("from Cliente where flag_excluido != 't'", Cliente.class).getResultList();
 		}finally{
 			em.close();
 		}
@@ -87,13 +87,13 @@ public class ClienteDAO {
 		}
 	}
 	
-	public List<Cliente> buscarClientePeloId(Long id){
+	public Cliente buscarClientePeloId(Long id){
 		EntityManager em = emf.createEntityManager();
-		List<Cliente> cliente = null;
+		Cliente cliente = null;
 		try{
-			Query query = em.createQuery("select c from Cliente c where c.id = :id and flag_excluido != true");
+			Query query = em.createQuery("select c from Cliente c where c.id = :id and flag_excluido != 't'");
 			query.setParameter("id", id);
-			cliente = query.getResultList();
+			cliente = (Cliente) query.getSingleResult();
 		}catch(Exception e){
 			return cliente;
 		}finally{
@@ -107,7 +107,7 @@ public class ClienteDAO {
 		EntityManager em = emf.createEntityManager();
 		List<Cliente> cliente = null;
 		try{
-			Query query = em.createQuery("select c from Cliente c where c.telefone = :telefone and flag_excluido != true");
+			Query query = em.createQuery("select c from Cliente c where c.telefone = :telefone and flag_excluido != 't'");
 			query.setParameter("telefone", telefone);
 			cliente = query.getResultList();
 		}catch(Exception e){
