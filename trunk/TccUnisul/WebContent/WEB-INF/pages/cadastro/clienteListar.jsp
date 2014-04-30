@@ -1,18 +1,19 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <br/>
 <br/>
 <div class="modal fade" id="editar_cliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="false" onclick="limparCamposCliente()">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Cliente</h4>
       </div>
       <div align="center" class="modal-body">
-        	<c:forEach items="${editCliente}" var="editCliente">
-	        	<form role="form" class="well well-small"  style="width: 400px" >
+        	<form role="form" class="well well-small"  style="width: 400px" >
 	    			  <!-- Cliente -->
 					  <div class="form-group">
-					    <input type="text" class="form-control" name="nome" id="editar_cliente_nome" placeholder="Nome do cliente" value="${editCliente.nome}">
+					    <input type="text" class="form-control" name="nome" id="editar_cliente_nome" placeholder="Nome do cliente">
 					  </div>
 					  <div class="form-group control-group form-inline">
 					    <input type="text" class="form-control" name="telefone" id="editar_cliente_telefone" placeholder="Telefone">				  
@@ -29,13 +30,15 @@
 					  </div>
 					  <div class="form-group">
 					    <input type="text" class="form-control" name="complemento" id="editar_cliente_complemento" placeholder="Complemento">
+					    <input type="hidden" id="editar_cliente_idCliente" name="idCliente" value=""/>
+            			<input type="hidden" id="editar_cliente_idEndereco" name="idEndereco" value=""/>
 					  </div>		  				  
-				</form>
-			</c:forEach>
+			</form>
+			
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limparCamposCliente()">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="cadastrarEditarCliente()">Salvar</button>
       </div>
     </div>
   </div>
@@ -44,7 +47,9 @@
 	<br/>
 	<legend align="center">Clientes</legend>
 	<div class="control-group">
-		&nbsp;&nbsp;<a style="width: 10%" class="btn btn-success" href="novoCliente">Novo</a>
+		&nbsp;&nbsp;<a style="width: 10%" class="btn btn-success" onclick="exibirCadastrarCliente()">Novo</a>
+		<!-- <input type="button" class="btn btn-success"  onclick="exibirCadastrarCliente()"  style="width: 5%;font-size:13pt;" value="Novo"/>
+				  	&nbsp;&nbsp;&nbsp;  -->
 	</div>
     <div style="width: 100%">
          <div class="panel panel-default">
@@ -74,7 +79,7 @@
 									<td>${cliente.endereco.cidade}</td>
 									<td>${cliente.telefone}</td>
 									<td>${cliente.endereco.cep}</td>
-									<td><a class="edit_and_exclude" onclick="editCliente(${cliente.idCliente})">Editar</a>/<a class="edit_and_exclude" href="removeCliente?id=${cliente.idCliente}">Excluir</a></td>
+									<td><a class="edit_and_exclude" onclick="editarCliente(${cliente.idCliente})">Editar</a>/<a class="edit_and_exclude" href="removeCliente?id=${cliente.idCliente}">Excluir</a></td>
 								</tr>
 							</c:forEach>
                          </tbody>
