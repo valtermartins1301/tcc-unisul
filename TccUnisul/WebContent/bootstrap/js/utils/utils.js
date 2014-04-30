@@ -1,7 +1,7 @@
 //****************************************************
 // Novo Pedido - Atualiza valor do pedido
 //****************************************************
-function somaValorTotalPedido(Valor,Quantidade)
+function valorTotalPedido(Valor,Quantidade,Operacao,Tag)
 {
 	var valorTotal = document.getElementById("novo_pedido_valor_total");
 	
@@ -9,23 +9,39 @@ function somaValorTotalPedido(Valor,Quantidade)
 	Valor = new Number(Valor);
 	Quantidade = new Number(Quantidade);
 	
-	var resultado = new Number(Total + (Valor*Quantidade));
-	valorTotal.innerText = resultado.toPrecision(4);
-}
-
-//****************************************************
-//Novo Pedido - Atualiza valor do pedido
-//****************************************************
-function diminuiValorTotalPedido(Valor,Quantidade)
-{
-	var valorTotal = document.getElementById("novo_pedido_valor_total");
+	var obj = new Object();
+	obj.valorTotal = Total;
+	obj.valor 	   = Valor;
+	obj.quantidade = Quantidade;
 	
-	var Total = new Number(valorTotal.innerText);
-	Valor = new Number(Valor);
-	Quantidade = new Number(Quantidade);
-
-	var resultado = new Number(Total - (Valor*Quantidade));
-	valorTotal.innerText = resultado.toPrecision(4);
+	var url = "";
+	if(Operacao == "somar")
+		url = "somaValorTotalPedido";
+	else if(Operacao == "subtrair")
+		url = "diminuiValorTotalPedido";
+		
+	var dataJson = JSON.stringify(obj);
+	$.ajax({ 
+        url: url,    
+        type:"POST", 
+        contentType: "application/json; charset=utf-8",
+        data: dataJson, //Stringified Json Object
+        async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
+        cache: false,    //This will force requested pages not to be cached by the browser          
+        processData:false, //To avoid making query String instead of JSON
+        success: function(Resultado) {
+        	if(Resultado.status == "OK")
+        	{
+        		var jsonResult = JSON.parse(Resultado.data);
+        		var result = jsonResult.resultado;
+        		valorTotal.innerText = result.toFixed(2);
+        	}
+        	else if(Tag)
+        	{	
+        		Tag.parentElement.removeChild(Tag);
+        	}
+		   }
+	});
 }
 
 //****************************************************
@@ -73,13 +89,13 @@ function insertOnTable(produto)
 	i.style     = "align=center;";
 	i.onclick = function () {
 	    tr.parentElement.removeChild(tr);
-	    diminuiValorTotalPedido(ProdutoValor,Qtd);
+	    valorTotalPedido(ProdutoValor,Qtd,"subtrair",tr);
 	};
 	td.appendChild(i);
 	tr.appendChild(td);
 	
 	ListaProdutos.appendChild(tr);
-	somaValorTotalPedido(ProdutoValor,Qtd);
+	valorTotalPedido(ProdutoValor,Qtd,"somar");
 }
 
 //**************************************************************************************
