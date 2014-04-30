@@ -20,7 +20,7 @@ function initialize()
 		draggable: true,
 	});
 	
-	marker.setPosition(latlng);
+	//marker.setPosition(latlng);
 }
 
 $(document).ready(function () {
@@ -37,6 +37,28 @@ $(document).ready(function () {
 					$('#txtEndereco').val(results[0].formatted_address);
 					$('#txtLatitude').val(latitude);
                    	$('#txtLongitude').val(longitude);
+                   	
+                   	var rua ="", numero="", bairro="", cidade="", CEP="";
+                   	for(var i=0; i < results[0].address_components.length; i++)
+                   	{                   	
+                   		var type = results[0].address_components[i].types[0];
+                   		switch(type)
+                   		{
+                   			case "street_number" : numero = results[0].address_components[i].short_name; break;
+                   			case "route" :		   rua    = results[0].address_components[i].short_name; break;
+                   			case "neighborhood" :  bairro = results[0].address_components[i].short_name; break;
+                   			case "locality" :      cidade = results[0].address_components[i].short_name; break;
+                   			case "postal_code" :   CEP    = results[0].address_components[i].short_name; break;
+                   		}
+                   			
+                   	}
+                   	
+               		$('#novo_pedido_rua').val(rua);
+               		$('#novo_pedido_bairro').val(bairro);
+               		$('#novo_pedido_cidade').val(cidade);
+                   	$('#novo_pedido_cep').val(CEP);
+                   	$('#novo_pedido_numero').val(numero);
+                   	
 		
 					var location = new google.maps.LatLng(latitude, longitude);
 					marker.setPosition(location);
