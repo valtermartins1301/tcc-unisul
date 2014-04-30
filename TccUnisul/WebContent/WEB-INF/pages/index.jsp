@@ -82,7 +82,7 @@
 				  	<br/>
 				  	<input type="button" class="btn btn-success btn-lg"  onclick="adicionarPedido()" style="font-weight: bold;font-size:13pt;" value="Salvar"/>
 				  	&nbsp;&nbsp;&nbsp; 
-				  	<input type="button" class="btn btn-default btn-lg" style="font-weight: bold;font-size:13pt;" value="Limpar"/>
+				  	<input type="button" class="btn btn-default btn-lg" onclick="limparCampos()" style="font-weight: bold;font-size:13pt;" value="Limpar"/>
 				  </div>
 			</form>
  		</td>
@@ -182,14 +182,26 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="limparCampos()">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Cliente cadastrado com esse número de telefone.</h4>
       </div>
       <div class="modal-body">
-       Testeeeeeeeeeeeeeeeeeeeeee
+      <table class="table table-bordered">
+			 <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Selecionar</th>                                 
+                </tr>
+            </thead>
+			 <tbody id="modal_lista_clientes">
+						
+			</tbody>
+	  </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limparCampos()">Sair</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
