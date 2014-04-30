@@ -19,7 +19,7 @@ public class ProdutoDAO {
 	public List<Produto> listAll(){
 		EntityManager em = emf.createEntityManager();
 		try{
-			return em.createQuery("from Produto where flag_excluido != true", Produto.class).getResultList();
+			return em.createQuery("from Produto where flag_excluido != 't'", Produto.class).getResultList();
 		}finally{
 			em.close();
 		}
@@ -72,6 +72,7 @@ public class ProdutoDAO {
 				if(produtoEncontrado != null){
 					et.begin();					
 					produtoEncontrado.setIdProduto(produto.getIdProduto());
+					produtoEncontrado.setNomeProduto(produto.getNomeProduto());
 					produtoEncontrado.setDescricao(produto.getDescricao());
 					produtoEncontrado.setPreco(produto.getPreco());
 					et.commit();
@@ -89,7 +90,7 @@ public class ProdutoDAO {
 		EntityManager entityManager = emf.createEntityManager();
 		Produto produto = null;
 			try {				
-				Query query = entityManager.createQuery("select p from Produto p where p.id = :id and flag_excluido != true");
+				Query query = entityManager.createQuery("select p from Produto p where p.id = :id and flag_excluido != 't'");
 				query.setParameter("id", id);
 				
 				produto = (Produto) query.getSingleResult();

@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -26,7 +27,7 @@ public class Produto {
 	@Column(name = "flag_excluido")
 	private boolean flagExcluido; 
 	
-	@OneToMany(mappedBy = "idProdutoPedido.produto")
+	@OneToMany(mappedBy = "idProdutoPedido.produto" , fetch = FetchType.LAZY)
 	private Collection<ProdutoPedido> produtoPedidoList;
 	
 	public Produto(){
@@ -73,7 +74,7 @@ public class Produto {
 		this.produtoPedidoList = produtoPedidoList;
 	}
 
-	public boolean isFlagExcluido() {
+	public boolean getFlagExcluido() {
 		return flagExcluido;
 	}
 
