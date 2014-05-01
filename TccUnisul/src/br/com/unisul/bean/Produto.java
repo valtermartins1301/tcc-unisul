@@ -27,7 +27,7 @@ public class Produto {
 	@Column(name = "flag_excluido")
 	private boolean flagExcluido; 
 	
-	@OneToMany(mappedBy = "idProdutoPedido.produto" , fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "idProdutoPedido.produto")
 	private Collection<ProdutoPedido> produtoPedidoList;
 	
 	public Produto(){
