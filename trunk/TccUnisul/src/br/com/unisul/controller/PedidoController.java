@@ -57,9 +57,11 @@ public class PedidoController {
 	@RequestMapping("/index")
 	public String execute(Model model) {
 		System.out.println("Executando a lógica com Spring MVC");
-		ProdutoDAO dao = new ProdutoDAO();
-		List<Produto> produtos = dao.listAll();
-		
+	
+		List<Produto> produtos = new ProdutoDAO().listAll();
+		List<Pedido> pedidos = new PedidoDAO().listAll();
+				
+		model.addAttribute("pedidos", pedidos);
 		model.addAttribute("produtos", produtos);
 		
 		
