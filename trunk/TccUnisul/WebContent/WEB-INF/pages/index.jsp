@@ -125,7 +125,7 @@
                              </tr>
                          </thead>
                          <tbody>
-                         	<tr class="odd gradeX">
+                         	  <!--<tr class="odd gradeX">
                                  <td>1</td>
                                  <td>Cliente1</td>
                                  <td>Produto1; Produto2</td>
@@ -168,7 +168,25 @@
                                  <td>13/04/2014 23:25</td>
                                  <td>Pendente</td>
                                  <td>Editar/Excluir</td>  
-                             </tr>
+                             </tr> -->
+                             
+                             <c:forEach items="${pedidos}" var="pedidos">
+								<tr>
+									<td>${pedidos.idPedido}</td>
+									<td>${pedidos.cliente.nome}</td>
+									<td>
+										<c:forEach items="${pedidos.produtoPedidoList}" var="produtoPedidoList">
+											${produtoPedidoList.idProdutoPedido.produto.nomeProduto}
+							            </c:forEach> 
+							        </td>
+									<td>${pedidos.observacao}</td>
+									<td>${pedidos.cliente.telefone}</td>
+									<td>lote1</td>
+									<td>12/04/2014</td>
+									<td>${pedidos.statusPedido.descricao}</td>
+									<td><%-- <a class="edit_and_exclude" onclick="editarCliente(${cliente.idCliente})">Editar</a>/<a class="edit_and_exclude" href="removeCliente?id=${cliente.idCliente}">Excluir</a> --%></td>
+								</tr>
+							</c:forEach>
                          </tbody>
                   	  </table>
                     </div>
