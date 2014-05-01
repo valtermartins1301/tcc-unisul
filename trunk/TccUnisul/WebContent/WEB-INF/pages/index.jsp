@@ -67,6 +67,8 @@
 				    <textarea type="text" class="form-control" name="observacoes" id="novo_pedido_observacoes" placeholder="Observações"></textarea>
 				  </div>
 				  
+				  <input type="hidden" id="novo_pedido_latitude" name="latitude" />
+	              <input type="hidden" id="novo_pedido_longitude" name="logintude" />
 				  <!-- Checkbox -->
 				  <div class="control-group form-inline">
 				    <label class="checkbox-inline">
@@ -98,8 +100,6 @@
  			<div class="well well-small" style='width:100%;height:100%' >
       			<div id="map_canvas" style='width:100%;height:100%'></div>
       		</div>
-      		<input type="hidden" id="txtLatitude" name="txtLatitude" />
-            <input type="hidden" id="txtLongitude" name="txtLongitude" />
     	</td>
  		<td width="25"></td>
  	</tr>

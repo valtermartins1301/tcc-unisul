@@ -35,8 +35,8 @@ $(document).ready(function () {
 					var longitude = results[0].geometry.location.lng();
 		
 					$('#txtEndereco').val(results[0].formatted_address);
-					$('#txtLatitude').val(latitude);
-                   	$('#txtLongitude').val(longitude);
+					$('#novo_pedido_latitude').val(latitude);
+                   	$('#novo_pedido_longitude').val(longitude);
                    	
                    	var rua ="", numero="", bairro="", cidade="", CEP="";
                    	for(var i=0; i < results[0].address_components.length; i++)

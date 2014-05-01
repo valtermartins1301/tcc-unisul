@@ -134,6 +134,8 @@ function adicionarPedido(){
 	endereco.cidade = $('#novo_pedido_cidade').val();
 	endereco.cep = $('#novo_pedido_cep').val();
 	endereco.complemento = $('#novo_pedido_complemento').val();
+	endereco.latitude = $('#novo_pedido_latitude').val();
+	endereco.longitude = $('#novo_pedido_longitude').val();
 	
 	var cliente = new Object();		
 	cliente.nome = $('#novo_pedido_nome').val();
@@ -216,29 +218,11 @@ function adicionarPedido(){
 				tr.appendChild(td);
 									
 				var td = document.createElement("TD");				
-				var i = document.createElement("i");
+				var i = document.createElement("a");
 				i.className = "edit_and_exclude glyphicon glyphicon-remove";
 				i.style     = "align=center;";
-				i.id = data[j].idCliente;
-				i.onclick = function () {
-					var i = tr.id - 1;
-					var nome = data[i].nome;
-					var rua = data[i].endereco.rua;
-					var bairro = data[i].endereco.bairro;
-					var numero = data[i].endereco.numero;
-					var cidade = data[i].endereco.cidade;
-					var cep = data[i].endereco.cep;
-					var complemento = data[i].endereco.complemento;
-					$('#novo_pedido_nome').val(nome);
-					$('#novo_pedido_rua').val(rua);
-					$('#novo_pedido_bairro').val(bairro);
-					$('#novo_pedido_numero').val(numero);
-					$('#novo_pedido_cidade').val(cidade);
-					$('#novo_pedido_cep').val(cep);
-					$('#novo_pedido_complemento').val(complemento);
-					$('#myModal').modal('hide');
-					document.getElementById("modal_lista_clientes").innerHTML = "";
-				};
+				i.id = j;
+				i.onclick = function(){ populaCadastroPedido(this.id, data);};
 				td.appendChild(i);
 				tr.appendChild(td);
 				
@@ -247,6 +231,30 @@ function adicionarPedido(){
 		 }			 
 		 $('#myModal').modal('show');
 	 });
+ }
+ 
+//**************************************************************************************
+//
+//**************************************************************************************
+ function populaCadastroPedido(idLinha, data)
+ {	
+	 		idLinha = parseInt(idLinha);
+			var nome = data[idLinha].nome;
+			var rua = data[idLinha].endereco.rua;
+			var bairro = data[idLinha].endereco.bairro;
+			var numero = data[idLinha].endereco.numero;
+			var cidade = data[idLinha].endereco.cidade;
+			var cep = data[idLinha].endereco.cep;
+			var complemento = data[idLinha].endereco.complemento;
+			$('#novo_pedido_nome').val(nome);
+			$('#novo_pedido_rua').val(rua);
+			$('#novo_pedido_bairro').val(bairro);
+			$('#novo_pedido_numero').val(numero);
+			$('#novo_pedido_cidade').val(cidade);
+			$('#novo_pedido_cep').val(cep);
+			$('#novo_pedido_complemento').val(complemento);
+			$('#myModal').modal('hide');
+			document.getElementById("modal_lista_clientes").innerHTML = "";
  }
  
 //**************************************************************************************

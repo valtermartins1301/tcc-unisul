@@ -75,6 +75,7 @@ public class ClienteDAO {
 					et.begin();
 					clienteEncontrado.setIdCliente(cliente.getIdCliente());
 					clienteEncontrado.setNome(cliente.getNome());
+					clienteEncontrado.setTelefone(cliente.getTelefone());
 					clienteEncontrado.setEndereco(cliente.getEndereco());
 					et.commit();
 				}
