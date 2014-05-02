@@ -176,15 +176,16 @@
 									<td>${pedidos.cliente.nome}</td>
 									<td>
 										<c:forEach items="${pedidos.produtoPedidoList}" var="produtoPedidoList">
+											(${produtoPedidoList.quantidade}) 
 											${produtoPedidoList.idProdutoPedido.produto.nomeProduto}
 							            </c:forEach> 
 							        </td>
 									<td>${pedidos.observacao}</td>
 									<td>${pedidos.cliente.telefone}</td>
 									<td>lote1</td>
-									<td>12/04/2014</td>
+									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy" /></td>
 									<td>${pedidos.statusPedido.descricao}</td>
-									<td><%-- <a class="edit_and_exclude" onclick="editarCliente(${cliente.idCliente})">Editar</a>/<a class="edit_and_exclude" href="removeCliente?id=${cliente.idCliente}">Excluir</a> --%></td>
+									<td><a class="edit_and_exclude" onclick="editarPedido(${pedidos.idPedido})">Editar</a>/<a class="edit_and_exclude" href="removerPedido?id=${pedidos.idPedido}">Excluir</a></td>
 								</tr>
 							</c:forEach>
                          </tbody>
