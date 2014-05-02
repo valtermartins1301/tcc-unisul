@@ -23,9 +23,64 @@ function initialize()
 	//marker.setPosition(latlng);
 }
 
+function carregaPedidosNoMapa() {
+	
+	var url = "getPedidos";
+	$.ajax({ 
+        url: url,    
+        type:"GET", 
+        contentType: "application/json; charset=utf-8",
+        async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
+        cache: false,    //This will force requested pages not to be cached by the browser          
+        processData:false, //To avoid making query String instead of JSON
+        success: function(Resultado) {
+        	if(Resultado.status =="ok")
+        	{	
+        		var dataJson = JSON.parse(Resultado.data);
+        		marcarNoMapa(dataJson);
+        	}
+        }
+	});
+}
+
+function marcarNoMapa(data) {
+
+            	for(var i=0; i<data.listapedidos.length;i++)
+				{
+            		var endereco = data.listapedidos[i].cliente.endereco;
+            		var latLng = new google.maps.LatLng(endereco.latitude, endereco.longitude); 
+            		var contentString = 
+     	            	'<div id="content">'+
+     	            		'<div id="marker_popup_id_pedido">Pedido nº: '+data.listapedidos[i].idpedido+'</div>'+
+     	            		'<div id="marker_popup_id_pedido">Status: '+data.listapedidos[i].status+'</div>'+
+     	            		'<div id="marker_popup_id_pedido">Cliente: '+data.listapedidos[i].cliente.nome +'</div>'+
+     	            		'<div id="marker_popup_id_pedido">Telefone: '+data.listapedidos[i].cliente.telefone +'</div>'+
+     	            		'<div id="marker_popup_id_pedido">Endereco: '+endereco.rua+','+endereco.numero+'</div>'+
+     	            	'</div>';
+     	            var myinfowindow = new google.maps.InfoWindow({
+     	                content: contentString,
+     	                maxWidth: 200,
+     	                maxHeight: 200
+     	            });
+    				var marker = new google.maps.Marker({
+		                position: latLng,
+		                title: "Pedido nº: "+ data.listapedidos[i].idpedido,
+		                map: map,
+		                infowindow: myinfowindow
+            		});
+    				bindInfoWindow(marker, map, myinfowindow);
+				}         
+}
+
+function bindInfoWindow(marker, map, infowindow) {
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map, marker);
+    });
+}
 $(document).ready(function () {
 
 	initialize();
+	carregaPedidosNoMapa();
 	
 	function carregarNoMapa(endereco) {
 		geocoder.geocode({ 'address': endereco + ', Brasil', 'region': 'BR' }, function (results, status) {
@@ -66,31 +121,19 @@ $(document).ready(function () {
 					map.setZoom(16);
 				}
 			}
-		})
+		});
 	}
 	
 	$("#btnEndereco").click(function() {
 		if($(this).val() != "")
 			carregarNoMapa($("#txtEndereco").val());
-	})
+	});
 	
 	$("#txtEndereco").blur(function() {
 		if($(this).val() != "")
 			carregarNoMapa($(this).val());
-	})
-	
-	google.maps.event.addListener(marker, 'drag', function () {
-		geocoder.geocode({ 'latLng': marker.getPosition() }, function (results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				if (results[0]) {  
-					$('#txtEndereco').val(results[0].formatted_address);
-					$('#txtLatitude').val(marker.getPosition().lat());
-					$('#txtLongitude').val(marker.getPosition().lng());
-				}
-			}
-		});
 	});
-	
+	  
 	$("#txtEndereco").autocomplete({
 		source: function (request, response) {
 			geocoder.geocode({ 'address': request.term + ', Brasil', 'region': 'BR' }, function (results, status) {

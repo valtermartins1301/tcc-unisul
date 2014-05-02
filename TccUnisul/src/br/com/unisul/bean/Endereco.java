@@ -100,8 +100,14 @@ public class Endereco {
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Endereco [idEndereco=" + idEndereco + ", rua=" + rua
+				+ ", numero=" + numero + ", complemento=" + complemento
+				+ ", bairro=" + bairro + ", cidade=" + cidade + ", cep=" + cep
+				+ ", latitude=" + latitude + ", longitude=" + longitude + "]";
+	}
+		
 	
 }
