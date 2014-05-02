@@ -1,11 +1,15 @@
 package br.com.unisul.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +25,7 @@ import br.com.unisul.bean.JsonResponse;
 import br.com.unisul.bean.Pedido;
 import br.com.unisul.bean.Produto;
 import br.com.unisul.bean.ProdutoPedido;
+import br.com.unisul.bean.StatusPedido;
 import br.com.unisul.dao.ClienteDAO;
 import br.com.unisul.dao.EnderecoDAO;
 import br.com.unisul.dao.PedidoDAO;
@@ -123,42 +128,47 @@ public class PedidoController {
 		return new JsonResponse("OK", "", "{\"resultado\":"+result+"}");
 	}
 	
-	@RequestMapping(value="adicionaPedido", method = RequestMethod.POST)
-	public @ResponseBody String adicionaPedido(@RequestBody Pedido pedido,
-			BindingResult result) {
-				
-		if (!result.hasErrors()) {
-//			EnderecoDAO daoEndereco = new EnderecoDAO();
-//			daoEndereco.salvar(endereco);
-//			
-//			cliente.setEndereco(endereco);			
-//			ClienteDAO daoCliente= new ClienteDAO();
-//			daoCliente.salvar(cliente);
-//			
-//			Pedido pedido = new Pedido();
-//			pedido.setCliente(cliente);
-//			pedido.setData(new Date());
-//			pedido.setObservacao("Testee");
-//			pedido.setValorTotalPedido(50);
-//			
-//			PedidoDAO daoPedido = new PedidoDAO();
-//			daoPedido.salvar(pedido);
-//			
-//			//=================== Não será necessário salvar o produto ===================
-//			produto.setIdProduto(1L);
-//						
-//			//============================================================================
-//			
-//			ProdutoPedido prodPed = new ProdutoPedido();
-//			prodPed.getIdProdutoPedido().setProduto(produto);
-//			prodPed.getIdProdutoPedido().setProduto(produto);
-//			prodPed.setQuantidade(4);
-//			
-//			ProdutoPedidoDAO daoProdPed = new ProdutoPedidoDAO();
-//			daoProdPed.salvar(prodPed);
-		
+	@RequestMapping(value="getPedidos", method = RequestMethod.GET)
+	public @ResponseBody JsonResponse getPedidos() {
+
+		PedidoDAO dao = new PedidoDAO();
+		List<Pedido> listaPedidos = dao.listAll();
+		String data   = "{\"listapedidos\":[";
+		String status = "error";
+		String pedidosString = "";
+		for(int i = 0; i<listaPedidos.size();i++)
+		{
+			Pedido pedido     = listaPedidos.get(i);
+//			Cliente cliente   = pedido.getCliente();
+//			Endereco endereco = cliente.getEndereco();
+//			Collection<ProdutoPedido> produtoPedido = pedido.getProdutoPedidoList();
+			StatusPedido statusPedido = pedido.getStatusPedido();
+			pedidosString = "{\"idpedido\":"+pedido.getIdPedido()+","+"\"status\":\""+statusPedido.getDescricao()+"\","+"\"cliente\":";
+
+			
+			ObjectMapper mapper = new ObjectMapper();
+			 
+			try {
+				System.out.println(mapper.writeValueAsString(pedido.getCliente()));
+				pedidosString = pedidosString + mapper.writeValueAsString(pedido.getCliente());
+				status = "ok";
+			} catch (JsonGenerationException e) {
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if(i == listaPedidos.size()-1)
+				pedidosString = pedidosString+"}";
+			else
+				pedidosString = pedidosString+"},";
+			data += pedidosString;
 		}
-		return "sucesso";
+		data += "]}";
+		JsonResponse json = new JsonResponse(status, "", data);
+		return json;
 	}
+	
 
 }

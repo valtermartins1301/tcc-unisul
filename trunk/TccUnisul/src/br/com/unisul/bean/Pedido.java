@@ -132,8 +132,13 @@ public class Pedido {
 		return true;
 	}
 
-	
-
-	
+	@Override
+	public String toString() {
+		return "Pedido [idPedido=" + idPedido + ", cliente=" + cliente
+				+ ", valorTotalPedido=" + valorTotalPedido + ", data=" + data
+				+ ", statusPedido=" + statusPedido + ", observacao="
+				+ observacao + ", retiradoLocal=" + retiradoLocal
+				+ "]";
+	}
 	
 }
