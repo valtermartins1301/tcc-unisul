@@ -82,6 +82,42 @@ $(document).ready(function () {
 	initialize();
 	carregaPedidosNoMapa();
 	
+	function CarregaEndereco(endereco) {
+		geocoder.geocode({ 'address': endereco + ', Brasil', 'region': 'BR' }, function (results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				if (results[0]) {
+					var latitude = results[0].geometry.location.lat();
+					var longitude = results[0].geometry.location.lng();
+		
+					$('#editar_cliente_latitude').val(latitude);
+                   	$('#editar_cliente_longitude').val(longitude);
+                   	
+                   	var rua ="", numero="", bairro="", cidade="", CEP="";
+                   	for(var i=0; i < results[0].address_components.length; i++)
+                   	{                   	
+                   		var type = results[0].address_components[i].types[0];
+                   		switch(type)
+                   		{
+                   			case "street_number" : numero = results[0].address_components[i].short_name; break;
+                   			case "route" :		   rua    = results[0].address_components[i].short_name; break;
+                   			case "neighborhood" :  bairro = results[0].address_components[i].short_name; break;
+                   			case "locality" :      cidade = results[0].address_components[i].short_name; break;
+                   			case "postal_code" :   CEP    = results[0].address_components[i].short_name; break;
+                   		}
+                   			
+                   	}
+                   	
+               		$('#editar_cliente_rua').val(rua);
+               		document.getElementById("editar_cliente_rua").innerHtml = rua;
+               		$('#editar_cliente_bairro').val(bairro);
+               		$('#editar_cliente_cidade').val(cidade);
+                   	$('#editar_cliente_cep').val(CEP);
+                   	$('#editar_cliente_numero').val(numero);
+				}
+			}
+		});
+	}
+	
 	function carregarNoMapa(endereco) {
 		geocoder.geocode({ 'address': endereco + ', Brasil', 'region': 'BR' }, function (results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
@@ -89,7 +125,6 @@ $(document).ready(function () {
 					var latitude = results[0].geometry.location.lat();
 					var longitude = results[0].geometry.location.lng();
 		
-					$('#txtEndereco').val(results[0].formatted_address);
 					$('#novo_pedido_latitude').val(latitude);
                    	$('#novo_pedido_longitude').val(longitude);
                    	
@@ -109,11 +144,11 @@ $(document).ready(function () {
                    	}
                    	
                		$('#novo_pedido_rua').val(rua);
+               		document.getElementById("novo_pedido_rua").innerHtml = rua;
                		$('#novo_pedido_bairro').val(bairro);
                		$('#novo_pedido_cidade').val(cidade);
                    	$('#novo_pedido_cep').val(CEP);
                    	$('#novo_pedido_numero').val(numero);
-                   	
 		
 					var location = new google.maps.LatLng(latitude, longitude);
 					marker.setPosition(location);
@@ -129,12 +164,40 @@ $(document).ready(function () {
 			carregarNoMapa($("#txtEndereco").val());
 	});
 	
-	$("#txtEndereco").blur(function() {
+	$("#novo_pedido_rua").blur(function() {
 		if($(this).val() != "")
 			carregarNoMapa($(this).val());
 	});
+	
+	$("#editar_cliente_rua").blur(function() {
+		if($(this).val() != "")
+			CarregaEndereco($(this).val());
+	});
 	  
-	$("#txtEndereco").autocomplete({
+	$("#editar_cliente_rua").autocomplete({
+		source: function (request, response) {
+			geocoder.geocode({ 'address': request.term + ', Brasil', 'region': 'BR' }, function (results, status) {
+				response($.map(results, function (item) {
+					return {
+						label: item.formatted_address,
+						value: item.formatted_address,
+						latitude: item.geometry.location.lat(),
+          				longitude: item.geometry.location.lng()
+					}
+				}));
+			})
+		},
+		select: function (event, ui) {
+			$("#editar_cliente_latitude").val(ui.item.latitude);
+    		$("#editar_cliente_longitude").val(ui.item.longitude);
+			var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+			marker.setPosition(location);
+			map.setCenter(location);
+			map.setZoom(16);
+		}
+	});
+	
+	$("#novo_pedido_rua").autocomplete({
 		source: function (request, response) {
 			geocoder.geocode({ 'address': request.term + ', Brasil', 'region': 'BR' }, function (results, status) {
 				response($.map(results, function (item) {

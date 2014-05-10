@@ -10,9 +10,9 @@
 				    <input type="text" class="form-control" name="nome" id="novo_pedido_nome" placeholder="Nome do cliente">
 				    <input type="text" class="form-control" name="telefone" id="novo_pedido_telefone" onblur="carregarCliente()" placeholder="Telefone">
 				  </div>
-				  <div class="form-group">
-				    <input type="text" class="form-control" name="rua" id="novo_pedido_rua" placeholder="Rua">
-				  </div>
+				  <div class="form-group control-group">
+		            <input type="text" class="form-control" name="rua" id="novo_pedido_rua" placeholder="Rua">
+		    	  </div>
 				  <div class="form-group control-group form-inline">
 				    <input type="text" class="form-control" name="bairro" id="novo_pedido_bairro" placeholder="Bairro">
 				    <input type="text" class="form-control" name="numero" id="novo_pedido_numero" placeholder="Número">			  
@@ -90,13 +90,6 @@
  		</td>
  		<td width="25"></td>
  		<td width="900px" height="700px">
- 			<div class="input-group control-group form-inline">
-	            <span class="input-group-addon" for="txtEndereco">Endereço:</span>
-	            <input class="form-control" type="text" id="txtEndereco" name="txtEndereco"/>
-	            <span class="input-group-btn">
-       				<input type="button" class="btn btn-success" id="btnEndereco" name="btnEndereco" value="Mostrar" />
-      			</span>
-		    </div>
  			<div class="well well-small" style='width:100%;height:100%' >
       			<div id="map_canvas" style='width:100%;height:100%'></div>
       		</div>
