@@ -71,10 +71,7 @@ public class ProdutoDAO {
 				
 				if(produtoEncontrado != null){
 					et.begin();					
-					produtoEncontrado.setIdProduto(produto.getIdProduto());
-					produtoEncontrado.setNomeProduto(produto.getNomeProduto());
-					produtoEncontrado.setDescricao(produto.getDescricao());
-					produtoEncontrado.setPreco(produto.getPreco());
+					em.merge(produto);
 					et.commit();
 				}
 			}finally{

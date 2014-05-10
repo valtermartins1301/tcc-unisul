@@ -73,14 +73,7 @@ public class EnderecoDAO {
 				
 				if(enderecoEncontrado != null){
 					et.begin();
-					enderecoEncontrado.setIdEndereco(endereco.getIdEndereco());
-					enderecoEncontrado.setRua(endereco.getRua());
-					enderecoEncontrado.setComplemento(endereco.getComplemento());
-					enderecoEncontrado.setNumero(endereco.getNumero());
-					enderecoEncontrado.setCidade(endereco.getCidade());
-					enderecoEncontrado.setCep(endereco.getCep());
-					enderecoEncontrado.setLatitude(endereco.getLatitude());
-					enderecoEncontrado.setLongitude(endereco.getLongitude());
+					em.merge(endereco);
 					et.commit();
 				}
 			}finally{

@@ -73,10 +73,7 @@ public class ClienteDAO {
 				
 				if(clienteEncontrado != null){
 					et.begin();
-					clienteEncontrado.setIdCliente(cliente.getIdCliente());
-					clienteEncontrado.setNome(cliente.getNome());
-					clienteEncontrado.setTelefone(cliente.getTelefone());
-					clienteEncontrado.setEndereco(cliente.getEndereco());
+					em.merge(cliente);
 					et.commit();
 				}
 			}finally{

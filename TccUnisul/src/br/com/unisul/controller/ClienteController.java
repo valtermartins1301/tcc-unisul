@@ -30,12 +30,10 @@ public class ClienteController {
 	@RequestMapping(value = "adicionaEditaCliente", method= RequestMethod.POST)
 	public @ResponseBody String adicionaEditaCliente(@ModelAttribute(value="cliente") Cliente cliente, @ModelAttribute(value="endereco") Endereco endereco, BindingResult result) {	
 		if(!result.hasErrors()){
-			if(cliente.getIdCliente() != null){
-				new EnderecoDAO().editar(endereco);			
+			if(cliente.getIdCliente() != null){						
 				cliente.setEndereco(endereco);
 				new ClienteDAO().editar(cliente);
-			}else{
-				new EnderecoDAO().salvar(endereco);			
+			}else{	
 				cliente.setEndereco(endereco);
 				new ClienteDAO().salvar(cliente);
 			}
