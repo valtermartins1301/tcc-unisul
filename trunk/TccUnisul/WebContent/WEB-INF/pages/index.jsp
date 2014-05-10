@@ -6,6 +6,10 @@
 			<form role="form" class="well well-small"  style="width: 400px">
 			  <legend>Novo Pedido</legend>
 				  <!-- Cliente -->
+				  <input type="hidden" id="novo_pedido_idCliente" name="idCliente" />
+				  <input type="hidden" id="novo_pedido_idEndereco" name="idEndereco" />
+				  <input type="hidden" id="novo_pedido_idPedido" name="idPedido" />
+				  <input type="hidden" id="novo_pedido_idStatusPedido" name="idStatusPedido" />
 				  <div class="form-group control-group form-inline">
 				    <input type="text" class="form-control" name="nome" id="novo_pedido_nome" placeholder="Nome do cliente">
 				    <input type="text" class="form-control" name="telefone" id="novo_pedido_telefone" onblur="carregarCliente()" placeholder="Telefone">
@@ -29,7 +33,7 @@
 				  <div class="form-group control-group form-inline">
 				    <select class="form-control" name="produto" id="novo_pedido_poduto_nome">
 					   <c:forEach var="produto" items="${produtos}">
-   					 	 <option value="${produto.preco}">${produto.nomeProduto}</option>
+   					 	 <option value="${produto.idProduto}_${produto.preco}">${produto.nomeProduto}</option>
 					   </c:forEach>
 					</select>
 				    <input type="number" class="form-control" name="quantidade" id="novo_pedido_poduto_quantidade" placeholder="Qtd" size="4">	
@@ -68,7 +72,7 @@
 				  </div>
 				  
 				  <input type="hidden" id="novo_pedido_latitude" name="latitude" />
-	              <input type="hidden" id="novo_pedido_longitude" name="logintude" />
+	              <input type="hidden" id="novo_pedido_longitude" name="longitude" />
 				  <!-- Checkbox -->
 				  <div class="control-group form-inline">
 				    <label class="checkbox-inline">
@@ -170,15 +174,15 @@
 									<td>
 										<c:forEach items="${pedidos.produtoPedidoList}" var="produtoPedidoList">
 											(${produtoPedidoList.quantidade}) 
-											${produtoPedidoList.idProdutoPedido.produto.nomeProduto}
+											${produtoPedidoList.produto.nomeProduto}
 							            </c:forEach> 
 							        </td>
 									<td>${pedidos.observacao}</td>
 									<td>${pedidos.cliente.telefone}</td>
 									<td>lote1</td>
-									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy" /></td>
+									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy hh:mm" /></td>
 									<td>${pedidos.statusPedido.descricao}</td>
-									<td><a class="edit_and_exclude" onclick="editarPedido(${pedidos.idPedido})">Editar</a>/<a class="edit_and_exclude" href="removerPedido?id=${pedidos.idPedido}">Excluir</a></td>
+									<td><a class="edit_and_exclude" onclick="editarPedido(${pedidos.idPedido})">Editar</a>/<a class="edit_and_exclude" href="removePedido?id=${pedidos.idPedido}">Excluir</a></td>
 								</tr>
 							</c:forEach>
                          </tbody>

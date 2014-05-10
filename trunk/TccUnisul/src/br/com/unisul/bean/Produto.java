@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -27,7 +28,8 @@ public class Produto {
 	@Column(name = "flag_excluido")
 	private boolean flagExcluido; 
 	
-	@OneToMany(mappedBy = "idProdutoPedido.produto")
+	@OneToMany(mappedBy = "produto", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private Collection<ProdutoPedido> produtoPedidoList;
 	
 	public Produto(){
