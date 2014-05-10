@@ -50,7 +50,11 @@ function valorTotalPedido(Valor,Quantidade,Operacao,Tag)
 function insertOnTable(produto)
 {
 	var List = document.getElementById("novo_pedido_poduto_nome");
-	var ProdutoValor = List[List.selectedIndex].value;
+	var id_valor = List[List.selectedIndex].value;
+	
+	var splitIt = id_valor.split('_'); 
+	var ProdutoId = splitIt[0]
+	var ProdutoValor = splitIt[1];
 	var Produto = List[List.selectedIndex].outerText;
 	
 	var Qtd		= document.getElementById("novo_pedido_poduto_quantidade").value;
@@ -74,7 +78,7 @@ function insertOnTable(produto)
 	var td = document.createElement("TD");
 	td.innerText = Produto;
 	tr.appendChild(td);
-	
+	tr.id = ProdutoId;
 	var td = document.createElement("TD");
 	td.innerText = ProdutoValor;
 	tr.appendChild(td);
@@ -127,7 +131,8 @@ $(document).ready(function() {
 // Novo Pedido - adiciona pedido no banco
 //*************************************************************************************
 function adicionarPedido(){			
-	var endereco = new Object();		
+	var endereco = new Object();	
+	endereco.idEndereco = $('#novo_pedido_idEndereco').val();
 	endereco.rua = $('#novo_pedido_rua').val();
 	endereco.bairro = $('#novo_pedido_bairro').val();
 	endereco.numero = $('#novo_pedido_numero').val();
@@ -137,10 +142,27 @@ function adicionarPedido(){
 	endereco.latitude = $('#novo_pedido_latitude').val();
 	endereco.longitude = $('#novo_pedido_longitude').val();
 	
-	var cliente = new Object();		
+	var cliente = new Object();	
+	cliente.idCliente = $('#novo_pedido_idCliente').val();
 	cliente.nome = $('#novo_pedido_nome').val();
 	cliente.telefone = $('#novo_pedido_telefone').val();
 	cliente.endereco = endereco;
+	
+	var statusPedido = Object();
+	var idStatusPedido = $('#novo_pedido_idStatusPedido').val();
+	if(idStatusPedido == ""){
+		statusPedido.idStatusPedido = 1;
+	}else{
+		statusPedido.idStatusPedido = idStatusPedido;
+	}
+	
+	var pedido = new Object();
+	pedido.idPedido = $('#novo_pedido_idPedido').val();
+	pedido.observacao = $('#novo_pedido_observacoes').val();
+	pedido.valorTotalPedido = document.getElementById("novo_pedido_valor_total").value;
+	pedido.retiradoLocal = document.getElementById("novo_pedido_retiradoLocal").checked;
+	pedido.statusPedido = statusPedido;
+	pedido.cliente = cliente;
 	
 	listaProduto = new Array();
 	var trs = document.getElementById('novo_pedido_lista_produtos').rows;
@@ -149,29 +171,18 @@ function adicionarPedido(){
   	{
  		tds = trs[i].cells;		
  		var produto = new Object();
- 		produto.idProduto = (i+1).toString();
+ 		produto.idProduto = trs[i].id;
  		produto.nomeProduto = tds[0].innerHTML;
  		produto.preco = tds[1].innerHTML;
  		quantidade = tds[2].innerHTML;
  		
- 		var produtoPedidoId = new Object();
- 		produtoPedidoId.produto = produto;
  		var produtoPedido = new Object();
- 		produtoPedido.idProdutoPedido = produtoPedidoId;
+ 		produtoPedido.produto = produto;
  		produtoPedido.quantidade = tds[2].innerHTML;
  		
  		listaProduto.push(produtoPedido);		 		
-  	}	
+  	}		
 	
-	var statusPedido = Object();
-	statusPedido.idStatusPedido = 1;
-	
-	var pedido = new Object();
-	pedido.observacao = "Teste";
-	pedido.valorTotalPedido = "";
-	pedido.retiradoLocal = document.getElementById("novo_pedido_retiradoLocal").checked;
-	pedido.statusPedido = statusPedido;
-	pedido.cliente = cliente;
 	pedido.produtoPedidoList = listaProduto;
 	
 	var dataJson = JSON.stringify(pedido);
@@ -185,6 +196,7 @@ function adicionarPedido(){
            cache: false,    //This will force requested pages not to be cached by the browser          
            processData:false, //To avoid making query String instead of JSON
            success: function(resposeJsonObject){
+        	   alert("Pedido adicionado com sucesso!");
         	   limparCampos();
 		   }
            
@@ -233,12 +245,50 @@ function adicionarPedido(){
 	 });
  }
  
+ 
+ function editarPedido(id){
+	 $.get("carregarPedidoId/" + id, function(pedido){
+	 if(pedido != null){
+		 	limparCampos();
+		 	$('#novo_pedido_idPedido').val(pedido.idPedido);
+		 	$('#novo_pedido_idCliente').val(pedido.cliente.idCliente);
+		 	$('#novo_pedido_idEndereco').val(pedido.cliente.endereco.idEndereco);
+		 	$('#novo_pedido_idStatusPedido').val(pedido.statusPedido.idStatusPedido);
+			$('#novo_pedido_rua').val(pedido.cliente.endereco.rua);
+			$('#novo_pedido_bairro').val(pedido.cliente.endereco.bairro);
+			$('#novo_pedido_numero').val(pedido.cliente.endereco.numero);
+			$('#novo_pedido_cidade').val(pedido.cliente.endereco.cidade);
+			$('#novo_pedido_cep').val(pedido.cliente.endereco.cep);
+			$('#novo_pedido_complemento').val(pedido.cliente.endereco.complemento);
+			$('#novo_pedido_latitude').val(pedido.cliente.endereco.latitude);
+			$('#novo_pedido_longitude').val(pedido.cliente.endereco.longitude);
+			
+			$('#novo_pedido_nome').val(pedido.cliente.nome);
+			$('#novo_pedido_telefone').val(pedido.cliente.telefone);
+			
+			$('#novo_pedido_observacoes').val(pedido.observacao);
+			$('#novo_pedido_valor_total').val(pedido.valorTotalPedido);
+			
+			for(var i=0; i<pedido.produtoPedidoList.length; i++){
+				produto = pedido.produtoPedidoList[i].produto.nomeProduto;
+				quantidade = pedido.produtoPedidoList[i].quantidade;				
+				$( "#novo_pedido_poduto_nome option:selected" ).text(produto);
+				$('#novo_pedido_poduto_quantidade').val(quantidade);
+				insertOnTable();
+			}
+		}else{
+			alert("Nenhum pedido encontrado!");
+		}	
+	 });
+ }
+ 
+ 
 //**************************************************************************************
 //
 //**************************************************************************************
- function populaCadastroPedido(idLinha, data)
- {	
+ function populaCadastroPedido(idLinha, data){	
 	 		idLinha = parseInt(idLinha);
+	 		var idCliente = data[idLinha].idCliente;
 			var nome = data[idLinha].nome;
 			var rua = data[idLinha].endereco.rua;
 			var bairro = data[idLinha].endereco.bairro;
@@ -246,6 +296,7 @@ function adicionarPedido(){
 			var cidade = data[idLinha].endereco.cidade;
 			var cep = data[idLinha].endereco.cep;
 			var complemento = data[idLinha].endereco.complemento;
+			$('#novo_pedido_idCliente').val(idCliente)
 			$('#novo_pedido_nome').val(nome);
 			$('#novo_pedido_rua').val(rua);
 			$('#novo_pedido_bairro').val(bairro);
@@ -361,7 +412,11 @@ function adicionarPedido(){
 //**************************************************************************************
  
  function limparCampos(){
-	 $('#novo_pedido_nome').val("");
+	 	$('#novo_pedido_idCliente').val("");
+	 	$('#novo_pedido_idEndereco').val("");
+	 	$('#novo_pedido_idPedido').val("");
+	 	$('#novo_pedido_idStatusPedido').val("");
+	 	$('#novo_pedido_nome').val("");
 		$('#novo_pedido_rua').val("");
 		$('#novo_pedido_telefone').val("");
 		$('#novo_pedido_bairro').val("");
@@ -369,10 +424,15 @@ function adicionarPedido(){
 		$('#novo_pedido_cidade').val("");
 		$('#novo_pedido_cep').val("");
 		$('#novo_pedido_complemento').val("");
-		document.getElementById("modal_lista_clientes").innerHTML = "";
 		$('#novo_pedido_retiradoLocal').val("");
 		$('#novo_pedido_poduto_quantidade').val("");
-		$('#novo_pedido_valor_total').val("0.0");
+		$('#novo_pedido_latitude').val("");
+		$('#novo_pedido_longitude').val("");
+		$('#novo_pedido_observacoes').val("");
+		$('#novo_pedido_valor_total').val("");
+		document.getElementById("novo_pedido_valor_total").innerHTML = "0.0";
+		document.getElementById("modal_lista_clientes").innerHTML = "";
+		document.getElementById("novo_pedido_lista_produtos").innerHTML = "";
 		$('#myModal').modal('hide');
  }
  

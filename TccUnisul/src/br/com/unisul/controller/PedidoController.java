@@ -12,6 +12,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ import br.com.unisul.bean.JsonResponse;
 import br.com.unisul.bean.Pedido;
 import br.com.unisul.bean.Produto;
 import br.com.unisul.bean.ProdutoPedido;
+import br.com.unisul.bean.ProdutoPedidoId;
 import br.com.unisul.bean.StatusPedido;
 import br.com.unisul.dao.ClienteDAO;
 import br.com.unisul.dao.EnderecoDAO;
@@ -33,30 +35,6 @@ import br.com.unisul.dao.ProdutoPedidoDAO;
 
 @Controller
 public class PedidoController {
-	
-//	@RequestMapping(value="salvaTransferencia", method = RequestMethod.POST)
-//	public @ResponseBody String salvaTransferencia(@RequestParam("idContaOrigem") int idContaOrigem, @RequestParam("idContaDestino") int idContaDestino,
-//			@RequestParam("data") String data, @ModelAttribute(value="transferencia") Transferencia transferencia, BindingResult result) throws ParseException {		
-//		if (!result.hasErrors()) {
-//			ContasDAO contaDAO = FactoryDAO.criarContasDAO();
-//			ContaCorrente contaOrigem = contaDAO.buscarContaPeloId(idContaOrigem);
-//			ContaCorrente contaDestino = contaDAO.buscarContaPeloId(idContaDestino);
-//			
-//			TipoLancamentoDAO tipoLancamentoDAO = FactoryDAO.criarTipoLancamentoDAO();
-//			TipoLancamento tipoLancamento = tipoLancamentoDAO.buscarTipoLancamentoPeloId(2);
-//			
-//			SimpleDateFormat format = new SimpleDateFormat("ddMMyyyy");
-//			Date dataLancamento = format.parse(data);
-//			transferencia.setDataLancamento(dataLancamento);
-//			transferencia.setContaCorrente(contaOrigem);
-//			transferencia.setContaDestino(contaDestino);
-//			transferencia.setTipoLancamento(tipoLancamento);
-//	
-//			TransferenciaDAO transferenciaDAO = FactoryDAO.criarTransferenciaDAO();
-//			transferenciaDAO.persist(transferencia);
-//		}
-//		return "sucesso";
-//	}
 	
 	@RequestMapping("/index")
 	public String execute(Model model) {
@@ -74,26 +52,21 @@ public class PedidoController {
 	
 	@RequestMapping(value="adicionarPedido", method = RequestMethod.POST)
 	public @ResponseBody String adicionarPedido(@RequestBody Pedido pedido) {
-		Endereco endereco = new Endereco();
-		endereco = pedido.getCliente().getEndereco();
-		new EnderecoDAO().salvar(endereco);
-		
-		Cliente cliente = new Cliente();
-		cliente = pedido.getCliente();
-		new ClienteDAO().salvar(cliente);
-		
-		Collection<ProdutoPedido> produtoPedido = pedido.getProdutoPedidoList();
-		pedido.setProdutoPedidoList(null);
 		pedido.setData(new Date());
-		pedido.setValorTotalPedido(50);
-		new PedidoDAO().salvar(pedido);
+		List<ProdutoPedido> produtoPedido = (List<ProdutoPedido>) pedido.getProdutoPedidoList();
+		for(int i=0; i<produtoPedido.size(); i++){
+			produtoPedido.get(i).setPedido(pedido);
+		}
+		pedido.setProdutoPedidoList(produtoPedido);
 		
-		for(ProdutoPedido prodPed : produtoPedido){
-			prodPed.getIdProdutoPedido().setPedido(pedido);
-			new ProdutoPedidoDAO().salvar(prodPed);
+		if(pedido.getIdPedido() == null){
+			new PedidoDAO().salvar(pedido);
+		}else{
+			new PedidoDAO().editar(pedido);
 		}
 		
-		return "index";
+
+		return "redirect:index";
 	}
 	
 	@RequestMapping(value="somaValorTotalPedido", 
@@ -167,6 +140,20 @@ public class PedidoController {
 		data += "]}";
 		JsonResponse json = new JsonResponse(status, "", data);
 		return json;
+	}
+	
+	@RequestMapping(value = "carregarPedidoId/{id}", method= RequestMethod.GET)
+	public @ResponseBody Pedido getPedido(@PathVariable Long id, Model model) {
+		Pedido pedido = new PedidoDAO().buscarPedidoPeloId(id);		
+		return pedido;
+	}
+	
+	@RequestMapping("removePedido")
+	public String remove(Long id) 
+	{
+		PedidoDAO dao = new PedidoDAO();
+		dao.excluir(id);
+		return "redirect:index";
 	}
 	
 

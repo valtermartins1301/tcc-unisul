@@ -3,6 +3,8 @@ package br.com.unisul.bean;
 import java.util.Collection;
 import java.util.Date;
 
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
 @Table(name = "pedidos")
@@ -24,8 +29,9 @@ public class Pedido {
 	@GenericGenerator(name = "increment", strategy = "increment")
 	@Column(name = "id")
 	private Long idPedido;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
 	@JoinColumn(name = "id_cliente")
+//	@Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private Cliente cliente;	
 	private double valorTotalPedido;
 	private Date data;	
@@ -35,7 +41,8 @@ public class Pedido {
 	private String observacao;
 	private boolean retiradoLocal;
 	
-	@OneToMany(mappedBy = "idProdutoPedido.pedido", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	private Collection<ProdutoPedido> produtoPedidoList;
 	
 	public Pedido(){

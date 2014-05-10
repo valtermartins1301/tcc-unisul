@@ -72,14 +72,7 @@ public class PedidoDAO {
 				
 				if(pedidoEncontrado != null){
 					et.begin();
-					pedidoEncontrado.setIdPedido(pedido.getIdPedido());
-					pedidoEncontrado.setCliente(pedido.getCliente());
-					pedidoEncontrado.setData(pedido.getData());
-					pedidoEncontrado.setValorTotalPedido(pedido.getValorTotalPedido());
-					pedidoEncontrado.setObservacao(pedido.getObservacao());
-					pedidoEncontrado.setStatusPedido(pedido.getStatusPedido());
-					pedidoEncontrado.setRetiradoLocal(pedido.getRetiradoLocal());
-					pedidoEncontrado.setProdutoPedidoList(pedido.getProdutoPedidoList());
+					em.merge(pedido);
 					et.commit();
 				}
 			}finally{
@@ -103,5 +96,16 @@ public class PedidoDAO {
 				entityManager.close();
 			}
 		return pedido;
+	}
+	
+	public void removerProdutoPedido(Long id) {
+		EntityManager entityManager = emf.createEntityManager();
+			try {				
+				Query query = entityManager.createQuery("delete from ProdutoPedido p where p.idProdutoPedido.pedido.idPedido = :id");
+				query.setParameter("id", id);
+				
+			} finally {
+				entityManager.close();
+			}
 	}
 }

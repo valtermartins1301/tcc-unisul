@@ -1,5 +1,6 @@
 package br.com.unisul.bean;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -28,7 +30,9 @@ public class Cliente {
 	
 	
 	@ManyToOne
+	(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "id_endereco")
+//	@Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private Endereco endereco;
 	
 	private String email;
