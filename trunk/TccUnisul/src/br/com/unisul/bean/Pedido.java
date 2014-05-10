@@ -31,7 +31,6 @@ public class Pedido {
 	private Long idPedido;
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
 	@JoinColumn(name = "id_cliente")
-//	@Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private Cliente cliente;	
 	private double valorTotalPedido;
 	private Date data;	
