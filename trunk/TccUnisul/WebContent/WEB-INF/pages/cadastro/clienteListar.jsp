@@ -19,16 +19,20 @@
 					    <input type="text" class="form-control" name="telefone" id="editar_cliente_telefone" placeholder="Telefone">				  
 					    <input type="text" class="form-control" name="cep" id="editar_cliente_cep" placeholder="CEP" >			  
 					  </div>
-					  <div class="form-group control-group form-inline">
-					    <input type="text" class="form-control" name="rua" id="editar_cliente_rua" placeholder="Rua"  style="width: 72%">&nbsp;&nbsp;&nbsp;
-					    <input type="text" class="form-control" name="numero" id="editar_cliente_numero" placeholder="Número" style="width: 22%">					  
+					  <div class="form-group control-group">
+			            <input type="text" class="form-control" name="rua" id="editar_cliente_rua" placeholder="Rua">
+			    	  </div>
+					  <div class="form-group">
+					  	<input type="text" class="form-control" name="bairro" id="editar_cliente_bairro" placeholder="Bairro">
 					  </div>
-					  
 					  <div class="form-group control-group form-inline">
-	 				    <input type="text" class="form-control" name="bairro" id="editar_cliente_bairro" placeholder="Bairro">
+	 				    <input type="text" class="form-control" name="numero" id="editar_cliente_numero" placeholder="Número">		
 	 				    <input type="text" class="form-control" name="cidade" id="editar_cliente_cidade" placeholder="Cidade">
 					  </div>
 					  <div class="form-group">
+			            <input type="hidden" id="editar_cliente_latitude" name="latitude" />
+		                <input type="hidden" id="editar_cliente_longitude" name="longitude" />
+		                <input type="hidden" id="map_canvas" />
 					    <input type="text" class="form-control" name="complemento" id="editar_cliente_complemento" placeholder="Complemento">
 					    <input type="hidden" id="editar_cliente_idCliente" name="idCliente" value=""/>
             			<input type="hidden" id="editar_cliente_idEndereco" name="idEndereco" value=""/>
