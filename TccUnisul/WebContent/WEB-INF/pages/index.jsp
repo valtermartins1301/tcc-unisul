@@ -217,8 +217,7 @@
 	  </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limparCampos()">Sair</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limparModalCliente()">Sair</button>
       </div>
     </div>
   </div>
