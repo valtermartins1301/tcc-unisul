@@ -89,7 +89,7 @@ function insertOnTable(produto)
 	
 	var td = document.createElement("TD");
 	var i = document.createElement("i");
-	i.className = "edit_and_exclude glyphicon glyphicon-remove";
+	i.className = "edit_and_exclude glyphicon glyphicon-plus-sign";
 	i.style     = "align=center;";
 	i.onclick = function () {
 	    tr.parentElement.removeChild(tr);
@@ -207,10 +207,12 @@ function adicionarPedido(){
 	 var telefone = $('#novo_pedido_telefone').val();
 	 
 	 $.get("carregarClienteTelefone/" + telefone, function(data){
-					 
-		 for(var j=0; j<data.length; j++){
-			
-			 var listaClientes = document.getElementById("modal_lista_clientes");
+		
+		 if(data.length == 0){
+			 return;
+		 }else{
+			 for(var j=0; j<data.length; j++){
+				 var listaClientes = document.getElementById("modal_lista_clientes");
 				var nome = data[j].nome;
 				var telefone = data[j].telefone;
 				var email = data[j].email;
@@ -239,9 +241,9 @@ function adicionarPedido(){
 				tr.appendChild(td);
 				
 				listaClientes.appendChild(tr);
-				
-		 }			 
+			 }	
 		 $('#myModal').modal('show');
+		 }			 
 	 });
  }
  
@@ -289,6 +291,7 @@ function adicionarPedido(){
  function populaCadastroPedido(idLinha, data){	
 	 		idLinha = parseInt(idLinha);
 	 		var idCliente = data[idLinha].idCliente;
+	 		var idEndereco = data[idLinha].endereco.idEndereco;
 			var nome = data[idLinha].nome;
 			var rua = data[idLinha].endereco.rua;
 			var bairro = data[idLinha].endereco.bairro;
@@ -296,7 +299,8 @@ function adicionarPedido(){
 			var cidade = data[idLinha].endereco.cidade;
 			var cep = data[idLinha].endereco.cep;
 			var complemento = data[idLinha].endereco.complemento;
-			$('#novo_pedido_idCliente').val(idCliente)
+			$('#novo_pedido_idCliente').val(idCliente);
+			$('#novo_pedido_idEndereco').val(idEndereco);
 			$('#novo_pedido_nome').val(nome);
 			$('#novo_pedido_rua').val(rua);
 			$('#novo_pedido_bairro').val(bairro);
@@ -360,8 +364,7 @@ function adicionarPedido(){
 	 $('#editar_cliente_cidade').val("");
 	 $('#editar_cliente_complemento').val("");
 	 $('#editar_cliente_idCliente').val("");
-	 $('#editar_cliente_idEndereco').val("");
-	 
+	 $('#editar_cliente_idEndereco').val("");	 
  }
  
 //**************************************************************************************
@@ -435,6 +438,11 @@ function adicionarPedido(){
 		document.getElementById("novo_pedido_lista_produtos").innerHTML = "";
 		$('#myModal').modal('hide');
  }
+ 
+ function limparModalCliente(){
+		document.getElementById("modal_lista_clientes").innerHTML = "";
+ }
+ 
  
 
  

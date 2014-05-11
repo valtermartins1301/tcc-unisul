@@ -29,7 +29,7 @@ public class Pedido {
 	@GenericGenerator(name = "increment", strategy = "increment")
 	@Column(name = "id")
 	private Long idPedido;
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;	
 	private double valorTotalPedido;

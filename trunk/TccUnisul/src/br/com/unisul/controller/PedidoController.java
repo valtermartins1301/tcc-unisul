@@ -52,6 +52,12 @@ public class PedidoController {
 	
 	@RequestMapping(value="adicionarPedido", method = RequestMethod.POST)
 	public @ResponseBody String adicionarPedido(@RequestBody Pedido pedido) {
+		
+		if(pedido.getCliente().getIdCliente() == null){
+			Cliente cliente = pedido.getCliente();
+			new ClienteDAO().salvar(cliente);
+		}
+		
 		pedido.setData(new Date());
 		List<ProdutoPedido> produtoPedido = (List<ProdutoPedido>) pedido.getProdutoPedidoList();
 		for(int i=0; i<produtoPedido.size(); i++){
