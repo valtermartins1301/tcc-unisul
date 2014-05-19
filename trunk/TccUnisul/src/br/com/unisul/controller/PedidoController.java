@@ -18,20 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.unisul.bean.CalcValorPedido;
 import br.com.unisul.bean.Cliente;
 import br.com.unisul.bean.Endereco;
-import br.com.unisul.bean.JsonResponse;
 import br.com.unisul.bean.Pedido;
 import br.com.unisul.bean.Produto;
 import br.com.unisul.bean.ProdutoPedido;
-import br.com.unisul.bean.ProdutoPedidoId;
 import br.com.unisul.bean.StatusPedido;
 import br.com.unisul.dao.ClienteDAO;
 import br.com.unisul.dao.EnderecoDAO;
 import br.com.unisul.dao.PedidoDAO;
 import br.com.unisul.dao.ProdutoDAO;
 import br.com.unisul.dao.ProdutoPedidoDAO;
+import br.com.unisul.util.CalcValorPedido;
+import br.com.unisul.util.JsonResponse;
 
 @Controller
 public class PedidoController {

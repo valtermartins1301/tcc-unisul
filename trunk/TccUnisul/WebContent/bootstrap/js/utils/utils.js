@@ -89,7 +89,7 @@ function insertOnTable(produto)
 	
 	var td = document.createElement("TD");
 	var i = document.createElement("i");
-	i.className = "edit_and_exclude glyphicon glyphicon-plus-sign";
+	i.className = "edit_and_exclude glyphicon glyphicon-remove";
 	i.style     = "align=center;";
 	i.onclick = function () {
 	    tr.parentElement.removeChild(tr);
@@ -233,7 +233,7 @@ function adicionarPedido(){
 									
 				var td = document.createElement("TD");				
 				var i = document.createElement("a");
-				i.className = "edit_and_exclude glyphicon glyphicon-remove";
+				i.className = "edit_and_exclude glyphicon glyphicon-plus-sign";
 				i.style     = "align=center;";
 				i.id = j;
 				i.onclick = function(){ populaCadastroPedido(this.id, data);};
