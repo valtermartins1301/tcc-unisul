@@ -29,6 +29,7 @@ public class Pedido {
 	@GenericGenerator(name = "increment", strategy = "increment")
 	@Column(name = "id")
 	private Long idPedido;
+	
 	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;	
@@ -43,6 +44,10 @@ public class Pedido {
 	@OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	private Collection<ProdutoPedido> produtoPedidoList;
+	
+	@ManyToOne(cascade = {CascadeType.MERGE})
+	@JoinColumn(name="id_lotePedido")
+	private LotePedido lotePedido;
 	
 	public Pedido(){
 		

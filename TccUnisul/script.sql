@@ -21,6 +21,11 @@ insert into statusPedido (descricao) values ('Cancelado');
 
 
 create table pedidos (id serial primary key, id_cliente int references clientes(id), valorTotalPedido float not null, data date not null, 
-id_statusPedido int references statusPedido(id), observacao varchar(250), retiradoLocal boolean);
+id_statusPedido int references statusPedido(id), observacao varchar(250), retiradoLocal boolean, id_lotePedido int references lotePedido(id));
 
 create table produto_pedido (id serial primary key, produto_id int references produtos(id), pedido_id int references pedidos(id), quantidade int);
+
+create table entregadores (id serial primary key, nome varchar(50) not null, telefone varchar(25), capacidadeEntrega varchar(50), id_endereco int references enderecos(id));
+
+create table lotePedido (id serial primary key, id_entregador int references entregadores(id));
+

@@ -32,7 +32,6 @@ public class Cliente {
 	@ManyToOne
 	(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "id_endereco")
-//	@Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	private Endereco endereco;
 	
 	private String email;

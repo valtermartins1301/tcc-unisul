@@ -6,7 +6,6 @@ import javax.persistence.EntityTransaction;
 
 import br.com.unisul.bean.Pedido;
 import br.com.unisul.bean.ProdutoPedido;
-import br.com.unisul.bean.ProdutoPedidoId;
 
 public class ProdutoPedidoDAO {
 	EntityManagerFactory emf;
@@ -32,7 +31,7 @@ public class ProdutoPedidoDAO {
 		}		
 	}
 	
-	public void excluir(ProdutoPedidoId id){
+	public void excluir(ProdutoPedido id){
 		EntityManager em = emf.createEntityManager();
 		try{
 			EntityTransaction et = em.getTransaction();

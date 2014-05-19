@@ -1,4 +1,4 @@
-package br.com.unisul.bean;
+package br.com.unisul.util;
 
 public class JsonResponse {
 	 
