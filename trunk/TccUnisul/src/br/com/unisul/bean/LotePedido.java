@@ -22,9 +22,9 @@ public class LotePedido {
 	@GenericGenerator(name = "increment", strategy = "increment")
 	private Long idLotePedido;
 	
-	@OneToMany (targetEntity = Pedido.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_pedidos")
-	private List<Pedido> pedidos;
+//	@OneToMany (fetch = FetchType.EAGER)
+//	@JoinColumn(name = "id_pedido")
+//	private List<Pedido> pedidos;
 	@ManyToOne
 	@JoinColumn(name = "id_entregadores")
 	private Entregador entregador;
@@ -35,12 +35,12 @@ public class LotePedido {
 	public void setIdLotePedido(Long idLotePedido) {
 		this.idLotePedido = idLotePedido;
 	}
-	public List<Pedido> getPedidos() {
-		return pedidos;
-	}
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
+//	public List<Pedido> getPedidos() {
+//		return pedidos;
+//	}
+//	public void setPedidos(List<Pedido> pedidos) {
+//		this.pedidos = pedidos;
+//	}
 	public Entregador getEntregador() {
 		return entregador;
 	}
