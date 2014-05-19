@@ -106,7 +106,7 @@ function insertOnTable(produto)
 //  Data Tables - inicialização e internacionalização das strings
 //*************************************************************************************
 $(document).ready(function() {
-	$('#datatables_lista').dataTable( {
+	$('#datatables_Lista').dataTable( {
 			"oLanguage": {
 				"sProcessing":   "Processando...",
 			    "sLengthMenu":   "Mostrar _MENU_ registros",

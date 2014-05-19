@@ -107,10 +107,12 @@
              <!-- /.panel-heading -->
              <div class="panel-body">
                  <div class="table-responsive">
-                     <table class="table table-striped table-bordered table-hover" id="datatables_lista">
+                 	 <legend align="center">Pedidos</legend>
+                     <table class="table table-striped table-bordered table-hover" id="datatables_Lista">
                          <thead>
                              <tr>
-                                 <th>Nº</th>
+                             	 <th><input type="button" class="btn btn-success" value="Criar Lote"></th>
+                                 <th>NºPedido</th>
                                  <th>Cliente</th>
                                  <th>Produtos</th>
                                  <th>Obs:</th>
@@ -122,54 +124,14 @@
                              </tr>
                          </thead>
                          <tbody>
-                         	  <!--<tr class="odd gradeX">
-                                 <td>1</td>
-                                 <td>Cliente1</td>
-                                 <td>Produto1; Produto2</td>
-                                 <td>Observação</td>
-                                 <td>32584215</td>
-                                 <td>Lote 1</td>
-                                 <td>13/04/2014 23:25</td>
-                                 <td>Cancelado</td>
-                                 <td>Editar/Excluir</td>                                  
-                             </tr>
-                             <tr class="even gradeC">
-                                 <td>1</td>
-                                 <td>Cliente2</td>
-                                 <td>Produto1; Produto2</td>
-                                 <td>Observação</td>
-                                 <td>32584215</td>
-                                 <td>Lote1</td>
-                                 <td>13/04/2014 23:25</td>
-                                 <td>Finalizado</td>
-                                 <td>Editar/Excluir</td>   
-                             </tr>
-                             <tr class="odd gradeA">
-                                 <td>1</td>
-                                 <td>Cliente3</td>
-                                 <td>Produto1; Produto 2</td>
-                                 <td>Observação</td>
-                                 <td>32584215</td>
-                                 <td>Lote3</td>
-                                 <td>13/04/2014 23:25</td>
-                                 <td>Pendente</td>
-                                 <td>Editar/Excluir</td>  
-                             </tr>
-                             <tr class="even gradeA">
-                                 <td>1</td>
-                                 <td>Cliente4</td>
-                                 <td>Produto1; Produto2</td>
-                                 <td>Observação</td>
-                                 <td>32584215</td>
-                                 <td>Lote1</td>
-                                 <td>13/04/2014 23:25</td>
-                                 <td>Pendente</td>
-                                 <td>Editar/Excluir</td>  
-                             </tr> -->
-                             
                              <c:forEach items="${pedidos}" var="pedidos">
 								<tr>
-									<td>${pedidos.idPedido}</td>
+									<td>
+										<label>
+      										<input type="checkbox">
+    									</label>	
+    								</td>
+    								<td>${pedidos.idPedido}</td>
 									<td>${pedidos.cliente.nome}</td>
 									<td>
 										<c:forEach items="${pedidos.produtoPedidoList}" var="produtoPedidoList">
@@ -193,7 +155,52 @@
       </div>
 </div>
 
-<!-- Modal -->
+<div>
+     <div style="width: 100%">
+         <div class="panel panel-default">
+             <!-- /.panel-heading -->
+             <div class="panel-body">
+                 <div class="table-responsive">
+	                 <legend align="center">Lotes</legend>
+                     <table class="table table-striped table-bordered table-hover" id="datatables_Lotes">
+                         <thead>
+                             <tr>
+                                 <th>NºLote</th>
+                                 <th>Pedidos</th>
+                                 <th>Entregador</th>
+                                 <th></th>                                     
+                             </tr>
+                         </thead>
+                         <tbody>
+                         	<tr>
+                         		<td>2</td>
+                         		<td>(Nº1)Cliente2,(Nº2)Cliente3</td>
+                         		<td>Entregador1</td>
+                         		<td>Editar/Excluir</td>
+                         	</tr>
+                             <!--<c:forEach items="${lotes}" var="lotes">
+								<tr>
+    								<td>${lotes.idLote}</td>
+									<td>
+										<c:forEach items="${lotes.PedidoList}" var="produtoPedidoList">
+											${lotes.pedido.NumeroPedido}
+											${lotes.pedido.Nomecliente}
+							            </c:forEach> 
+							        </td>
+									<td>${lotes.observacao}</td>
+									<td>${lotes.cliente.telefone}</td>
+									<td><a class="edit_and_exclude" onclick="editarLote(${lotes.idLote})">Editar</a>/<a class="edit_and_exclude" href="removeLote?id=${lotes.idLote}">Excluir</a></td>
+								</tr>
+							</c:forEach> -->
+                         </tbody>
+                  	  </table>
+                    </div>
+                 </div>
+            </div>
+      </div>
+</div>
+
+<!-- Modal Pedidos -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
