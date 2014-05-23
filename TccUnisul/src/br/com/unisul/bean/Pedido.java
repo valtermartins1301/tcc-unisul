@@ -45,8 +45,7 @@ public class Pedido {
 	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	private Collection<ProdutoPedido> produtoPedidoList;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE})
-	@JoinColumn(name="id_lotePedido")
+	@ManyToOne(fetch=FetchType.LAZY)
 	private LotePedido lotePedido;
 	
 	public Pedido(){
