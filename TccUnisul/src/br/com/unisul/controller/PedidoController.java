@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.unisul.bean.Cliente;
 import br.com.unisul.bean.Endereco;
+import br.com.unisul.bean.LotePedido;
 import br.com.unisul.bean.Pedido;
 import br.com.unisul.bean.Produto;
 import br.com.unisul.bean.ProdutoPedido;
 import br.com.unisul.bean.StatusPedido;
 import br.com.unisul.dao.ClienteDAO;
 import br.com.unisul.dao.EnderecoDAO;
+import br.com.unisul.dao.LotePedidoDAO;
 import br.com.unisul.dao.PedidoDAO;
 import br.com.unisul.dao.ProdutoDAO;
 import br.com.unisul.dao.ProdutoPedidoDAO;
@@ -41,9 +43,11 @@ public class PedidoController {
 	
 		List<Produto> produtos = new ProdutoDAO().listAll();
 		List<Pedido> pedidos = new PedidoDAO().listAll();
+		List<LotePedido> lotePedido = new LotePedidoDAO().listAll();
 				
 		model.addAttribute("pedidos", pedidos);
 		model.addAttribute("produtos", produtos);
+		model.addAttribute("lotePedido", lotePedido);
 		
 		
 		return "index";
