@@ -1,6 +1,7 @@
 package br.com.unisul.bean;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ public class Entregador {
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
+	@Column(name = "id")
 	private Long idEntregador;
 	private String nome;
 	@ManyToOne
