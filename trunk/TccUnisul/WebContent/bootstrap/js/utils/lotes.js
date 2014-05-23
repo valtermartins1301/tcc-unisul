@@ -22,3 +22,57 @@ $(document).ready(function() {
 			}
 		} );
 	} );
+
+
+
+function editarLote(id){
+	$.get("carregarLoteId/" + id, function(data){
+		if(data == null){
+			 return;
+		}else{
+			 
+			 for(var j=0; j<data.pedidos.length; j++){
+				var pedidos = data.pedidos;
+				var listaPedidos = document.getElementById("modal_lista_lotePedidos");
+				var numeroPedido = pedidos[j].idPedido;
+				var nome = pedidos[j].cliente.nome;
+				var telefone = pedidos[j].cliente.telefone;
+				var entregador = data.entregador.nome;
+			 
+				var tr = document.createElement("TR");
+				tr.id = numeroPedido;
+				var td = document.createElement("TD");
+				td.innerText = numeroPedido;
+				tr.appendChild(td);
+				
+				var td = document.createElement("TD");
+				td.innerText = nome;
+				tr.appendChild(td);
+				
+				var td = document.createElement("TD");
+				td.innerText = telefone;
+				tr.appendChild(td);
+				
+				var td = document.createElement("TD");
+				td.innerText = entregador;
+				tr.appendChild(td);
+									
+				var td = document.createElement("TD");
+				var i = document.createElement("i");
+				i.className = "edit_and_exclude glyphicon glyphicon-remove";
+				i.style     = "align=center;";
+				i.onclick = function () {
+				    tr.parentElement.removeChild(tr);
+				};
+				td.appendChild(i);
+				tr.appendChild(td);
+				
+				listaPedidos.appendChild(tr);
+			 }	
+		 $('#lotesModal').modal('show');
+		 	 
+			
+		}	
+	});
+	
+}
