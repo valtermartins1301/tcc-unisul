@@ -172,26 +172,19 @@
                              </tr>
                          </thead>
                          <tbody>
-                         	<tr>
-                         		<td>2</td>
-                         		<td>(Nº1)Cliente2,(Nº2)Cliente3</td>
-                         		<td>Entregador1</td>
-                         		<td>Editar/Excluir</td>
-                         	</tr>
-                             <!--<c:forEach items="${lotes}" var="lotes">
+                            <c:forEach var="lotes" items="${lotePedido}">
 								<tr>
-    								<td>${lotes.idLote}</td>
+    								<td>${lotes.idLotePedido}</td>
 									<td>
-										<c:forEach items="${lotes.PedidoList}" var="produtoPedidoList">
-											${lotes.pedido.NumeroPedido}
-											${lotes.pedido.Nomecliente}
+										<c:forEach items="${lotes.pedidos}" var="pedidos">
+											(${pedidos.idPedido}) 
+											${pedidos.cliente.nome}  
 							            </c:forEach> 
 							        </td>
-									<td>${lotes.observacao}</td>
-									<td>${lotes.cliente.telefone}</td>
-									<td><a class="edit_and_exclude" onclick="editarLote(${lotes.idLote})">Editar</a>/<a class="edit_and_exclude" href="removeLote?id=${lotes.idLote}">Excluir</a></td>
+									<td>${lotes.entregador.nome}</td>
+									<td><a class="edit_and_exclude" onclick="editarLote(${lotes.idLotePedido})">Editar</a>/<a class="edit_and_exclude" href="removeLote?id=${lotes.idLotePedido}">Excluir</a></td>
 								</tr>
-							</c:forEach> -->
+							</c:forEach> 
                          </tbody>
                   	  </table>
                     </div>
@@ -201,7 +194,7 @@
 </div>
 
 <!-- Modal Pedidos -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -219,6 +212,38 @@
                 </tr>
             </thead>
 			 <tbody id="modal_lista_clientes">
+						
+			</tbody>
+	  </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limparModalCliente()">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Lotes -->
+<div class="modal fade" id="lotesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="limparCampos()">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"> Lote Nº </h4>
+      </div>
+      <div class="modal-body">
+      <table class="table table-bordered">
+			 <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Entregador</th>      
+                    <th>Remover</th>                                 
+                </tr>
+            </thead>
+			 <tbody id="modal_lista_lotePedidos">
 						
 			</tbody>
 	  </table>
