@@ -120,18 +120,11 @@ public class PedidoController {
 		for(int i = 0; i<listaPedidos.size();i++)
 		{
 			Pedido pedido     = listaPedidos.get(i);
-//			Cliente cliente   = pedido.getCliente();
-//			Endereco endereco = cliente.getEndereco();
-//			Collection<ProdutoPedido> produtoPedido = pedido.getProdutoPedidoList();
-			StatusPedido statusPedido = pedido.getStatusPedido();
-			pedidosString = "{\"idpedido\":"+pedido.getIdPedido()+","+"\"status\":\""+statusPedido.getDescricao()+"\","+"\"cliente\":";
-
-			
 			ObjectMapper mapper = new ObjectMapper();
 			 
 			try {
-				System.out.println(mapper.writeValueAsString(pedido.getCliente()));
-				pedidosString = pedidosString + mapper.writeValueAsString(pedido.getCliente());
+				System.out.println(mapper.writeValueAsString(pedido));
+				pedidosString = pedidosString + mapper.writeValueAsString(pedido);
 				status = "ok";
 			} catch (JsonGenerationException e) {
 				e.printStackTrace();
@@ -140,10 +133,8 @@ public class PedidoController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			if(i == listaPedidos.size()-1)
-				pedidosString = pedidosString+"}";
-			else
-				pedidosString = pedidosString+"},";
+			if(i != listaPedidos.size()-1)
+				pedidosString = pedidosString+",";
 			data += pedidosString;
 		}
 		data += "]}";
