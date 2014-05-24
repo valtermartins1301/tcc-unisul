@@ -94,7 +94,7 @@ function marcarNoMapa(data) {
 			            				'<span> <b>Status: </b> '+data.listapedidos[i].statusPedido.descricao+'</span><br/>'+
 			            				'<span> <b>Retirada no local: </b> '+(data.listapedidos[i].retiradoLocal?"sim":"não")+'</span><br/>'+
 			            				'<span> <b>Valor: </b> '+data.listapedidos[i].valorTotalPedido+'</span><br/>'+
-			            				'<textarea type="text" class="form-control" readonly="true" style="max-height: 100px; max-width: 200px; overflow: auto;">'+data.listapedidos[i].observacao+'</textarea>'+
+			            				'<textarea type="text" class="form-control" readonly="true" style="width:200 max-height: 100px; max-width: 100px; overflow: auto;">'+data.listapedidos[i].observacao+'</textarea>'+
 			            			'</div>'+
 			            			'<div class="tab-pane" id="Cliente">'+
 			            				'<legend align="center">Cliente: '+data.listapedidos[i].cliente.nome+'</legend>'+
@@ -120,8 +120,8 @@ function marcarNoMapa(data) {
      	            	'</div>';*/
      	            var myinfowindow = new google.maps.InfoWindow({
      	                content: contentString,
-     	                maxWidth: 800,
-     	                maxHeight: 800
+     	                maxWidth: 1200,
+     	                maxHeight: 1200
      	            });
     				var marker = new google.maps.Marker({
 		                position: latLng,

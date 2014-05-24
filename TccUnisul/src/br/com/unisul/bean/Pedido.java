@@ -68,6 +68,14 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
+	public LotePedido getLotePedido() {
+		return lotePedido;
+	}
+
+	public void setLotePedido(LotePedido lotePedido) {
+		this.lotePedido = lotePedido;
+	}
+
 	public double getValorTotalPedido() {
 		return valorTotalPedido;
 	}
@@ -147,7 +155,7 @@ public class Pedido {
 		return "Pedido [idPedido=" + idPedido + ", cliente=" + cliente
 				+ ", valorTotalPedido=" + valorTotalPedido + ", data=" + data
 				+ ", statusPedido=" + statusPedido + ", observacao="
-				+ observacao + ", retiradoLocal=" + retiradoLocal
+				+ observacao + ", retiradoLocal=" + retiradoLocal + ", lotePedido="+ lotePedido
 				+ "]";
 	}
 	
