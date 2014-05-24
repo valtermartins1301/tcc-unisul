@@ -9,6 +9,7 @@
 				  <input type="hidden" id="novo_pedido_idCliente" name="idCliente" />
 				  <input type="hidden" id="novo_pedido_idEndereco" name="idEndereco" />
 				  <input type="hidden" id="novo_pedido_idPedido" name="idPedido" />
+				  <input type="hidden" id="novo_pedido_idLotePedido" name="idPedido" />
 				  <input type="hidden" id="novo_pedido_idStatusPedido" name="idStatusPedido" />
 				  <div class="form-group control-group form-inline">
 				    <input type="text" class="form-control" name="nome" id="novo_pedido_nome" placeholder="Nome do cliente">
@@ -111,7 +112,7 @@
                      <table class="table table-striped table-bordered table-hover" id="datatables_Lista">
                          <thead>
                              <tr>
-                             	 <th><input type="button" class="btn btn-success" value="Criar Lote"></th>
+                             	 <th><input type="button" class="btn btn-success" value="Criar Lote" onclick="criarLote();"></th>
                                  <th>NºPedido</th>
                                  <th>Cliente</th>
                                  <th>Produtos</th>
@@ -123,12 +124,12 @@
                                  <th></th>                                     
                              </tr>
                          </thead>
-                         <tbody>
+                         <tbody id="tbody_lista_pedidos">
                              <c:forEach items="${pedidos}" var="pedidos">
 								<tr>
 									<td>
 										<label>
-      										<input type="checkbox">
+      										<input type="checkbox" name="${pedidos.idPedido}" class="checkboxLotePedido">
     									</label>	
     								</td>
     								<td>${pedidos.idPedido}</td>
@@ -141,7 +142,7 @@
 							        </td>
 									<td>${pedidos.observacao}</td>
 									<td>${pedidos.cliente.telefone}</td>
-									<td>lote1</td>
+									<td><!-- ${pedidos.lotePedido.idLotePedido}--></td>
 									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy hh:mm" /></td>
 									<td>${pedidos.statusPedido.descricao}</td>
 									<td><a class="edit_and_exclude" onclick="editarPedido(${pedidos.idPedido})">Editar</a>/<a class="edit_and_exclude" href="removePedido?id=${pedidos.idPedido}">Excluir</a></td>
