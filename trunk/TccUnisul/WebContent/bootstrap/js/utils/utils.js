@@ -125,6 +125,10 @@ $(document).ready(function() {
 			    }
 			}
 		} );
+	
+	 $('#myModal').on('hide.bs.modal', function () { 
+		 document.getElementById("modal_lista_clientes").innerHTML = "";
+		 });
 	} );
 
 //**************************************************************************************

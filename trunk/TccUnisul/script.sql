@@ -7,10 +7,10 @@ ALTER TABLE clientes ADD COLUMN flag_excluido boolean;
 ALTER TABLE clientes ALTER COLUMN flag_excluido SET DEFAULT false;
 
 create table produtos (id serial primary key, nome varchar(100) not null, descricao varchar(250), preco float not null);
-insert into produtos (nome, preco, flag_excluido) values ('X-Salada', 8.50, false);
-insert into produtos (nome, preco, flag_excluido) values ('X-Bacon', 8.50, false);
 ALTER TABLE produtos ADD COLUMN flag_excluido boolean;
 ALTER TABLE produtos ALTER COLUMN flag_excluido SET DEFAULT false;
+insert into produtos (nome, preco, flag_excluido) values ('X-Salada', 8.50, false);
+insert into produtos (nome, preco, flag_excluido) values ('X-Bacon', 8.50, false);
 
 create table statusPedido (id serial primary key, descricao varchar(50));
 insert into statusPedido (descricao) values ('Em aberto');

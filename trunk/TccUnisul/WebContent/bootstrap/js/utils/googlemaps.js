@@ -1,7 +1,9 @@
 var geocoder;
 var map;
 var marker;
-
+//**************************************************************************************
+//
+//**************************************************************************************
 function initialize()
 {
 	var latlng = new google.maps.LatLng(-27.591903,-48.565934);
@@ -19,10 +21,10 @@ function initialize()
 		map: map,
 		draggable: true,
 	});
-	
-	//marker.setPosition(latlng);
 }
-
+//**************************************************************************************
+//
+//**************************************************************************************
 function carregaPedidosNoMapa() {
 	
 	var url = "getPedidos";
@@ -42,25 +44,87 @@ function carregaPedidosNoMapa() {
         }
 	});
 }
-
+//**************************************************************************************
+//
+//**************************************************************************************
 function marcarNoMapa(data) {
-
+		
             	for(var i=0; i<data.listapedidos.length;i++)
 				{
             		var endereco = data.listapedidos[i].cliente.endereco;
             		var latLng = new google.maps.LatLng(endereco.latitude, endereco.longitude); 
+            		var produtoList = '<div>'+
+				       		     '<div style="width: 100%">'+
+				    	         '<div class="panel panel-default">'+
+				    	             '<div class="panel-body">'+
+				    	                 '<div class="table-responsive">'+
+				    	                 	 '<legend align="center">Pedidos</legend>'+
+				    	                     '<table class="table table-striped table-bordered table-hover" id="datatables_Lista">'+
+				    	                         '<thead>'+
+				    	                             '<tr>'+
+				    	                                 '<th>Nome</th>'+
+				    	                                 '<th>Quantidade</th>'+                                   
+				    	                             '</tr>'+
+				    	                         '</thead>'+
+				    	                         '<tbody>';
+            		
+            		var produtos = '';
+            		for (var j= 0; j < data.listapedidos[i].produtoPedidoList.length; j++)
+            		{
+            			produtos += 
+            					'<tr>'+
+            						'<td>'+
+            							data.listapedidos[i].produtoPedidoList[i].produto.nomeProduto;
+            						'</td>'+
+            						'<td>'+
+        								data.listapedidos[i].produtoPedidoList[i].quantidade;
+            						'</td>'+
+            					'</tr>'; 	
+            		}
+            		
+            		produtoList += produtos+'</tbody></table></div></div></div></div></div>';
             		var contentString = 
-     	            	'<div id="content">'+
+            			'<div id="content">'+
+		            			'<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">'+
+			            			'<li class="active"><a class="edit_and_exclude" href="#Pedido" data-toggle="tab">Pedido</a></li>'+
+			            			'<li><a class="edit_and_exclude" href="#Cliente" data-toggle="tab">Cliente</a></li>'+
+			            			'<li><a class="edit_and_exclude" href="#Produto" data-toggle="tab">Produto</a></li>'+
+			            		'</ul>'+
+			            		'<div id="my-tab-content" class="tab-content">'+
+			            			'<br/>'+
+			            			'<div class="tab-pane active" id="Pedido">'+
+			            				'<legend align="center">Pedido Nº'+data.listapedidos[i].idPedido+'</legend>'+
+			            				'<span> <b>Data: </b>'+data.listapedidos[i].data+'</span><br/>'+
+			            				'<span> <b>Status: </b> '+data.listapedidos[i].statusPedido.descricao+'</span>'+
+			            				'<span> <b>Retirada no local: </b> '+(data.listapedidos[i].retiradoLocal?"sim":"não")+'</span><br/>'+
+			            				'<textarea type="text" class="form-control" readonly="true">'+data.listapedidos[i].observacao+'</textarea>'+
+			            			'</div>'+
+			            			'<div class="tab-pane" id="Cliente">'+
+			            				'<br/>'+
+			            				'<legend align="center">Cliente: '+data.listapedidos[i].cliente.nome+'</legend>'+
+			            				'<span> <b>Telefone: </b>'+data.listapedidos[i].cliente.telefone+'</span><br/>'+
+			            				'<div>'+  produtosList +
+			            				'<div>'+
+		            				'</div>'+
+		            				'<div class="tab-pane" id="Produto">'+
+		            					'<h1>Yellow</h1>'+
+		            					'<p>yellow yellow yellow yellow yellow</p>'+
+		            				'</div>'+
+		            			'</div>'+
+		            	'</div>';
+            		
+            			
+     	            	/*'<div id="content">'+
      	            		'<div id="marker_popup_id_pedido">Pedido nº: '+data.listapedidos[i].idpedido+'</div>'+
      	            		'<div id="marker_popup_id_pedido">Status: '+data.listapedidos[i].status+'</div>'+
      	            		'<div id="marker_popup_id_pedido">Cliente: '+data.listapedidos[i].cliente.nome +'</div>'+
      	            		'<div id="marker_popup_id_pedido">Telefone: '+data.listapedidos[i].cliente.telefone +'</div>'+
      	            		'<div id="marker_popup_id_pedido">Endereco: '+endereco.rua+','+endereco.numero+'</div>'+
-     	            	'</div>';
+     	            	'</div>';*/
      	            var myinfowindow = new google.maps.InfoWindow({
      	                content: contentString,
-     	                maxWidth: 200,
-     	                maxHeight: 200
+     	                maxWidth: 600,
+     	                maxHeight: 600
      	            });
     				var marker = new google.maps.Marker({
 		                position: latLng,
@@ -69,19 +133,33 @@ function marcarNoMapa(data) {
 		                infowindow: myinfowindow
             		});
     				bindInfoWindow(marker, map, myinfowindow);
+    				
 				}         
 }
 
+
+//**************************************************************************************
+//
+//**************************************************************************************
 function bindInfoWindow(marker, map, infowindow) {
+	
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map, marker);
+    	infowindow.open(map, marker);
+    	$('.bs-example-tabs').tab('show');
     });
+    
+    google.maps.event.addListener(infowindow, 'domready', function (e) {
+            $('.bs-example-tabs').tab();
+  });   
 }
+
+//**************************************************************************************
+//
+//**************************************************************************************
 $(document).ready(function () {
 
 	initialize();
 	carregaPedidosNoMapa();
-	
 	function CarregaEndereco(endereco) {
 		geocoder.geocode({ 'address': endereco + ', Brasil', 'region': 'BR' }, function (results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {

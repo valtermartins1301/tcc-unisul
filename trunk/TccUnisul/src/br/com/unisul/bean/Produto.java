@@ -110,8 +110,12 @@ public class Produto {
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Produto [idProduto=" + idProduto + ", nomeProduto="
+				+ nomeProduto + ", descricao=" + descricao + ", preco=" + preco
+				+ ", flagExcluido=" + flagExcluido + ", produtoPedidoList="
+				+ produtoPedidoList + "]";
+	}
 
-	
-	
 }
