@@ -54,11 +54,8 @@ function marcarNoMapa(data) {
             		var endereco = data.listapedidos[i].cliente.endereco;
             		var latLng = new google.maps.LatLng(endereco.latitude, endereco.longitude); 
             		var produtoList = '<div>'+
-				       		     '<div style="width: 100%">'+
-				    	         '<div class="panel panel-default">'+
-				    	             '<div class="panel-body">'+
 				    	                 '<div class="table-responsive">'+
-				    	                 	 '<legend align="center">Pedidos</legend>'+
+				    	                 	 '<legend align="center">Produtos</legend>'+
 				    	                     '<table class="table table-striped table-bordered table-hover" id="datatables_Lista">'+
 				    	                         '<thead>'+
 				    	                             '<tr>'+
@@ -73,16 +70,15 @@ function marcarNoMapa(data) {
             		{
             			produtos += 
             					'<tr>'+
-            						'<td>'+
-            							data.listapedidos[i].produtoPedidoList[i].produto.nomeProduto;
+            						'<td>'+ data.listapedidos[i].produtoPedidoList[j].produto.nomeProduto +
             						'</td>'+
-            						'<td>'+
-        								data.listapedidos[i].produtoPedidoList[i].quantidade;
+            						'<td>'+ data.listapedidos[i].produtoPedidoList[j].quantidade +
             						'</td>'+
             					'</tr>'; 	
             		}
             		
-            		produtoList += produtos+'</tbody></table></div></div></div></div></div>';
+            		produtoList += produtos+'</tbody></table></div></div>';
+            		
             		var contentString = 
             			'<div id="content">'+
 		            			'<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">'+
@@ -95,20 +91,21 @@ function marcarNoMapa(data) {
 			            			'<div class="tab-pane active" id="Pedido">'+
 			            				'<legend align="center">Pedido Nº'+data.listapedidos[i].idPedido+'</legend>'+
 			            				'<span> <b>Data: </b>'+data.listapedidos[i].data+'</span><br/>'+
-			            				'<span> <b>Status: </b> '+data.listapedidos[i].statusPedido.descricao+'</span>'+
+			            				'<span> <b>Status: </b> '+data.listapedidos[i].statusPedido.descricao+'</span><br/>'+
 			            				'<span> <b>Retirada no local: </b> '+(data.listapedidos[i].retiradoLocal?"sim":"não")+'</span><br/>'+
-			            				'<textarea type="text" class="form-control" readonly="true">'+data.listapedidos[i].observacao+'</textarea>'+
+			            				'<span> <b>Valor: </b> '+data.listapedidos[i].valorTotalPedido+'</span><br/>'+
+			            				'<textarea type="text" class="form-control" readonly="true" style="max-height: 100px; max-width: 200px; overflow: auto;">'+data.listapedidos[i].observacao+'</textarea>'+
 			            			'</div>'+
 			            			'<div class="tab-pane" id="Cliente">'+
-			            				'<br/>'+
 			            				'<legend align="center">Cliente: '+data.listapedidos[i].cliente.nome+'</legend>'+
 			            				'<span> <b>Telefone: </b>'+data.listapedidos[i].cliente.telefone+'</span><br/>'+
-			            				'<div>'+  produtosList +
-			            				'<div>'+
+			            				'<span> <b>Rua: </b>'+data.listapedidos[i].cliente.endereco.rua+'</span><br/>'+
+			            				'<span> <b>Nº: </b>'+data.listapedidos[i].cliente.endereco.numero+'</span><br/>'+
+			            				'<span> <b>Bairro: </b>'+data.listapedidos[i].cliente.endereco.bairro+'</span><br/>'+
 		            				'</div>'+
 		            				'<div class="tab-pane" id="Produto">'+
-		            					'<h1>Yellow</h1>'+
-		            					'<p>yellow yellow yellow yellow yellow</p>'+
+		            					'<div>'+  produtoList +
+		            					'</div>'+
 		            				'</div>'+
 		            			'</div>'+
 		            	'</div>';
@@ -123,8 +120,8 @@ function marcarNoMapa(data) {
      	            	'</div>';*/
      	            var myinfowindow = new google.maps.InfoWindow({
      	                content: contentString,
-     	                maxWidth: 600,
-     	                maxHeight: 600
+     	                maxWidth: 800,
+     	                maxHeight: 800
      	            });
     				var marker = new google.maps.Marker({
 		                position: latLng,
