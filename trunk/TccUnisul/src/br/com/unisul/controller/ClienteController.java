@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.unisul.bean.Cliente;
 import br.com.unisul.bean.Endereco;
 import br.com.unisul.dao.ClienteDAO;
 import br.com.unisul.dao.EnderecoDAO;
+import br.com.unisul.dao.LotePedidoDAO;
 
 @Controller
 public class ClienteController {
@@ -67,21 +69,12 @@ public class ClienteController {
 		return cliente;
 	}
 
-	@RequestMapping("removeCliente")
-	public String remove(Long id) 
-	{
-		ClienteDAO dao = new ClienteDAO();
-		dao.excluir(id);
-		return "redirect:clienteListar";
+	@RequestMapping(value="excluirCliente", method = RequestMethod.POST)
+	public @ResponseBody String excluirCliente(@RequestParam("idCliente") Long idCliente) { 
+		
+		new ClienteDAO().excluir(idCliente);			
+
+		return "sucesso";
 	}
-    
-	
- 	/*@RequestMapping("alteraTarefa")
-	public String altera(Tarefa tarefa) {
-		TarefaDAO dao = new TarefaDAO();
-		dao.merge(tarefa);
-		return "redirect:listaTarefas";
-	}
-	*/
 }
 
