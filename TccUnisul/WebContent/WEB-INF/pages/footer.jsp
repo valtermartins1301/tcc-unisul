@@ -12,7 +12,8 @@
     <script src="bootstrap/js/utils/utils.js"></script>
 	<script src="bootstrap/js/utils/googlemaps.js"></script>
 	<script src="bootstrap/js/utils/lotes.js"></script>
-	
+	<script src="bootstrap/js/utils/cliente.js"></script>
+	<script src="bootstrap/js/utils/produto.js"></script>
 	
 	<!-- Page-Level Plugin Scripts - Tables -->
     <script src="bootstrap/js/plugins/dataTables/jquery.dataTables.js"></script>
