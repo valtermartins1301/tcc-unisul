@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.unisul.bean.Cliente;
@@ -148,12 +149,12 @@ public class PedidoController {
 		return pedido;
 	}
 	
-	@RequestMapping("removePedido")
-	public String remove(Long id) 
-	{
-		PedidoDAO dao = new PedidoDAO();
-		dao.excluir(id);
-		return "redirect:index";
+	@RequestMapping(value="excluirPedido", method = RequestMethod.POST)
+	public @ResponseBody String excluirPedido(@RequestParam("idPedido") Long idPedido) { 
+		
+		new PedidoDAO().excluir(idPedido);			
+
+		return "sucesso";
 	}
 	
 
