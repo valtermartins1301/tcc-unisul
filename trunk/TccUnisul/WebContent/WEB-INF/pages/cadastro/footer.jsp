@@ -10,6 +10,8 @@
 	<script src="bootstrap/js/utils/googlemaps.js"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="bootstrap/js/jquery-ui.custom.min.js"></script>
+	<script src="bootstrap/js/utils/cliente.js"></script>
+	<script src="bootstrap/js/utils/produto.js"></script>
 	
 	<!-- Page-Level Plugin Scripts - Tables -->
     <script src="bootstrap/js/plugins/dataTables/jquery.dataTables.js"></script>

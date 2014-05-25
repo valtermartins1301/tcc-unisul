@@ -83,7 +83,7 @@
 									<td>${cliente.endereco.cidade}</td>
 									<td>${cliente.telefone}</td>
 									<td>${cliente.endereco.cep}</td>
-									<td><a class="edit_and_exclude" onclick="editarCliente(${cliente.idCliente})">Editar</a>/<a class="edit_and_exclude" href="removeCliente?id=${cliente.idCliente}">Excluir</a></td>
+									<td><a class="edit_and_exclude" onclick="editarCliente(${cliente.idCliente})">Editar</a>/<a class="edit_and_exclude" onclick="excluirCliente(${cliente.idCliente})">Excluir</a></td>
 								</tr>
 							</c:forEach>
                          </tbody>

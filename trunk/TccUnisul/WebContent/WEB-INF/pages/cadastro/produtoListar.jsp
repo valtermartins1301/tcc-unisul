@@ -54,7 +54,7 @@
 									<td>${produto.nomeProduto}</td>
 									<td>${produto.descricao}</td>
 									<td>${produto.preco}</td>
-									<td><a class="edit_and_exclude" onclick="editarProduto(${produto.idProduto})">Editar</a>/<a class="edit_and_exclude" href="removeProduto?id=${produto.idProduto}">Excluir</a></td>
+									<td><a class="edit_and_exclude" onclick="editarProduto(${produto.idProduto})">Editar</a>/<a class="edit_and_exclude" onclick="excluirProduto(${produto.idProduto})">Excluir</a></td>
 								</tr>
 							</c:forEach>
                          </tbody>
