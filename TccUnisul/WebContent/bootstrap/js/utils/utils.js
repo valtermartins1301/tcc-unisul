@@ -362,3 +362,23 @@ function limparCampos() {
 function limparModalCliente() {
 	document.getElementById("modal_lista_clientes").innerHTML = "";
 }
+
+// *************************************************************************************
+// 										Excluir Pedido
+// *************************************************************************************
+
+function excluirPedido(id) {
+	if (confirm("Realmente deseja excluir?")) {
+		$.ajax({
+			type : "POST",
+			url : "excluirPedido",
+			data : "idPedido=" + id,
+			success : function(response) {
+				if (response == "sucesso") {
+					window.location = "index";
+					alert("Registro excluído com sucesso!");
+				}
+			}
+		});
+	}
+}

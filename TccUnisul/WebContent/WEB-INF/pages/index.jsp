@@ -145,7 +145,7 @@
 									<td>${pedidos.lotePedido.idLotePedido}</td>
 									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy hh:mm" /></td>
 									<td>${pedidos.statusPedido.descricao}</td>
-									<td><a class="edit_and_exclude" onclick="editarPedido(${pedidos.idPedido})">Editar</a>/<a class="edit_and_exclude" href="removePedido?id=${pedidos.idPedido}">Excluir</a></td>
+									<td><a class="edit_and_exclude" onclick="editarPedido(${pedidos.idPedido})">Editar</a>/<a class="edit_and_exclude" onclick="excluirPedido(${pedidos.idPedido})">Excluir</a></td>
 								</tr>
 							</c:forEach>
                          </tbody>
