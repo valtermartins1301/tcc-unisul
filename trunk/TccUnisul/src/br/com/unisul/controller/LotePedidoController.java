@@ -29,6 +29,14 @@ public class LotePedidoController {
 		return "redirect:index";
 	}
 	
+	@RequestMapping(value="excluirLotePedido", method = RequestMethod.POST)
+	public @ResponseBody String excluirLotePedido(@RequestBody Long id) { 
+		
+		new LotePedidoDAO().excluir(id);			
+
+		return "redirect:index";
+	}
+	
 	
 	@RequestMapping(value = "carregarLoteId/{id}", method= RequestMethod.GET)
 	public @ResponseBody LotePedido getPedido(@PathVariable Long id, Model model) {
