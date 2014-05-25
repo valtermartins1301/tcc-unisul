@@ -142,7 +142,7 @@
 							        </td>
 									<td>${pedidos.observacao}</td>
 									<td>${pedidos.cliente.telefone}</td>
-									<td><!-- ${pedidos.lotePedido.idLotePedido}--></td>
+									<td>${pedidos.lotePedido.idLotePedido}</td>
 									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy hh:mm" /></td>
 									<td>${pedidos.statusPedido.descricao}</td>
 									<td><a class="edit_and_exclude" onclick="editarPedido(${pedidos.idPedido})">Editar</a>/<a class="edit_and_exclude" href="removePedido?id=${pedidos.idPedido}">Excluir</a></td>
@@ -231,7 +231,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="limparCampos()">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Lote Nº </h4>
+        <h4 class="modal-title" id="lotesModalLabel"> Lote Nº </h4>
       </div>
       <div class="modal-body">
       <table class="table table-bordered">
