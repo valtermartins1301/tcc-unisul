@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.unisul.bean.Cliente;
@@ -65,12 +66,12 @@ public class ProdutoController {
 		return produto;
 	}
 
-	@RequestMapping("removeProduto")
-	public String remove(Long id) 
-	{
-		ProdutoDAO dao = new ProdutoDAO();
-		dao.excluir(id);
-		return "redirect:produtoListar";
+	@RequestMapping(value="excluirProduto", method = RequestMethod.POST)
+	public @ResponseBody String excluirProduto(@RequestParam("idProduto") Long idProduto) { 
+		
+		new ProdutoDAO().excluir(idProduto);			
+
+		return "sucesso";
 	}
 }
 
