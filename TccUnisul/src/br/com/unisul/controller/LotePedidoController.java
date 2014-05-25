@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.unisul.bean.LotePedido;
@@ -30,11 +31,11 @@ public class LotePedidoController {
 	}
 	
 	@RequestMapping(value="excluirLotePedido", method = RequestMethod.POST)
-	public @ResponseBody String excluirLotePedido(@RequestBody Long id) { 
+	public @ResponseBody String excluirLotePedido(@RequestParam("idLotePedido") Long idLotePedido) { 
 		
-		new LotePedidoDAO().excluir(id);			
+		new LotePedidoDAO().excluir(idLotePedido);			
 
-		return "redirect:index";
+		return "sucesso";
 	}
 	
 	
