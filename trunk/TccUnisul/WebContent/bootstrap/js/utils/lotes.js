@@ -23,7 +23,9 @@ $(document).ready(function() {
 		} );
 	} );
 
-
+//*************************************************************************************
+//                                     Criar Lote
+//*************************************************************************************
 function criarLote(){
 	
 	var pedidosController = new Array();
@@ -86,6 +88,10 @@ function criarLote(){
 	
 }
 
+//*************************************************************************************
+//										Editar Lote
+//*************************************************************************************
+
 function editarLote(id){
 	$.get("carregarLoteId/" + id, function(data){
 		if(data == null){
@@ -130,10 +136,27 @@ function editarLote(id){
 				
 				listaPedidos.appendChild(tr);
 			 }	
-		 $('#lotesModal').modal('show');
-		 	 
-			
+		 $('#lotesModal').modal('show');			
 		}	
-	});
-	
+	});	
+}
+
+//*************************************************************************************
+//									Excluir Lote
+//*************************************************************************************
+
+function excluirLote(id){
+	if (confirm("Realmente deseja excluir?")) {
+		  $.ajax({  
+		    type: "POST",  
+		    url: "excluirLotePedido",  
+		    data: "idLotePedido=" + id,
+		    success: function(response) {  
+				if (response == "sucesso") {
+			    	window.location = "index";
+					alert("Registro excluído com sucesso!");
+				}
+		    }  
+		  });
+		}
 }
