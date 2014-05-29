@@ -34,7 +34,7 @@
                     <ul class="dropdown-menu dropdown-user">
 	                    <li role="presentation"><a role="menuitem" tabindex="-1" href="listaClientes">Clientes</a></li>
 					    <li role="presentation"><a role="menuitem" tabindex="-1" href="listaProdutos">Produtos</a></li>
-					    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Entregadores</a></li>		
+					    <li role="presentation"><a role="menuitem" tabindex="-1" href="listaEntregadores">Entregadores</a></li>		
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
