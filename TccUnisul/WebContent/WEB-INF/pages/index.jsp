@@ -182,7 +182,7 @@
 											${pedidos.cliente.nome}  
 							            </c:forEach> 
 							        </td>
-									<td>${lotes.entregador.nome}</td>
+									<td>${lotes.entregador.nomeEntregador}</td>
 									<td><a class="edit_and_exclude" onclick="editarLote(${lotes.idLotePedido})">Editar</a>/<a class="edit_and_exclude" onclick="excluirLote(${lotes.idLotePedido})">Excluir</a></td>
 								</tr>
 							</c:forEach> 
