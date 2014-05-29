@@ -106,7 +106,7 @@ function editarLote(id){
 				var telefone = pedidos[j].cliente.telefone;
 				var entregador = "";
 				if(data.entregador != null){
-					entregador = data.entregador.nome;					
+					entregador = data.entregador.nomeEntregador;					
 				}			 
 				var tr = document.createElement("TR");
 				tr.id = numeroPedido;
