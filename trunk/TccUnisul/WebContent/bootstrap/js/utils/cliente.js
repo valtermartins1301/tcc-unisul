@@ -3,9 +3,11 @@
 //**************************************************************************************
  
 //**************************************************************************************
-//								Exibir Cadastrar Cliente									
+//							Exibir (Modal) Cadastrar Cliente									
 //**************************************************************************************
-function exibirCadastrarCliente(){
+
+
+ function exibirCadastrarCliente(){
 	 $('#editar_cliente').modal('show');
  }
  
@@ -37,14 +39,16 @@ function exibirCadastrarCliente(){
 	 $.get("carregarClienteId/" + id, function(data){
 		 	$('#editar_cliente_nome').val(data.nome);
 			$('#editar_cliente_telefone').val(data.telefone);
-			$('#editar_cliente_cep').val(data.endereco.cep);
-			$('#editar_cliente_rua').val(data.endereco.rua);
-			$('#editar_cliente_numero').val(data.endereco.numero);
-			$('#editar_cliente_bairro').val(data.endereco.bairro);
-			$('#editar_cliente_cidade').val(data.endereco.cidade);
-			$('#editar_cliente_complemento').val(data.endereco.complemento);
+			if(data.endereco != null){
+				$('#editar_cliente_cep').val(data.endereco.cep);
+				$('#editar_cliente_rua').val(data.endereco.rua);
+				$('#editar_cliente_numero').val(data.endereco.numero);
+				$('#editar_cliente_bairro').val(data.endereco.bairro);
+				$('#editar_cliente_cidade').val(data.endereco.cidade);
+				$('#editar_cliente_complemento').val(data.endereco.complemento);
+				$('#editar_cliente_idEndereco').val(data.endereco.idEndereco);
+			}			
 			$('#editar_cliente_idCliente').val(data.idCliente);
-			$('#editar_cliente_idEndereco').val(data.endereco.idEndereco);
 			$('#editar_cliente').modal('show');
 	 });
  }
@@ -66,19 +70,24 @@ function exibirCadastrarCliente(){
 	 $('#editar_cliente_idEndereco').val("");	 
  }
  
- function excluirCliente(id){
-		if (confirm("Realmente deseja excluir?")) {
-			  $.ajax({  
-			    type: "POST",  
-			    url: "excluirCliente",  
-			    data: "idCliente=" + id,
-			    success: function(response) {  
-					if (response == "sucesso") {
-				    	window.location = "clienteListar";
-						alert("Registro excluído com sucesso!");
-					}
-			    }  
-			  });
+//**************************************************************************************
+//									Excluir Cliente								
+//**************************************************************************************
+ 
+
+ function excluirCliente(id) {
+	if (confirm("Realmente deseja excluir?")) {
+		$.ajax({
+			type : "POST",
+			url : "excluirCliente",
+			data : "idCliente=" + id,
+			success : function(response) {
+				if (response == "sucesso") {
+					window.location = "clienteListar";
+					alert("Registro excluído com sucesso!");
+				}
 			}
+		});
 	}
+}
  
