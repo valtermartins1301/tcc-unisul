@@ -200,6 +200,7 @@ function adicionarPedido() {
 		success : function(resposeJsonObject) {
 			alert("Pedido adicionado com sucesso!");
 			limparCampos();
+			window.location = "index";
 		}
 
 	});
