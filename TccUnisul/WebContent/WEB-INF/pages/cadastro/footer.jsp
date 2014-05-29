@@ -12,6 +12,7 @@
     <script type="text/javascript" src="bootstrap/js/jquery-ui.custom.min.js"></script>
 	<script src="bootstrap/js/utils/cliente.js"></script>
 	<script src="bootstrap/js/utils/produto.js"></script>
+	<script src="bootstrap/js/utils/entregador.js"></script>
 	
 	<!-- Page-Level Plugin Scripts - Tables -->
     <script src="bootstrap/js/plugins/dataTables/jquery.dataTables.js"></script>
