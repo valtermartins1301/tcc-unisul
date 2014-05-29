@@ -19,7 +19,7 @@ public class EntregadorDAO {
 	public List<Entregador> listAll(){
 		EntityManager em = emf.createEntityManager();
 		try{
-			return em.createQuery("from Entregador", Entregador.class).getResultList();
+			return em.createQuery("from Entregador where flag_excluido != 't'", Entregador.class).getResultList();
 		}finally{
 			em.close();
 		}
@@ -50,7 +50,7 @@ public class EntregadorDAO {
 				Entregador entregador = em.find(Entregador.class, id);
 				if(entregador != null){
 					et.begin();
-					em.remove(entregador);
+					entregador.setFlagExcluido(true);
 					et.commit();
 				}
 			}finally{
