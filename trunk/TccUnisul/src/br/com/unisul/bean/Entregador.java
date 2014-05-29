@@ -18,13 +18,17 @@ public class Entregador {
 	@GenericGenerator(name = "increment", strategy = "increment")
 	@Column(name = "id")
 	private Long idEntregador;
-	private String nome;
+	@Column(name = "nome")
+	private String nomeEntregador;
 	@ManyToOne
 	(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "id_endereco")
 	private Endereco enderecoEntregador;
 	private String telefone;
 	private String capacidadeEntrega;
+	
+	@Column(name = "flag_excluido")
+	private boolean flagExcluido;
 	
 	public Entregador(){
 		
@@ -36,11 +40,11 @@ public class Entregador {
 	public void setIdEntregador(Long idEntregador) {
 		this.idEntregador = idEntregador;
 	}
-	public String getNome() {
-		return nome;
+	public String getNomeEntregador() {
+		return nomeEntregador;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeEntregador(String nome) {
+		this.nomeEntregador = nome;
 	}
 	public Endereco getEnderecoEntregador() {
 		return enderecoEntregador;
@@ -60,7 +64,10 @@ public class Entregador {
 	public void setCapacidadeEntrega(String capacidadeEntrega) {
 		this.capacidadeEntrega = capacidadeEntrega;
 	}
-	
-	
-
+	public boolean getFlagExcluido() {
+		return flagExcluido;
+	}
+	public void setFlagExcluido(boolean flagExcluido) {
+		this.flagExcluido = flagExcluido;
+	}
 }
