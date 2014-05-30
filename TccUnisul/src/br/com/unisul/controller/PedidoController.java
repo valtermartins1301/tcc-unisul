@@ -3,7 +3,6 @@ package br.com.unisul.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -27,11 +26,10 @@ import br.com.unisul.bean.Produto;
 import br.com.unisul.bean.ProdutoPedido;
 import br.com.unisul.bean.StatusPedido;
 import br.com.unisul.dao.ClienteDAO;
-import br.com.unisul.dao.EnderecoDAO;
 import br.com.unisul.dao.LotePedidoDAO;
 import br.com.unisul.dao.PedidoDAO;
 import br.com.unisul.dao.ProdutoDAO;
-import br.com.unisul.dao.ProdutoPedidoDAO;
+import br.com.unisul.dao.StatusPedidoDAO;
 import br.com.unisul.util.CalcValorPedido;
 import br.com.unisul.util.JsonResponse;
 
@@ -45,10 +43,12 @@ public class PedidoController {
 		List<Produto> produtos = new ProdutoDAO().listAll();
 		List<Pedido> pedidos = new PedidoDAO().listAll();
 		List<LotePedido> lotePedido = new LotePedidoDAO().listAll();
+		List<StatusPedido> statusPedido = new StatusPedidoDAO().listAll();
 				
 		model.addAttribute("pedidos", pedidos);
 		model.addAttribute("produtos", produtos);
 		model.addAttribute("lotePedido", lotePedido);
+		model.addAttribute("statusPedido", statusPedido);
 		
 		
 		return "index";
