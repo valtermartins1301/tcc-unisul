@@ -159,8 +159,7 @@ function adicionarPedido() {
 	var pedido = new Object();
 	pedido.idPedido = $('#novo_pedido_idPedido').val();
 	pedido.observacao = $('#novo_pedido_observacoes').val();
-	pedido.valorTotalPedido = document
-			.getElementById("novo_pedido_valor_total").value;
+	pedido.valorTotalPedido = document.getElementById("novo_pedido_valor_total").innerHTML;
 	pedido.retiradoLocal = document.getElementById("novo_pedido_retiradoLocal").checked;
 	pedido.statusPedido = statusPedido;
 	pedido.cliente = cliente;
