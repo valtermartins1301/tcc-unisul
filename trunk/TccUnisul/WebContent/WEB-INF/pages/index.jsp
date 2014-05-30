@@ -115,7 +115,7 @@
                              	 <th><input type="button" class="btn btn-success" value="Criar Lote" onclick="criarLote();"></th>
                                  <th>Nº</th>
                                  <th>Cliente</th>
-                                 <th>Produtos</th>
+                                 <th>(Quant) Produto</th>
                                  <th>Obs:</th>
                                  <th>Telefone</th>
                                  <th>Lote</th>
@@ -138,7 +138,7 @@
 									<td>
 										<c:forEach items="${pedidos.produtoPedidoList}" var="produtoPedidoList">
 											(${produtoPedidoList.quantidade}) 
-											${produtoPedidoList.produto.nomeProduto}
+											${produtoPedidoList.produto.nomeProduto} | 
 							            </c:forEach> 
 							        </td>
 									<td>${pedidos.observacao}</td>
@@ -148,9 +148,9 @@
 									<td>${pedidos.valorTotalPedido}</td>
 									<td>
 										<select class="form-control" name="statusPedido" id="novo_pedido_status">
-					  						 <c:forEach var="status" items="${statusPedido}">
-   					 							 <option value="${pedidos.idPedido}_${status.idStatusPedido}">${status.descricao}</option>
-					  						 </c:forEach>
+					  						<c:forEach var="statusPedido" items="${statusPedido}">
+   					 							 <option value="${pedidos.idPedido}_${statusPedido.idStatusPedido}">${statusPedido.descricao}</option>
+   					 						</c:forEach>
 										</select>
 									</td>
 									<td><a class="edit_and_exclude" onclick="editarPedido(${pedidos.idPedido})">Editar</a>/<a class="edit_and_exclude" onclick="excluirPedido(${pedidos.idPedido})">Excluir</a></td>
@@ -177,6 +177,7 @@
                                  <th>NºLote</th>
                                  <th>Pedidos</th>
                                  <th>Entregador</th>
+                                 <th>Status</th>
                                  <th></th>                                     
                              </tr>
                          </thead>
@@ -191,6 +192,13 @@
 							            </c:forEach> 
 							        </td>
 									<td>${lotes.entregador.nomeEntregador}</td>
+									<td>
+										<select class="form-control" name="statusLote" id="novo_lote_status">
+					  						 <c:forEach var="statusLote" items="${statusLote}">
+   					 							 <option value="${lotes.idLotePedido}_${statusLote.idStatusLote}">${statusLote.descricao}</option>
+					  						 </c:forEach>
+										</select>
+									</td>
 									<td><a class="edit_and_exclude" onclick="editarLote(${lotes.idLotePedido})">Editar</a>/<a class="edit_and_exclude" onclick="excluirLote(${lotes.idLotePedido})">Excluir</a></td>
 								</tr>
 							</c:forEach> 
