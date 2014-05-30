@@ -24,6 +24,8 @@ insert into statusPedido (descricao) values ('Cancelado');
 
 create table pedidos (id serial primary key, id_cliente int references clientes(id), valorTotalPedido float not null, data date not null, 
 id_statusPedido int references statusPedido(id), observacao varchar(250), retiradoLocal boolean, lotePedido_id int references lotePedido(id));
+ALTER TABLE pedidos DROP COLUMN data;
+ALTER TABLE pedidos ADD COLUMN data timestamp with time zone;
 
 create table produto_pedido (id serial primary key, produto_id int references produtos(id), pedido_id int references pedidos(id), quantidade int);
 
