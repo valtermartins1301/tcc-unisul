@@ -98,6 +98,20 @@ public class PedidoDAO {
 		return pedido;
 	}
 	
+	public List<Pedido> buscarPedidoPorStatus(Long idStatusPedido){
+		EntityManager entityManager = emf.createEntityManager();
+		List<Pedido> pedido = null;
+		try {				
+			Query query = entityManager.createQuery("select p from Pedido p where p.statusPedido.idStatusPedido = :id");
+			query.setParameter("id", idStatusPedido);
+			
+			pedido = query.getResultList();			
+		} finally {
+			entityManager.close();
+		}
+		return pedido;
+	}
+	
 	public void removerProdutoPedido(Long id) {
 		EntityManager entityManager = emf.createEntityManager();
 			try {				
