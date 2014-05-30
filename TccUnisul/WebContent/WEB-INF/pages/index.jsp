@@ -113,13 +113,14 @@
                          <thead>
                              <tr>
                              	 <th><input type="button" class="btn btn-success" value="Criar Lote" onclick="criarLote();"></th>
-                                 <th>NºPedido</th>
+                                 <th>Nº</th>
                                  <th>Cliente</th>
                                  <th>Produtos</th>
                                  <th>Obs:</th>
                                  <th>Telefone</th>
                                  <th>Lote</th>
                                  <th>Data/Hora</th>
+                                 <th>Preço Total</th>
                                  <th>Status</th>
                                  <th></th>                                     
                              </tr>
@@ -143,8 +144,15 @@
 									<td>${pedidos.observacao}</td>
 									<td>${pedidos.cliente.telefone}</td>
 									<td>${pedidos.lotePedido.idLotePedido}</td>
-									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy hh:mm" /></td>
-									<td>${pedidos.statusPedido.descricao}</td>
+									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
+									<td>${pedidos.valorTotalPedido}</td>
+									<td>
+										<select class="form-control" name="statusPedido" id="novo_pedido_status">
+					  						 <c:forEach var="status" items="${statusPedido}">
+   					 							 <option value="${pedidos.idPedido}_${status.idStatusPedido}">${status.descricao}</option>
+					  						 </c:forEach>
+										</select>
+									</td>
 									<td><a class="edit_and_exclude" onclick="editarPedido(${pedidos.idPedido})">Editar</a>/<a class="edit_and_exclude" onclick="excluirPedido(${pedidos.idPedido})">Excluir</a></td>
 								</tr>
 							</c:forEach>
