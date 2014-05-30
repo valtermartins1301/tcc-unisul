@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -34,6 +36,8 @@ public class Pedido {
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;	
 	private double valorTotalPedido;
+	
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date data;	
 	@ManyToOne
 	@JoinColumn(name = "id_statusPedido")
