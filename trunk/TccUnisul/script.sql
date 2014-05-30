@@ -34,5 +34,11 @@ ALTER TABLE entregadores ADD COLUMN flag_excluido boolean;
 ALTER TABLE entregadores ALTER COLUMN flag_excluido SET DEFAULT false;
 UPDATE entregadores SET flag_excluido = false;
 
-create table lotePedido (id serial primary key, id_entregador int references entregadores(id));
+create table statusLote (id serial primary key, descricao varchar(50)); 
+insert into statusLote (descricao) values ('Em aberto');
+insert into statusLote (descricao) values ('Saiu para entrega');
+insert into statusLote (descricao) values ('Finalizado');
+
+create table lotePedido (id serial primary key, id_entregador int references entregadores(id), id_statusLote int references statusLote(id));
+ALTER TABLE lotePedido ADD COLUMN id_statusLote int references statusLote(id);
 
