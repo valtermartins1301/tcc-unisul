@@ -160,5 +160,17 @@ public class PedidoController {
 		return "sucesso";
 	}
 	
+	@RequestMapping(value = "carregarPedidoPorStatus/{id}", method= RequestMethod.GET)
+	public @ResponseBody List<Pedido> carregarPedidoPorStatus(@PathVariable Long idStatusPedido, Model model) {
+		List<Pedido> pedido = null; 
+		try{
+			pedido = new PedidoDAO().buscarPedidoPorStatus(idStatusPedido);				
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return pedido;
+	}
+	
 
 }
