@@ -277,7 +277,7 @@ function adionaPedidoLote() {
 	
 	for(var i=0; i<data.length ;i++)
 	{
-		if(idPedido == data[i].innerText)
+		if(id_pedido == data[i].innerText)
 			return;
 	}
 	
