@@ -12,8 +12,8 @@
 				  <input type="hidden" id="novo_pedido_idLotePedido" name="idPedido" />
 				  <input type="hidden" id="novo_pedido_idStatusPedido" name="idStatusPedido" />
 				  <div class="form-group control-group form-inline">
-				    <input type="text" class="form-control" name="nome" id="novo_pedido_nome" placeholder="Nome do cliente">
-				    <input type="text" class="form-control" name="telefone" id="novo_pedido_telefone" onblur="carregarCliente()" placeholder="Telefone">
+				    <input type="text" class="form-control" name="nome" id="novo_pedido_nome" placeholder="Nome do cliente" required>
+				    <input type="text" class="form-control" name="telefone" id="novo_pedido_telefone" onblur="carregarCliente()" placeholder="Telefone" required>
 				  </div>
 				  <div class="form-group control-group">
 		            <input type="text" class="form-control" name="rua" id="novo_pedido_rua" placeholder="Rua">
@@ -37,7 +37,7 @@
    					 	 <option value="${produto.idProduto}_${produto.preco}">${produto.nomeProduto}</option>
 					   </c:forEach>
 					</select>
-				    <input type="number" class="form-control" name="quantidade" id="novo_pedido_poduto_quantidade" placeholder="Qtd" size="4">	
+				    <input type="number" class="form-control" name="quantidade" id="novo_pedido_poduto_quantidade" placeholder="Qtd" size="4" required>	
 				    <i onclick="insertOnTable()" class="edit_and_exclude glyphicon glyphicon-plus-sign"></i>		  
 				  </div>
 				  <div style="height:100px; overflow:auto;">
@@ -216,7 +216,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="limparCampos()">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Cliente cadastrado com esse número de telefone.</h4>
+        <h4 class="modal-title" id="myModalLabel">Clientes cadastrados com esse número de telefone.</h4>
       </div>
       <div class="modal-body">
       <table class="table table-bordered">
@@ -250,23 +250,38 @@
         <h4 class="modal-title" id="lotesModalLabel"> Lote Nº </h4>
       </div>
       <div class="modal-body">
-      <table class="table table-bordered">
-			 <thead>
-                <tr>
-                    <th>Nº</th>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Entregador</th>      
-                    <th>Remover</th>                                 
-                </tr>
-            </thead>
-			 <tbody id="modal_lista_lotePedidos">
-						
-			</tbody>
-	  </table>
+      <div>
+      	<div class="input-group">
+			<input type="text" class="form-control" data-placement="bottom" placeholder="Nº pedido" id="modal_lista_lotepedido_adicionar_pedido_id" name="idPedido_lotes" required>
+			<div class="input-group-btn">
+				<button class="btn btn-success" type="submit"  onclick="adionaPedidoLote()"><i class="glyphicon glyphicon-plus"></i></button>
+			</div>
+		</div>
+      </div>
+      <input type="hidden" id="modal_lista_lotepedido_idLotePedido" required/>
+      <br/>
+      <div style="height:250px; overflow:auto;">
+	      <table class="table table-bordered">
+				 <thead>
+	                <tr>
+	                    <th>NºPedido</th>
+	                    <th>Cliente</th>
+	                    <th>Produtos</th>
+	                    <th>Obs:</th>
+	                    <th>Telefone</th>
+	                    <th>Data/Hora</th>
+	                    <th></th>                                  
+	                </tr>
+	            </thead>
+				 <tbody id="modal_lista_lotePedidos">
+							
+				</tbody>
+		  </table>
+	  </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limparModalCliente()">Sair</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limparModalLote()">Sair</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="salvaLoteEditado()">Salvar</button>
       </div>
     </div>
   </div>
