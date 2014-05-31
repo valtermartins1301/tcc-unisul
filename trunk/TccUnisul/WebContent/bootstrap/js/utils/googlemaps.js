@@ -129,7 +129,6 @@ function marcarNoMapa(data) {
 
 function myclick(i) {
 	  google.maps.event.trigger(gmarkers[i], "click");
-	  window.scrollTo(0,0);
 	}
 
 //**************************************************************************************
