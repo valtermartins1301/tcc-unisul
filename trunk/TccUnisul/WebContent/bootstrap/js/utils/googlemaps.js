@@ -1,6 +1,7 @@
 var geocoder;
 var map;
 var marker;
+var gmarkers = new Array();
 //**************************************************************************************
 //
 //**************************************************************************************
@@ -19,7 +20,6 @@ function initialize()
 	
 	marker = new google.maps.Marker({
 		map: map,
-		draggable: true,
 	});
 }
 //**************************************************************************************
@@ -110,14 +110,6 @@ function marcarNoMapa(data) {
 		            			'</div>'+
 		            	'</div>';
             		
-            			
-     	            	/*'<div id="content">'+
-     	            		'<div id="marker_popup_id_pedido">Pedido nº: '+data.listapedidos[i].idpedido+'</div>'+
-     	            		'<div id="marker_popup_id_pedido">Status: '+data.listapedidos[i].status+'</div>'+
-     	            		'<div id="marker_popup_id_pedido">Cliente: '+data.listapedidos[i].cliente.nome +'</div>'+
-     	            		'<div id="marker_popup_id_pedido">Telefone: '+data.listapedidos[i].cliente.telefone +'</div>'+
-     	            		'<div id="marker_popup_id_pedido">Endereco: '+endereco.rua+','+endereco.numero+'</div>'+
-     	            	'</div>';*/
      	            var myinfowindow = new google.maps.InfoWindow({
      	                content: contentString,
      	                maxWidth: 1200,
@@ -125,15 +117,31 @@ function marcarNoMapa(data) {
      	            });
     				var marker = new google.maps.Marker({
 		                position: latLng,
-		                title: "Pedido nº: "+ data.listapedidos[i].idpedido,
+		                title: "Pedido nº: "+ data.listapedidos[i].idPedido,
+		                id: "Pedido"+ data.listapedidos[i].idPedido,
 		                map: map,
 		                infowindow: myinfowindow
             		});
+    				gmarkers.push(marker);
+    				var table_pedidos = $(".table_listaPedidos");
+    			    var marker_num = gmarkers.length-1;
+    				for(var x=0; x < table_pedidos.length; x++)
+    				{
+    					if(table_pedidos[x].id != data.listapedidos[i].idPedido)
+    						continue;
+    					
+    					table_pedidos[x].onclick = function(){ myclick(marker_num);};
+    					break;
+    				}
     				bindInfoWindow(marker, map, myinfowindow);
     				
 				}         
 }
 
+function myclick(i) {
+	  google.maps.event.trigger(gmarkers[i], "click");
+	  window.scrollTo(0,0);
+	}
 
 //**************************************************************************************
 //

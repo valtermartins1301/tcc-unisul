@@ -26,15 +26,6 @@ $(document).ready(function() {
 		limparModalLote();
 	});
 	
-	$("#theform").validate({
-		rules: {     
-			idPedido_lotes: {required: true}
-		},
-		tooltip_options: {
-			idPedido_lotes: {trigger:'focus'}
-		},
-	});	
-	
 	} );
 
 //*************************************************************************************

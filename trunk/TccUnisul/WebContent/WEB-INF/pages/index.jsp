@@ -127,7 +127,7 @@
                          </thead>
                          <tbody id="tbody_lista_pedidos">
                              <c:forEach items="${pedidos}" var="pedidos">
-								<tr>
+								<tr class="table_listaPedidos" id="${pedidos.idPedido}">
 									<td>
 										<label>
       										<input type="checkbox" name="${pedidos.idPedido}" class="checkboxLotePedido">
