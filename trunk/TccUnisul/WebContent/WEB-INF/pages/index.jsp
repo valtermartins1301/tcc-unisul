@@ -147,9 +147,16 @@
 									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
 									<td>${pedidos.valorTotalPedido}</td>
 									<td>
-										<select class="form-control" name="statusPedido" id="novo_pedido_status">
+										<select class="form-control" name="statusPedido" id="novo_pedido_status" onchange="alterarStatusPedido()">
 					  						<c:forEach var="statusPedido" items="${statusPedido}">
-   					 							 <option value="${pedidos.idPedido}_${statusPedido.idStatusPedido}">${statusPedido.descricao}</option>
+					  							<c:choose>
+													<c:when test="${pedidos.statusPedido.idStatusPedido == statusPedido.idStatusPedido}">
+														<option selected value="${pedidos.idPedido}_${statusPedido.idStatusPedido}">${statusPedido.descricao}</option>
+													 </c:when>
+													<c:otherwise>
+														<option value="${pedidos.idPedido}_${statusPedido.idStatusPedido}">${statusPedido.descricao}</option>
+													</c:otherwise>
+												</c:choose>      					 							 
    					 						</c:forEach>
 										</select>
 									</td>
@@ -193,9 +200,16 @@
 							        </td>
 									<td>${lotes.entregador.nomeEntregador}</td>
 									<td>
-										<select class="form-control" name="statusLote" id="novo_lote_status">
-					  						 <c:forEach var="statusLote" items="${statusLote}">
-   					 							 <option value="${lotes.idLotePedido}_${statusLote.idStatusLote}">${statusLote.descricao}</option>
+										<select class="form-control" name="statusLote" id="novo_lote_status" onchange="alterarStatusLote()">
+											 <c:forEach var="statusLote" items="${statusLote}">
+												<c:choose>
+													<c:when test="${lotes.statusLote.idStatusLote == statusLote.idStatusLote}">
+														<option selected value="${lotes.idLotePedido}_${statusLote.idStatusLote}">${statusLote.descricao}</option>
+													 </c:when>
+													<c:otherwise>
+														<option value="${lotes.idLotePedido}_${statusLote.idStatusLote}">${statusLote.descricao}</option>
+													</c:otherwise>
+												</c:choose>   					 							 
 					  						 </c:forEach>
 										</select>
 									</td>
