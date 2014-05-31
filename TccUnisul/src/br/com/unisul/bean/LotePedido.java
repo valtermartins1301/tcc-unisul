@@ -36,6 +36,10 @@ public class LotePedido {
 	@JoinColumn(name = "id_entregador")
 	private Entregador entregador;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_statusLote")
+	private StatusLote statusLote;
+	
 	public Long getIdLotePedido() {
 		return idLotePedido;
 	}
@@ -53,6 +57,12 @@ public class LotePedido {
 	}
 	public void setEntregador(Entregador entregador) {
 		this.entregador = entregador;
+	}
+	public StatusLote getStatusLote() {
+		return statusLote;
+	}
+	public void setStatusLote(StatusLote statusLote) {
+		this.statusLote = statusLote;
 	}
 	
 	
