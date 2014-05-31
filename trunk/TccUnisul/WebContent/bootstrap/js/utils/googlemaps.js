@@ -122,18 +122,7 @@ function marcarNoMapa(data) {
 		                map: map,
 		                infowindow: myinfowindow
             		});
-    				gmarkers.push(marker);
-    				var table_pedidos = $(".table_listaPedidos");
-    			    var marker_num = gmarkers.length-1;
-    				for(var x=0; x < table_pedidos.length; x++)
-    				{
-    					if(table_pedidos[x].id != data.listapedidos[i].idPedido)
-    						continue;
-    					
-    					table_pedidos[x].onclick = function(){ myclick(marker_num);};
-    					break;
-    				}
-    				bindInfoWindow(marker, map, myinfowindow);
+    				bindInfoWindow(marker, map, myinfowindow,data.listapedidos[i].idPedido);
     				
 				}         
 }
@@ -146,16 +135,30 @@ function myclick(i) {
 //**************************************************************************************
 //
 //**************************************************************************************
-function bindInfoWindow(marker, map, infowindow) {
+function bindInfoWindow(marker, map, infowindow,idPedido) {
 	
+	gmarkers.push(marker);
     google.maps.event.addListener(marker, 'click', function() {
+    	for(var i=0; i < gmarkers.length;i++)
+    		gmarkers[i].infowindow.close();
     	infowindow.open(map, marker);
     	$('.bs-example-tabs').tab('show');
     });
     
     google.maps.event.addListener(infowindow, 'domready', function (e) {
             $('.bs-example-tabs').tab();
-  });   
+   }); 
+ 
+	var table_pedidos = $(".table_listaPedidos");
+    var marker_num = gmarkers.length-1;
+	for(var x=0; x < table_pedidos.length; x++)
+	{
+		if(table_pedidos[x].id != idPedido)
+			continue;
+		
+		table_pedidos[x].onclick = function(){ myclick(marker_num);};
+		break;
+	}
 }
 
 //**************************************************************************************
