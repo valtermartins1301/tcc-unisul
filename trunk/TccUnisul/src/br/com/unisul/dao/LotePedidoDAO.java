@@ -19,7 +19,7 @@ public class LotePedidoDAO {
 	public List<LotePedido> listAll(){
 		EntityManager em = emf.createEntityManager();
 		try{
-			return em.createQuery("from LotePedido", LotePedido.class).getResultList();
+			return em.createQuery("from LotePedido order by idLotePedido", LotePedido.class).getResultList();
 		}finally{
 			em.close();
 		}
