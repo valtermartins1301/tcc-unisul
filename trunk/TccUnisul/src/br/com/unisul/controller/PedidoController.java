@@ -172,5 +172,16 @@ public class PedidoController {
 		return pedido;
 	}
 	
+	@RequestMapping(value="alterarStatusPedido", method = RequestMethod.POST)
+	public @ResponseBody String alterarStatusPedido(@RequestParam("idPedido") Long idPedido, @RequestParam("idStatus") Long idStatusPedido) { 
+		Pedido pedido = new PedidoDAO().buscarPedidoPeloId(idPedido);
+				
+		if(pedido != null){
+			pedido.getStatusPedido().setIdStatusPedido(idStatusPedido);
+			new PedidoDAO().editar(pedido);
+			return "sucesso";
+		}
+		return "";
+	}
 
 }
