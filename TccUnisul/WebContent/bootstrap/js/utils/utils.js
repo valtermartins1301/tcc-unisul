@@ -387,7 +387,24 @@ function excluirPedido(id) {
 //									Alterar Status Pedido
 //*************************************************************************************
 
-function alterarStatusPedido(){
-	alert("Alterado com sucesso!");
-	
+function alterarStatusPedido(id) {
+	var List = document.getElementById("novo_pedido_status_" + id);
+	var idPedido_idStatus = List[List.selectedIndex].value;
+
+	var splitIt = idPedido_idStatus.split('_');
+	var idPedido = splitIt[0]
+	var idStatus = splitIt[1];
+
+	$.ajax({
+		type : "POST",
+		url : "alterarStatusPedido",
+		data : "idPedido=" + idPedido + "&idStatus=" + idStatus,
+		success : function(response) {
+			if (response == "sucesso") {
+				window.location = "index";
+				alert("Registro editado com sucesso!");
+			}
+		}
+	});
 }
+	
