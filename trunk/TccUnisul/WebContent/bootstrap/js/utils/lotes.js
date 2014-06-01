@@ -258,8 +258,25 @@ function excluirLote(id){
 //								Alterar Status Lote
 //*************************************************************************************
 
-function alterarStatusLote() {
-	alert("Alterado com sucesso!");
+function alterarStatusLote(id) {
+	var List = document.getElementById("novo_lote_status_" + id);
+	var idLote_idStatus = List[List.selectedIndex].value;
+
+	var splitIt = idLote_idStatus.split('_');
+	var idLote = splitIt[0];
+	var idStatus = splitIt[1];
+	
+	$.ajax({  
+	    type: "POST",
+	    url: "alterarStatusLote",  
+	    data: "idLote=" + idLote + "&idStatus=" + idStatus,  
+	    success: function(response){  
+	      if (response == "sucesso") {
+		      window.location = "index";
+		      alert("Registro editado com sucesso!");
+	      }
+	    }  
+	  });
 }
 
 
