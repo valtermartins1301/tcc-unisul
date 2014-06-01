@@ -147,7 +147,7 @@
 									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
 									<td>${pedidos.valorTotalPedido}</td>
 									<td>
-										<select class="form-control" name="statusPedido" id="novo_pedido_status" onchange="alterarStatusPedido()">
+										<select class="form-control" name="statusPedido" id="novo_pedido_status_${pedidos.idPedido}" onchange="alterarStatusPedido(${pedidos.idPedido})">
 					  						<c:forEach var="statusPedido" items="${statusPedido}">
 					  							<c:choose>
 													<c:when test="${pedidos.statusPedido.idStatusPedido == statusPedido.idStatusPedido}">
@@ -200,7 +200,7 @@
 							        </td>
 									<td>${lotes.entregador.nomeEntregador}</td>
 									<td>
-										<select class="form-control" name="statusLote" id="novo_lote_status" onchange="alterarStatusLote()">
+										<select class="form-control" name="statusLote" id="novo_lote_status_${lotes.idLotePedido}" onchange="alterarStatusLote(${lotes.idLotePedido})">
 											 <c:forEach var="statusLote" items="${statusLote}">
 												<c:choose>
 													<c:when test="${lotes.statusLote.idStatusLote == statusLote.idStatusLote}">
