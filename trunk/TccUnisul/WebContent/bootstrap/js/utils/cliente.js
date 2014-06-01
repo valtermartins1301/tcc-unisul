@@ -23,7 +23,7 @@
 		 data: cliente,
 		 success: function(response){
 			 if(response == "sucesso"){
-				 alert("Cliente salvo com sucesso");
+				 bootbox.alert("Cliente salvo com sucesso");
 				 $('#editar_cliente').modal('hide');
 				 window.location = "clienteListar";    		 
 			 }        	 
@@ -84,7 +84,7 @@
 			success : function(response) {
 				if (response == "sucesso") {
 					window.location = "clienteListar";
-					alert("Registro excluído com sucesso!");
+					bootbox.alert("Registro excluído com sucesso!");
 				}
 			}
 		});

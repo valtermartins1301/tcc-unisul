@@ -80,7 +80,7 @@ function marcarNoMapa(data) {
             		produtoList += produtos+'</tbody></table></div></div>';
             		
             		var contentString = 
-            			'<div id="content">'+
+            			'<div id="content" style="width:250px; height:250px">'+
 		            			'<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">'+
 			            			'<li class="active"><a class="edit_and_exclude" href="#Pedido" data-toggle="tab">Pedido</a></li>'+
 			            			'<li><a class="edit_and_exclude" href="#Cliente" data-toggle="tab">Cliente</a></li>'+
@@ -94,7 +94,7 @@ function marcarNoMapa(data) {
 			            				'<span> <b>Status: </b> '+data.listapedidos[i].statusPedido.descricao+'</span><br/>'+
 			            				'<span> <b>Retirada no local: </b> '+(data.listapedidos[i].retiradoLocal?"sim":"não")+'</span><br/>'+
 			            				'<span> <b>Valor: </b> '+data.listapedidos[i].valorTotalPedido+'</span><br/>'+
-			            				'<textarea type="text" class="form-control" readonly="true" style="width:200 max-height: 100px; max-width: 100px; overflow: auto;">'+data.listapedidos[i].observacao+'</textarea>'+
+			            				'<textarea type="text" class="form-control" readonly="true" style="max-width: 230px; overflow: auto;">'+data.listapedidos[i].observacao+'</textarea>'+
 			            			'</div>'+
 			            			'<div class="tab-pane" id="Cliente">'+
 			            				'<legend align="center">Cliente: '+data.listapedidos[i].cliente.nome+'</legend>'+
@@ -112,13 +112,33 @@ function marcarNoMapa(data) {
             		
      	            var myinfowindow = new google.maps.InfoWindow({
      	                content: contentString,
-     	                maxWidth: 1200,
-     	                maxHeight: 1200
+     	                maxWidth: 800,
+     	                maxHeight: 800
      	            });
+     	           var iconBase = 'bootstrap/images/marker_icon/';
+	     	       var icons = {
+		     	            1: {
+		     	              icon: iconBase + 'order-icon.png'
+		     	            },
+		     	            2: {
+		     	              icon: iconBase + 'cook-icon.png'
+		     	            },
+		     	            3: {
+		     	              icon: iconBase + 'delivery-icon.png'
+		     	            },
+		     	            4: {
+			     	              icon: iconBase + 'order-icon-finalizado.png'
+			     	        },
+		     	            5: {
+			     	              icon: iconBase + 'order-icon-canceled.png'
+			     	        }
+	     	          };
     				var marker = new google.maps.Marker({
 		                position: latLng,
 		                title: "Pedido nº: "+ data.listapedidos[i].idPedido,
 		                id: "Pedido"+ data.listapedidos[i].idPedido,
+		                status: data.listapedidos[i].statusPedido.idStatusPedido,
+		                icon: icons[data.listapedidos[i].statusPedido.idStatusPedido].icon,
 		                map: map,
 		                infowindow: myinfowindow
             		});
@@ -127,9 +147,34 @@ function marcarNoMapa(data) {
 				}         
 }
 
+//**************************************************************************************
+// ativa infowindow no mapa ao clicar em um pedido
+//**************************************************************************************
 function myclick(i) {
 	  google.maps.event.trigger(gmarkers[i], "click");
 	}
+
+//**************************************************************************************
+//Sets the map on all markers in the array.
+//**************************************************************************************
+function setAllMap(map) {
+  for (var i = 0; i < gmarkers.length; i++) {
+	  gmarkers[i].setMap(map);
+  }
+}
+
+//**************************************************************************************
+//Removes the markers from the map, but keeps them in the array.
+//**************************************************************************************
+function clearMarkers() {
+  setAllMap(null);
+}
+//**************************************************************************************
+//Shows any markers currently in the array.
+//**************************************************************************************
+function showMarkers() {
+  setAllMap(map);
+}
 
 //**************************************************************************************
 //
@@ -157,6 +202,27 @@ function bindInfoWindow(marker, map, infowindow,idPedido) {
 		
 		table_pedidos[x].onclick = function(){ myclick(marker_num);};
 		break;
+	}
+}
+
+//**************************************************************************************
+//Filtra por status
+//**************************************************************************************
+function filtarPedidosPorStatus() {
+	
+	var idStatus = $("#filtrar_status").val();
+	if(idStatus == 0)
+	{	
+		showMarkers();
+		return;
+	}
+	
+	clearMarkers();
+	for (var i = 0; i < gmarkers.length; i++) {
+	  
+		if(gmarkers[i].status != idStatus)
+			continue;
+		gmarkers[i].setMap(map);
 	}
 }
 
@@ -311,8 +377,6 @@ $(document).ready(function () {
 		var endereco = $("#txtEndereco").val();
 		var latitude = $("#txtLatitude").val();
 		var longitude = $("#txtLongitude").val();
-		
-		alert("EndereÃ§o: " + endereco + "\nLatitude: " + latitude + "\nLongitude: " + longitude);
 	});
 
 });

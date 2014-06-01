@@ -197,7 +197,7 @@ function adicionarPedido() {
 						// the browser
 		processData : false, // To avoid making query String instead of JSON
 		success : function(resposeJsonObject) {
-			alert("Pedido adicionado com sucesso!");
+			bootbox.alert("Pedido adicionado com sucesso!");
 			limparCampos();
 			window.location = "index";
 		}
@@ -294,7 +294,7 @@ function editarPedido(id) {
 				insertOnTable();
 			}
 		} else {
-			alert("Nenhum pedido encontrado!");
+			bootbox.alert("Nenhum pedido encontrado!");
 		}
 	});
 }
@@ -376,7 +376,7 @@ function excluirPedido(id) {
 			success : function(response) {
 				if (response == "sucesso") {
 					window.location = "index";
-					alert("Registro excluído com sucesso!");
+					bootbox.alert("Registro excluído com sucesso!");
 				}
 			}
 		});
@@ -402,9 +402,8 @@ function alterarStatusPedido(id) {
 		success : function(response) {
 			if (response == "sucesso") {
 				window.location = "index";
-				alert("Registro editado com sucesso!");
+				bootbox.alert("Registro editado com sucesso!");
 			}
 		}
 	});
 }
-	

@@ -85,7 +85,7 @@ function criarLote(){
            cache: false,    //This will force requested pages not to be cached by the browser          
            processData:false, //To avoid making query String instead of JSON
            success: function(resposeJsonObject){
-        	   alert("Lote criado com sucesso!");
+        	   bootbox.alert("Lote criado com sucesso!");
 		   }
            
     });     	    
@@ -229,7 +229,7 @@ function salvaLoteEditado(){
 		cache: false,    //This will force requested pages not to be cached by the browser          
 		processData:false, //To avoid making query String instead of JSON
 		success: function(resposeJsonObject){
-			alert("Lote criado com sucesso!");
+			bootbox.alert("Lote criado com sucesso!");
 		}
 	});     	    
 }
@@ -246,7 +246,7 @@ function excluirLote(id){
 		    success: function(response) {  
 				if (response == "sucesso") {
 			    	window.location = "index";
-					alert("Registro excluído com sucesso!");
+			    	bootbox.alert("Registro excluído com sucesso!");
 				}
 		    }  
 		  });
@@ -273,7 +273,7 @@ function alterarStatusLote(id) {
 	    success: function(response){  
 	      if (response == "sucesso") {
 		      window.location = "index";
-		      alert("Registro editado com sucesso!");
+		      bootbox.alert("Registro editado com sucesso!");
 	      }
 	    }  
 	  });

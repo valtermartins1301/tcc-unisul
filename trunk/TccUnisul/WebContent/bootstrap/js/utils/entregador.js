@@ -23,7 +23,7 @@ function cadastrarEditarEntregador() {
 		data : entregador,
 		success : function(response) {
 			if (response == "sucesso") {
-				alert("Entregador salvo com sucesso");
+				bootbox.alert("Entregador salvo com sucesso");
 				$('#editar_entregador').modal('hide');
 				window.location = "entregadorListar";
 			}
@@ -86,7 +86,7 @@ function excluirEntregador(id) {
 			data : "idEntregador=" + id,
 			success : function(response) {
 				if (response == "sucesso") {
-					alert("Registro excluído com sucesso!");
+					bootbox.alert("Registro excluído com sucesso!");
 					window.location = "entregadorListar";
 				}
 			}

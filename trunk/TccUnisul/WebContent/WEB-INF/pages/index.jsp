@@ -79,9 +79,6 @@
 				    <label class="checkbox-inline">
 	  					<input name="retiradoLocal" id="novo_pedido_retiradoLocal" type="checkbox">Retirada no local
 					</label>
-				    <label class="checkbox-inline pull-right">
-				      <input type="checkbox">Salvar cliente
-				    </label>
 				    <br/>
 				  </div>
 				  
@@ -95,6 +92,19 @@
  		</td>
  		<td width="25"></td>
  		<td width="900px" height="700px">
+ 			<div>
+	 			<div class="input-group">
+	 				<span class="input-group-addon">Exibir pedidos:</span>
+					<select class="form-control" id="filtrar_status" onchange="filtarPedidosPorStatus()">
+		 				<option value="0">Todos</option>
+	 					<option value="1">Em aberto</option>
+	 					<option value="2">Em andamento</option>
+	 					<option value="3">Pronto para entrega</option>
+	 					<option value="4">Finalizado</option>
+	 					<option value="5">Cancelado</option>
+	 				</select>
+				</div>
+ 			</div>
  			<div class="well well-small" style='width:100%;height:100%' >
       			<div id="map_canvas" style='width:100%;height:100%'></div>
       		</div>
@@ -112,11 +122,10 @@
                      <table class="table table-striped table-bordered table-hover" id="datatables_Lista">
                          <thead>
                              <tr>
-                             	 <th><input type="button" class="btn btn-success" value="Criar Lote" onclick="criarLote();"></th>
+                             	 <th><input type="button" class="btn btn-success" value="Lote" onclick="criarLote();" style="padding: 2px 6px;"></th>
                                  <th>Nº</th>
                                  <th>Cliente</th>
                                  <th>(Quant) Produto</th>
-                                 <th>Obs:</th>
                                  <th>Telefone</th>
                                  <th>Lote</th>
                                  <th>Data/Hora</th>
@@ -129,9 +138,15 @@
                              <c:forEach items="${pedidos}" var="pedidos">
 								<tr class="table_listaPedidos" id="${pedidos.idPedido}">
 									<td>
-										<label>
-      										<input type="checkbox" name="${pedidos.idPedido}" class="checkboxLotePedido">
-    									</label>	
+										<c:choose>
+											<c:when test="${pedidos.lotePedido.idLotePedido == null}">
+												<input type="checkbox" name="${pedidos.idPedido}" class="checkboxLotePedido">
+										    </c:when>
+											<c:otherwise>
+												<input type="checkbox" name="${pedidos.idPedido}" class="checkboxLotePedido" disabled="disabled">
+											</c:otherwise>
+										</c:choose>      
+      									
     								</td>
     								<td>${pedidos.idPedido}</td>
 									<td>${pedidos.cliente.nome}</td>
@@ -141,7 +156,6 @@
 											${produtoPedidoList.produto.nomeProduto} | 
 							            </c:forEach> 
 							        </td>
-									<td>${pedidos.observacao}</td>
 									<td>${pedidos.cliente.telefone}</td>
 									<td>${pedidos.lotePedido.idLotePedido}</td>
 									<td><fmt:formatDate value="${pedidos.data}" type="both" pattern="dd/MM/yyyy HH:mm" /></td>
