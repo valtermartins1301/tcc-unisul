@@ -197,11 +197,12 @@ function adicionarPedido() {
 						// the browser
 		processData : false, // To avoid making query String instead of JSON
 		success : function(resposeJsonObject) {
-			bootbox.alert("Pedido adicionado com sucesso!");
-			limparCampos();
-			window.location = "index";
+			bootbox.alert("Pedido adicionado com sucesso!",function(){
+					limparCampos();
+					window.location = "index";
+				}		
+			);
 		}
-
 	});
 };
 
@@ -368,19 +369,24 @@ function limparModalCliente() {
 // *************************************************************************************
 
 function excluirPedido(id) {
-	if (confirm("Realmente deseja excluir?")) {
-		$.ajax({
-			type : "POST",
-			url : "excluirPedido",
-			data : "idPedido=" + id,
-			success : function(response) {
-				if (response == "sucesso") {
-					window.location = "index";
-					bootbox.alert("Registro excluído com sucesso!");
+	bootbox.confirm("Realmente deseja excluir?",function(result){
+		if (result) {
+			$.ajax({
+				type : "POST",
+				url : "excluirPedido",
+				data : "idPedido=" + id,
+				success : function(response) {
+					if (response == "sucesso") {
+	
+						bootbox.alert("Registro excluído com sucesso!",function(){
+							window.location = "index";
+							}	
+						);
+					}
 				}
-			}
-		});
-	}
+			});
+		}
+	});
 }
 
 //*************************************************************************************
@@ -401,8 +407,10 @@ function alterarStatusPedido(id) {
 		data : "idPedido=" + idPedido + "&idStatus=" + idStatus,
 		success : function(response) {
 			if (response == "sucesso") {
-				window.location = "index";
-				bootbox.alert("Registro editado com sucesso!");
+				bootbox.alert("Registro editado com sucesso!",function(){
+						window.location = "index";
+					}	
+				);
 			}
 		}
 	});
