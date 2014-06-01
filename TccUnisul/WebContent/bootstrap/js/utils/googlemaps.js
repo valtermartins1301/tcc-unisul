@@ -115,30 +115,11 @@ function marcarNoMapa(data) {
      	                maxWidth: 800,
      	                maxHeight: 800
      	            });
-     	           var iconBase = 'bootstrap/images/marker_icon/';
-	     	       var icons = {
-		     	            1: {
-		     	              icon: iconBase + 'order-icon.png'
-		     	            },
-		     	            2: {
-		     	              icon: iconBase + 'cook-icon.png'
-		     	            },
-		     	            3: {
-		     	              icon: iconBase + 'delivery-icon.png'
-		     	            },
-		     	            4: {
-			     	              icon: iconBase + 'order-icon-finalizado.png'
-			     	        },
-		     	            5: {
-			     	              icon: iconBase + 'order-icon-canceled.png'
-			     	        }
-	     	          };
     				var marker = new google.maps.Marker({
 		                position: latLng,
 		                title: "Pedido nº: "+ data.listapedidos[i].idPedido,
 		                id: "Pedido"+ data.listapedidos[i].idPedido,
 		                status: data.listapedidos[i].statusPedido.idStatusPedido,
-		                icon: icons[data.listapedidos[i].statusPedido.idStatusPedido].icon,
 		                map: map,
 		                infowindow: myinfowindow
             		});
