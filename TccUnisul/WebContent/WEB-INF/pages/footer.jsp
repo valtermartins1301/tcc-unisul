@@ -10,6 +10,7 @@
 	<!-- Page-Level Plugin Scripts - Tables -->
     <script src="bootstrap/js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="bootstrap/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="bootstrap/js/plugins/bootbox.min.js"></script>
     
     <!-- SB Admin Scripts - Include with every page -->
     <script src="bootstrap/js/sb-admin.js"></script>

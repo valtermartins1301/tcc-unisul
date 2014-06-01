@@ -22,7 +22,7 @@
 		 data: produto,
 		 success: function(response){
 			 if(response == "sucesso"){
-				 alert("Produto salvo com sucesso");
+				 bootbox.alert("Produto salvo com sucesso");
 				 $('#editar_produto').modal('hide');
 				 window.location = "produtoListar";    		 
 			 }        	 
@@ -67,7 +67,7 @@ function excluirProduto(id) {
 			success : function(response) {
 				if (response == "sucesso") {
 					window.location = "produtoListar";
-					alert("Registro excluído com sucesso!");
+					bootbox.alert("Registro excluído com sucesso!");
 				}
 			}
 		});
