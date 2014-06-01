@@ -1,9 +1,5 @@
 package br.com.unisul.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.unisul.bean.LotePedido;
-import br.com.unisul.bean.Pedido;
-import br.com.unisul.bean.ProdutoPedido;
 import br.com.unisul.dao.LotePedidoDAO;
-import br.com.unisul.dao.PedidoDAO;
 
 @Controller
 public class LotePedidoController {
@@ -45,4 +38,17 @@ public class LotePedidoController {
 		
 		return lotePedido;
 	}
+	
+	@RequestMapping(value="alterarStatusLote", method = RequestMethod.POST)
+	public @ResponseBody String alterarStatusLotePedido(@RequestParam("idLote") Long idLotePedido, @RequestParam("idStatus") Long idStatusLote) { 
+		LotePedido lote = new LotePedidoDAO().buscarLotePedidoPeloId(idLotePedido);
+				
+		if(lote != null){
+			lote.getStatusLote().setIdStatusLote(idStatusLote);
+			new LotePedidoDAO().editar(lote);
+			return "sucesso";
+		}
+		return "";
+	}
+	
 }
