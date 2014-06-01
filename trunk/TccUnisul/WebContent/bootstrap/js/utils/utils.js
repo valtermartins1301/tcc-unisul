@@ -415,3 +415,30 @@ function alterarStatusPedido(id) {
 		}
 	});
 }
+
+//*************************************************************************************
+//Alterar Status Pedido
+//*************************************************************************************
+
+function verificaRetiradaLocal() {
+	
+	var checkbox = $('#novo_pedido_retiradoLocal');
+	if(checkbox[0].checked == true)
+	{
+		$("#novo_pedido_rua").prop('disabled', true);
+		$("#novo_pedido_bairro").prop('disabled', true);
+		$("#novo_pedido_numero").prop('disabled', true);
+		$("#novo_pedido_cidade").prop('disabled', true);
+		$("#novo_pedido_cep").prop('disabled', true);
+		$("#novo_pedido_complemento").prop('disabled', true);
+	}
+	else
+	{
+		$("#novo_pedido_rua").prop('disabled', false);
+		$("#novo_pedido_bairro").prop('disabled', false);
+		$("#novo_pedido_numero").prop('disabled', false);
+		$("#novo_pedido_cidade").prop('disabled', false);
+		$("#novo_pedido_cep").prop('disabled', false);
+		$("#novo_pedido_complemento").prop('disabled', false);
+	}
+}
