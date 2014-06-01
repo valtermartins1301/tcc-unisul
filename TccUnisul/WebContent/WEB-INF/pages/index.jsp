@@ -77,7 +77,7 @@
 				  <!-- Checkbox -->
 				  <div class="control-group form-inline">
 				    <label class="checkbox-inline">
-	  					<input name="retiradoLocal" id="novo_pedido_retiradoLocal" type="checkbox">Retirada no local
+	  					<input name="retiradoLocal" id="novo_pedido_retiradoLocal" type="checkbox" onchange="verificaRetiradaLocal()">Retirada no local
 					</label>
 				    <br/>
 				  </div>
