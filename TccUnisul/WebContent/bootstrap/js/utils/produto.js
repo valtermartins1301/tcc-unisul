@@ -22,9 +22,11 @@
 		 data: produto,
 		 success: function(response){
 			 if(response == "sucesso"){
-				 bootbox.alert("Produto salvo com sucesso");
 				 $('#editar_produto').modal('hide');
-				 window.location = "produtoListar";    		 
+				 bootbox.alert("Produto salvo com sucesso",function(){
+					 window.location = "produtoListar";  
+				 	}	 
+				 );
 			 }        	 
 		 }         
 	 }); 
@@ -59,17 +61,21 @@
 //*************************************************************************************
 
 function excluirProduto(id) {
-	if (confirm("Realmente deseja excluir?")) {
-		$.ajax({
-			type : "POST",
-			url : "excluirProduto",
-			data : "idProduto=" + id,
-			success : function(response) {
-				if (response == "sucesso") {
-					window.location = "produtoListar";
-					bootbox.alert("Registro excluído com sucesso!");
+	bootbox.confirm("Realmente deseja excluir?",function(result){
+		if (result) {
+			$.ajax({
+				type : "POST",
+				url : "excluirProduto",
+				data : "idProduto=" + id,
+				success : function(response) {
+					if (response == "sucesso") {
+						bootbox.alert("Registro excluído com sucesso!",function(){
+							 window.location = "produtoListar";  
+						 	}	 
+						 );
+					}
 				}
-			}
-		});
-	}
+			});
+		}
+	});
 }

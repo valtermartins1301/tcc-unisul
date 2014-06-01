@@ -23,9 +23,11 @@ function cadastrarEditarEntregador() {
 		data : entregador,
 		success : function(response) {
 			if (response == "sucesso") {
-				bootbox.alert("Entregador salvo com sucesso");
 				$('#editar_entregador').modal('hide');
-				window.location = "entregadorListar";
+				bootbox.alert("Entregador salvo com sucesso",function(){
+						window.location = "entregadorListar";
+					}	
+				);
 			}
 		}
 	});
@@ -79,17 +81,21 @@ function limparCamposEntregador() {
 
 
 function excluirEntregador(id) {
-	if (confirm("Realmente deseja excluir?")) {
-		$.ajax({
-			type : "POST",
-			url : "excluirEntregador",
-			data : "idEntregador=" + id,
-			success : function(response) {
-				if (response == "sucesso") {
-					bootbox.alert("Registro excluído com sucesso!");
-					window.location = "entregadorListar";
+	 bootbox.confirm("Realmente deseja excluir?",function(result){
+		if (result) {
+			$.ajax({
+				type : "POST",
+				url : "excluirEntregador",
+				data : "idEntregador=" + id,
+				success : function(response) {
+					if (response == "sucesso") {
+						bootbox.alert("Registro excluído com sucesso!",function(){
+								window.location = "entregadorListar";
+							}	
+						);
+					}
 				}
-			}
-		});
-	}
+			});
+		}
+	 });
 }

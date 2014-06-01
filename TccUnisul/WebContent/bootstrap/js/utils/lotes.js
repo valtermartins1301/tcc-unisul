@@ -245,8 +245,10 @@ function excluirLote(id){
 		    data: "idLotePedido=" + id,
 		    success: function(response) {  
 				if (response == "sucesso") {
-			    	window.location = "index";
-			    	bootbox.alert("Registro excluído com sucesso!");
+			    	bootbox.alert("Registro excluído com sucesso!",function(){
+				    		window.location = "index";
+						}	
+			    	);
 				}
 		    }  
 		  });
@@ -272,8 +274,10 @@ function alterarStatusLote(id) {
 	    data: "idLote=" + idLote + "&idStatus=" + idStatus,  
 	    success: function(response){  
 	      if (response == "sucesso") {
-		      window.location = "index";
-		      bootbox.alert("Registro editado com sucesso!");
+		      bootbox.alert("Registro editado com sucesso!",function(){
+		    		window.location = "index";
+				}	
+	    	);
 	      }
 	    }  
 	  });

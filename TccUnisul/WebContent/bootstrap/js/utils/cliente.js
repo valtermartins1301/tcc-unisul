@@ -23,9 +23,11 @@
 		 data: cliente,
 		 success: function(response){
 			 if(response == "sucesso"){
-				 bootbox.alert("Cliente salvo com sucesso");
 				 $('#editar_cliente').modal('hide');
-				 window.location = "clienteListar";    		 
+				 bootbox.alert("Cliente salvo com sucesso", function() {
+						 window.location = "clienteListar";
+				 	}
+				 );    		 
 			 }        	 
 		 }         
 	 });	 
@@ -76,18 +78,22 @@
  
 
  function excluirCliente(id) {
-	if (confirm("Realmente deseja excluir?")) {
-		$.ajax({
-			type : "POST",
-			url : "excluirCliente",
-			data : "idCliente=" + id,
-			success : function(response) {
-				if (response == "sucesso") {
-					window.location = "clienteListar";
-					bootbox.alert("Registro excluído com sucesso!");
+	 bootbox.confirm("Realmente deseja excluir?",function(result){
+		 if (result) {
+			$.ajax({
+				type : "POST",
+				url : "excluirCliente",
+				data : "idCliente=" + id,
+				success : function(response) {
+					if (response == "sucesso") {
+						bootbox.alert("Registro excluído com sucesso!",function() {
+								 window.location = "clienteListar";
+						 	}
+						 );    		 
+					}
 				}
-			}
-		});
-	}
+			});
+		}
+	});
 }
  
